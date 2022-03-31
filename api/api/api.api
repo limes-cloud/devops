@@ -1,0 +1,28 @@
+syntax = "v1"
+
+import (
+	"user.api"
+)
+info(
+	title: "etcd 配置中台"
+	desc: "实现etcd配置可视化、以及版本管理"
+	author: "lime"
+	email: "1280291001@qq.com"
+	version: "1.0"
+)
+
+@server(
+	prefix: api/v1
+	jwt : Auth
+)
+service configure-api{
+	@doc "获取用户基本信息"
+	@handler GetUser
+	get /user/info returns (GetUserResponse)
+}
+
+service configure-api{
+	@doc "用户登陆"
+	@handler Login
+	post /user/login (LoginRequest) returns (LoginResponse)
+}

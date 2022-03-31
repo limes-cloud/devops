@@ -1,0 +1,15 @@
+syntax = "v1"
+
+type (
+    LoginRequest {
+        UserName string `json:"username"`
+        Password   string `json:"password"`
+    }
+    LoginResponse {
+        Token string `json:"token"`
+    }
+
+    GetUserResponse{
+
+    }
+)
