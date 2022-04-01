@@ -1,0 +1,54 @@
+syntax = "v1"
+
+type (
+    Role{
+        ID         int     `json:"id"`
+        Name        string `json:"name"`
+        KeyWord     string `json:"key_word"`
+        Status      bool  `json:"status"`
+        Weight      int    `json:"weight"`
+        Description string `json:"description"`
+        DataScope   string `json:"data_scope"`
+        Operator    string `json:"operator"`
+        OperatorID  int    `json:"operator_id"`
+        CreatedAt  int64   `json:"created_at"`
+        UpdatedAt  int64   `json:"updated_at"`
+    }
+
+    GetRoleRequest{
+        Name        string `json:"name"`
+        KeyWord     string `json:"key_word"`
+        Status      *bool  `json:"status"`
+        OperatorID  int `json:"operator_id"`
+    }
+
+    GetRoleResponse{
+        list []Role `json:"list"`
+    }
+
+    AddRoleRequest{
+        Name        string `json:"name"`
+        KeyWord     string `json:"key_word"`
+        Status      bool   `json:"status,optional"`
+        Weight      int    `json:"weight,optional,default=0"`
+        Description string `json:"description,optional"`
+        DataScope   string `json:"data_scope"`
+    }
+
+    UpdateRoleRequest{
+        ID         int     `json:"id"`
+        Name        string `json:"name"`
+        KeyWord     string `json:"key_word"`
+        Status      bool   `json:"status,optional"`
+        Weight      int    `json:"weight,optional,default=0"`
+        Description string `json:"description,optional"`
+        DataScope   string `json:"data_scope"`
+    }
+
+    DeleteRoleRequest{
+        ID         int     `json:"id"`
+    }
+)
+
+
+

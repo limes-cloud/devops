@@ -17,6 +17,66 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/user/info",
 				Handler: GetUserHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/user/page",
+				Handler: GetUserPageHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/info",
+				Handler: AddUserHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/user/info",
+				Handler: DeleteUserHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPut,
+				Path:    "/user/info",
+				Handler: UpdateUserHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/role/list",
+				Handler: GetRoleHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/role/info",
+				Handler: AddRoleHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/role/info",
+				Handler: DeleteRoleHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPut,
+				Path:    "/role/info",
+				Handler: UpdateRoleHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/team/list",
+				Handler: GetTeamHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/team/info",
+				Handler: AddTeamHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/team/info",
+				Handler: DeleteTeamHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPut,
+				Path:    "/team/info",
+				Handler: UpdateTeamHandler(serverCtx),
+			},
 		},
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 		rest.WithPrefix("/api/v1"),
