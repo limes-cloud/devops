@@ -1,0 +1,30 @@
+Name: user-api
+Host: 0.0.0.0
+Port: 8888
+
+
+Auth:
+  AccessSecret: "123451116"
+  AccessExpire: 7200
+
+Mysql:
+  DSN: "root:root@tcp(127.0.0.1:3306)/devops?charset=utf8mb4&parseTime=True&loc=Local"
+  Level: 4 #1-4
+  ConnMaxLifetime: 500
+  MaxOpenConn: 20
+  MaxIdleConn: 10
+  SlowThreshold: 1
+
+
+Redis:
+  Host: "127.0.0.1:6379"
+  Pass: ""
+
+WhitePath:
+  - "/api/v1/user/login"
+
+Rsa:
+  PublicFile: "internal/config/ca/public.pem"
+  PrivateFile: "internal/config/ca/private.pem"
+  PublicKey: ""
+  PrivateKey: ""

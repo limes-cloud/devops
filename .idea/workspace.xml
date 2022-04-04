@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="28fe65d1-57f3-499e-a897-b49a37975517" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/common/tools/request/request.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/tools/rsa/rsa.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/tools/tree/tree.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/configure.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/devops.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/api/api.api" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/api/rule.api" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/api/team.api" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/api/user.api" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/configure.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/etc/configure-api.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/config/config.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/handler/addRoleHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/handler/addTeamHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/handler/addUserHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/handler/deleteRoleHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/handler/deleteTeamHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/handler/deleteUserHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/handler/getRoleHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/handler/getTeamHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/handler/getUserHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/handler/getUserPageHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/handler/loginHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/handler/routes.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/handler/updateRoleHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/handler/updateTeamHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/handler/updateUserHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/logic/addRole.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/logic/addTeam.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/logic/addUser.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/logic/deleteRole.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/logic/deleteTeam.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/logic/deleteUser.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/logic/getRole.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/logic/getTeam.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/logic/getUser.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/logic/getUserPage.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/logic/login.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/logic/updateRole.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/logic/updateTeam.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/logic/updateUser.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/svc/serviceContext.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/internal/types/types.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/meta/meta.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/meta/meta.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/response/resp.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/response/resp.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/template/api/handler.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/common/template/api/handler.tpl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/tools/tool.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/tools/tool.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/api.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/menu.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/role.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/team.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/user.go" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="GOROOT" url="file://$USER_HOME$/golib/go1.18" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="27KVl8CazG2U4SfNQbRApfXD5qL" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.format.on.save.advertiser.fired": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "/Users/apple/GolandProjects/devops",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "watcher.settings",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="go build devops/user/api" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="devops" />
+      <working_directory value="$PROJECT_DIR$/user/api" />
+      <kind value="PACKAGE" />
+      <package value="devops/user/api" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/user/api/user.go" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.go build devops/user/api" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+</project>
