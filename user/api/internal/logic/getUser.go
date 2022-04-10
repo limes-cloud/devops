@@ -31,7 +31,8 @@ func (l *GetUserLogic) GetUser() (resp *types.GetUserResponse, err error) {
 	resp = new(types.GetUserResponse)
 
 	user := models.User{}
-	if err = user.GetUser(userId); err != nil {
+	user.ID = userId
+	if err = user.OneByID(); err != nil {
 		return nil, errors.New("获取用户信息失败")
 	}
 	tools.Transform(user, &resp)

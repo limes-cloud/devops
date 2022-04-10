@@ -11,14 +11,15 @@ type LoginResponse struct {
 }
 
 type GetUserRequest struct {
-	ID int `form:"id"`
+	ID int64 `form:"id"`
 }
 
 type GetUserResponse struct {
-	ID         int    `json:"id"`
-	RoleID     int    `json:"role_id"`
+	ID         int64  `json:"id"`
+	RoleID     int64  `json:"role_id"`
+	Keyword    string `json:"keyword"`
 	RoleName   string `json:"role_name"`
-	TeamID     int    `json:"team_id"`
+	TeamID     int64  `json:"team_id"`
 	TeamName   string `json:"team_name"`
 	Name       string `json:"name"`
 	Phone      string `json:"phone"`
@@ -26,59 +27,64 @@ type GetUserResponse struct {
 	Email      string `json:"email"`
 	Status     bool   `json:"status"`
 	Operator   string `json:"operator"`
-	OperatorID int    `json:"operator_id"`
+	OperatorID int64  `json:"operator_id"`
 	CreatedAt  int64  `json:"created_at"`
 	UpdatedAt  int64  `json:"updated_at"`
 }
 
 type GetUserPageRequest struct {
-	TeamID     int    `json:"team_id,optional"`
-	RoleID     int    `json:"role_id,optional"`
-	Name       string `json:"name,optional"`
-	OperatorID int    `json:"operator_id,optional"`
-	Status     *bool  `json:"status,optional"`
+	Page       int64  `form:"page"`
+	Count      int64  `form:"count,range=[0:50]"`
+	TeamID     int64  `form:"team_id,optional"`
+	RoleID     int64  `form:"role_id,optional"`
+	Name       string `form:"name,optional"`
+	OperatorID int64  `form:"operator_id,optional"`
+	Status     *bool  `form:"status,optional"`
 }
 
 type GetUserPageResponse struct {
-	List []GetUserResponse `json:"list"`
+	List  []*GetUserResponse `json:"list"`
+	Total int64              `json:"total"`
 }
 
 type AddUserRequest struct {
-	RoleID   int    `json:"role_id"`
-	TeamID   int    `json:"team_id"`
+	RoleID   int64  `json:"role_id"`
+	TeamID   int64  `json:"team_id"`
+	Avatar   string `json:"avatar"`
 	Name     string `json:"name"`
 	Phone    string `json:"phone"`
 	Email    string `json:"email"`
 	Status   bool   `json:"status"`
-	Password string `json:"password,optional"`
+	Password string `json:"password"`
 }
 
 type UpdateUserRequest struct {
-	ID     int    `json:"id"`
-	RoleID int    `json:"role_id"`
-	TeamID int    `json:"team_id"`
-	Name   string `json:"name"`
-	Phone  string `json:"phone"`
-	Avatar string `json:"avatar"`
-	Email  string `json:"email"`
-	Status *bool  `json:"status"`
+	ID       int64  `json:"id"`
+	RoleID   int64  `json:"role_id"`
+	TeamID   int64  `json:"team_id"`
+	Name     string `json:"name"`
+	Phone    string `json:"phone"`
+	Avatar   string `json:"avatar"`
+	Email    string `json:"email"`
+	Status   *bool  `json:"status"`
+	Password string `json:"password,optional"`
 }
 
 type DeleteUserRequest struct {
-	ID int `json:"id"`
+	ID int64 `json:"id"`
 }
 
 type GetTeamResponse struct {
-	ID          int64             `json:"id"`
-	Name        string            `json:"name"`
-	Avatar      string            `json:"avatar"`
-	Description string            `json:"description"`
-	ParentID    int64             `json:"parent_id"`
-	Children    []GetTeamResponse `json:"children"`
-	Operator    string            `json:"operator"`
-	OperatorID  int64             `json:"operator_id"`
-	CreatedAt   int64             `json:"created_at"`
-	UpdatedAt   int64             `json:"updated_at"`
+	ID          int64              `json:"id"`
+	Name        string             `json:"name"`
+	Avatar      string             `json:"avatar"`
+	Description string             `json:"description"`
+	ParentID    int64              `json:"parent_id"`
+	Children    []*GetTeamResponse `json:"children"`
+	Operator    string             `json:"operator"`
+	OperatorID  int64              `json:"operator_id"`
+	CreatedAt   int64              `json:"created_at"`
+	UpdatedAt   int64              `json:"updated_at"`
 }
 
 type AddTeamRequest struct {
@@ -101,49 +107,127 @@ type DeleteTeamRequest struct {
 }
 
 type Role struct {
-	ID          int    `json:"id"`
+	ID          int64  `json:"id"`
 	Name        string `json:"name"`
-	KeyWord     string `json:"key_word"`
+	Keyword     string `json:"keyword"`
 	Status      bool   `json:"status"`
 	Weight      int    `json:"weight"`
 	Description string `json:"description"`
 	DataScope   string `json:"data_scope"`
 	Operator    string `json:"operator"`
-	OperatorID  int    `json:"operator_id"`
+	OperatorID  int64  `json:"operator_id"`
 	CreatedAt   int64  `json:"created_at"`
 	UpdatedAt   int64  `json:"updated_at"`
 }
 
 type GetRoleRequest struct {
-	Name       string `json:"name"`
-	KeyWord    string `json:"key_word"`
-	Status     *bool  `json:"status"`
-	OperatorID int    `json:"operator_id"`
+	Name       string `form:"name,optional"`
+	Keyword    string `form:"keyword,optional"`
+	Status     *bool  `form:"status,optional"`
+	OperatorID int64  `form:"operator_id,optional"`
 }
 
 type GetRoleResponse struct {
-	List []Role `json:"list"`
+	Total int64  `json:"total"`
+	List  []Role `json:"list"`
 }
 
 type AddRoleRequest struct {
 	Name        string `json:"name"`
-	KeyWord     string `json:"key_word"`
+	Keyword     string `json:"keyword"`
 	Status      bool   `json:"status,optional"`
 	Weight      int    `json:"weight,optional,default=0"`
 	Description string `json:"description,optional"`
 	DataScope   string `json:"data_scope"`
 }
 
+type AddRoleMenuRequest struct {
+	RoleID  int64   `json:"role_id"`
+	MenuIds []int64 `json:"menu_ids"`
+}
+
+type GetRoleMenuIdsRequest struct {
+	RoleID int64 `form:"role_id"`
+}
+
+type GetRoleMenusRequest struct {
+	RoleID int64 `form:"role_id,optional"`
+}
+
+type GetRoleMenuIdsResponse struct {
+	List []int64 `json:"list"`
+}
+
 type UpdateRoleRequest struct {
-	ID          int    `json:"id"`
-	Name        string `json:"name"`
-	KeyWord     string `json:"key_word"`
+	ID          int64  `json:"id"`
+	Name        string `json:"name,optional"`
+	Keyword     string `json:"keyword,optional"`
 	Status      *bool  `json:"status,optional"`
 	Weight      int    `json:"weight,optional,default=0"`
 	Description string `json:"description,optional"`
-	DataScope   string `json:"data_scope"`
+	DataScope   string `json:"data_scope,optional"`
 }
 
 type DeleteRoleRequest struct {
-	ID int `json:"id"`
+	ID int64 `json:"id"`
+}
+
+type GetMenuRequest struct {
+	IsFilter bool `form:"is_filter,optional"`
+}
+
+type GetMenuResponse struct {
+	ID         int64              `json:"id"`
+	Title      string             `json:"title"`
+	Icon       string             `json:"icon"`
+	Path       string             `json:"path"`
+	Name       string             `json:"name"`
+	Type       string             `json:"type"`
+	Permission string             `json:"permission"`
+	Method     string             `json:"method"`
+	Component  string             `json:"component"`
+	ParentID   int64              `json:"parent_id"`
+	Weight     int                `json:"weight"`
+	Hidden     bool               `json:"hidden"`
+	IsFrame    bool               `json:"is_frame"`
+	Operator   string             `json:"operator"`
+	OperatorID int64              `json:"operator_id"`
+	CreatedAt  int64              `json:"created_at"`
+	UpdatedAt  int64              `json:"updated_at"`
+	Children   []*GetMenuResponse `json:"children"`
+}
+
+type AddMenuRequest struct {
+	Title      string `json:"title"`
+	Icon       string `json:"icon,optional"`
+	Path       string `json:"path,optional"`
+	Name       string `json:"name,optional"`
+	Type       string `json:"type"`
+	Permission string `json:"permission,optional"`
+	Method     string `json:"method,optional"`
+	Component  string `json:"component,optional"`
+	ParentID   int64  `json:"parent_id"`
+	Weight     int    `json:"weight"`
+	Hidden     bool   `json:"hidden"`
+	IsFrame    bool   `json:"is_frame,optional"`
+}
+
+type UpdateMenuRequest struct {
+	ID         int64  `json:"id"`
+	Title      string `json:"title"`
+	Icon       string `json:"icon,optional"`
+	Path       string `json:"path,optional"`
+	Name       string `json:"name,optional"`
+	Type       string `json:"type"`
+	Permission string `json:"permission,optional"`
+	Method     string `json:"method,optional"`
+	Component  string `json:"component,optional"`
+	ParentID   int64  `json:"parent_id"`
+	Weight     int    `json:"weight"`
+	Hidden     *bool  `json:"hidden,optional"`
+	IsFrame    *bool  `json:"is_frame,optional"`
+}
+
+type DeleteMenuRequest struct {
+	ID int64 `json:"id"`
 }

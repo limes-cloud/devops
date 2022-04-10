@@ -2,11 +2,10 @@ package logic
 
 import (
 	"context"
+	"devops/common/errorx"
 	"devops/common/meta"
 	"devops/common/tools"
-	"encoding/json"
 	"errors"
-	"fmt"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/zeromicro/go-zero/rest/token"
 	"net/http"
@@ -33,6 +32,7 @@ func NewAuthLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AuthLogic {
 func (l *AuthLogic) Auth(r *http.Request, w http.ResponseWriter) error {
 	// 拿到真是的path 信息
 	path := r.Header.Get("X-Original-Uri")
+	//method := r.Header.Get("X-Original-Method")
 	if strings.Contains(path, "?") {
 		path = strings.Split(path, "?")[0]
 	}
@@ -44,38 +44,50 @@ func (l *AuthLogic) Auth(r *http.Request, w http.ResponseWriter) error {
 
 	// 判断token是否为空
 	if r.Header.Get("Authorization") == "" {
-		return errors.New("token 不能为空")
+		return errors.New(errorx.AuthErr)
 	}
 
 	// token 解析判断
-	userId, err := l.ParseToken(r)
-	if err != nil || userId == 0 {
-		return errors.New("token 鉴权失败")
+	userinfo, err := l.ParseToken(r)
+	if err != nil || userinfo == "" {
+		return errors.New(errorx.AuthErr)
 	}
 
 	// RBAC 权限控制
-	// todo this write rbac logic
+	//if l.rbac(userinfo, path, method) != nil {
+	//	return errors.New(errorx.RbacErr)
+	//}
 
-	w.Header().Set("x-user", fmt.Sprintf("%d", userId))
+	w.Header().Set("x-user", userinfo)
 	return err
+}
+
+func (l *AuthLogic) rbac(info, path, method string) error {
+	user, err := meta.ParseUserInfo(info)
+	if err != nil {
+		return err
+	}
+	if is, _ := l.svcCtx.Rbac.Enforce(user.RoleKeyword, path, method); !is {
+		return errors.New(errorx.RbacErr)
+	}
+	return nil
 }
 
 func (l *AuthLogic) IsWhitePath(path string) bool {
 	return tools.InListStr(l.svcCtx.Config.WhitePath, path)
 }
 
-func (l *AuthLogic) ParseToken(r *http.Request) (int64, error) {
+func (l *AuthLogic) ParseToken(r *http.Request) (string, error) {
 	parser := token.NewTokenParser()
 	tok, err := parser.ParseToken(r, l.svcCtx.Config.Auth.AccessSecret, "")
 	if err != nil {
-		return 0, err
+		return "", err
 	}
 	if tok.Valid {
-		claims, ok := tok.Claims.(jwt.MapClaims) // 解析token中对内容
-		if ok {
-			userId, _ := claims[meta.UserIDKey].(json.Number).Int64() // 获取userId 并且到后端redis校验是否过期
-			return userId, nil
+		claims, _ := tok.Claims.(jwt.MapClaims) // 解析token中对内容
+		if info, ok := claims["userinfo"].(string); ok {
+			return info, nil
 		}
 	}
-	return 0, err
+	return "", err
 }

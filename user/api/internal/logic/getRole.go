@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"devops/common/tools"
 	"devops/user/api/internal/svc"
 	"devops/user/api/internal/types"
 	"devops/user/models"
@@ -25,23 +26,8 @@ func NewGetRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetRoleLo
 func (l *GetRoleLogic) GetRole(req *types.GetRoleRequest) (resp *types.GetRoleResponse, err error) {
 	role := models.Role{}
 	resp = new(types.GetRoleResponse)
-
-	tb := l.svcCtx.Orm.Table(role.Table())
-	if req.Name != "" {
-		tb = tb.Where("name = ?", req.Name)
-	}
-
-	if req.KeyWord != "" {
-		tb = tb.Where("keyword = ?", req.KeyWord)
-	}
-
-	if req.Status != nil {
-		tb = tb.Where("status = ?", req.Status)
-	}
-
-	if req.OperatorID != 0 {
-		tb = tb.Where("operator_id = ?", req.OperatorID)
-	}
-
-	return resp, tb.Find(&resp.List).Error
+	list, total, err := role.All(req)
+	resp.Total = total
+	tools.Transform(list, &resp.List)
+	return resp, err
 }

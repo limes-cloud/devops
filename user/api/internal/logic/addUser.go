@@ -3,9 +3,12 @@ package logic
 import (
 	"context"
 	"devops/common/meta"
+	"devops/common/tools"
+	"devops/common/typex"
 	"devops/user/api/internal/svc"
 	"devops/user/api/internal/types"
 	"devops/user/models"
+	"errors"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -24,15 +27,18 @@ func NewAddUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddUserLo
 }
 
 func (l *AddUserLogic) AddUser(req *types.AddUserRequest) error {
-	var err error
 	user := models.User{}
-	orm := l.svcCtx.Orm
-	if req.Password != "" {
-		req.Password, err = meta.ParsePwd(req.Password)
-		if err != nil {
-			return err
-		}
+	tools.Transform(req, &user)
+	user.Password, _ = meta.ParsePwd(user.Password)
+	if user.Password == req.Password {
+		return errors.New("密码生成失败")
 	}
-	orm.Table(user.Table()).Create(req)
+	if err := user.Create(l.ctx); err != nil {
+		return err
+	}
+	// 新添加的角色继承公共接口
+	if user.OneByID() == nil {
+		l.svcCtx.Rbac.AddGroupingPolicy(user.Keyword, typex.PublicRoleKey)
+	}
 	return nil
 }

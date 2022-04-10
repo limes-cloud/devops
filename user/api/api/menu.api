@@ -1,0 +1,63 @@
+syntax = "v1"
+
+type(
+    GetMenuRequest{
+        IsFilter bool `form:"is_filter,optional"`
+    }
+
+    GetMenuResponse{
+        ID          int64 `json:"id"`
+        Title      string `json:"title"`
+        Icon       string `json:"icon"`
+        Path       string `json:"path"`
+        Name       string `json:"name"`
+        Type       string `json:"type"`
+        Permission string `json:"permission"`
+        Method     string `json:"method"`
+        Component  string `json:"component"`
+        ParentID   int64 `json:"parent_id"`
+        Weight     int    `json:"weight"`
+        Hidden     bool   `json:"hidden"`
+        IsFrame    bool   `json:"is_frame"`
+        Operator   string `json:"operator"`
+        OperatorID int64  `json:"operator_id"`
+        CreatedAt   int64   `json:"created_at"`
+        UpdatedAt   int64   `json:"updated_at"`
+        Children    []*GetMenuResponse `json:"children"`
+    }
+
+    AddMenuRequest{
+        Title      string `json:"title"`
+        Icon       string `json:"icon,optional"`
+        Path       string `json:"path,optional"`
+        Name       string `json:"name,optional"`
+        Type       string `json:"type"`
+        Permission string `json:"permission,optional"`
+        Method     string `json:"method,optional"`
+        Component  string `json:"component,optional"`
+        ParentID   int64 `json:"parent_id"`
+        Weight     int    `json:"weight"`
+        Hidden     bool   `json:"hidden"`
+        IsFrame    bool   `json:"is_frame,optional"`
+    }
+
+    UpdateMenuRequest{
+        ID          int64 `json:"id"`
+        Title      string `json:"title"`
+        Icon       string `json:"icon,optional"`
+        Path       string `json:"path,optional"`
+        Name       string `json:"name,optional"`
+        Type       string `json:"type"`
+        Permission string `json:"permission,optional"`
+        Method     string `json:"method,optional"`
+        Component  string `json:"component,optional"`
+        ParentID   int64 `json:"parent_id"`
+        Weight     int    `json:"weight"`
+        Hidden     *bool   `json:"hidden,optional"`
+        IsFrame    *bool   `json:"is_frame,optional"`
+    }
+
+    DeleteMenuRequest{
+        ID         int64     `json:"id"`
+    }
+)

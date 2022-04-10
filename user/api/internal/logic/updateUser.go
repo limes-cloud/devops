@@ -2,6 +2,8 @@ package logic
 
 import (
 	"context"
+	"devops/common/meta"
+	"devops/common/tools"
 	"devops/user/api/internal/svc"
 	"devops/user/api/internal/types"
 	"devops/user/models"
@@ -25,7 +27,9 @@ func NewUpdateUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Update
 
 func (l *UpdateUserLogic) UpdateUser(req *types.UpdateUserRequest) error {
 	user := models.User{}
-	tb := l.svcCtx.Orm.Table(user.Table())
-	tb = tb.Where("id = ?", req.ID)
-	return tb.Updates(req).Error
+	tools.Transform(req, &user)
+	if user.Password != "" {
+		user.Password, _ = meta.ParsePwd(user.Password)
+	}
+	return user.Update(l.ctx)
 }

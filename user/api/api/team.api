@@ -7,7 +7,7 @@ type (
         Avatar      string `json:"avatar"`
         Description string `json:"description"`
         ParentID    int64    `json:"parent_id"`
-        Children    []GetTeamResponse `json:"children"`
+        Children    []*GetTeamResponse `json:"children"`
         Operator    string `json:"operator"`
         OperatorID  int64    `json:"operator_id"`
         CreatedAt   int64   `json:"created_at"`

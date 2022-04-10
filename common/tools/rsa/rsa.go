@@ -20,7 +20,7 @@ func Encode(publicKey string, plainText string) (string, error) {
 	}
 	key := publicKeyInterface.(*rsa.PublicKey)
 	cipherText, err := rsa.EncryptPKCS1v15(rand.Reader, key, []byte(plainText))
-	return base64.StdEncoding.EncodeToString([]byte(cipherText)), err
+	return base64.StdEncoding.EncodeToString(cipherText), err
 }
 
 func Decode(privateKey string, cipherText string) (string, error) {

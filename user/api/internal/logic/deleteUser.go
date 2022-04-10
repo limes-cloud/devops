@@ -24,5 +24,6 @@ func NewDeleteUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Delete
 
 func (l *DeleteUserLogic) DeleteUser(req *types.DeleteUserRequest) error {
 	user := models.User{}
-	return l.svcCtx.Orm.Table(user.Table()).Delete(&user, req.ID).Error
+	user.ID = req.ID
+	return user.DeleteByID(l.ctx)
 }

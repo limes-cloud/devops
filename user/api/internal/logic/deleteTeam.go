@@ -25,6 +25,6 @@ func NewDeleteTeamLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Delete
 
 func (l *DeleteTeamLogic) DeleteTeam(req *types.DeleteTeamRequest) error {
 	team := models.Team{}
-	tb := l.svcCtx.Orm.Table(team.Table())
-	return tb.Delete(&team, req.ID).Error
+	team.ID = req.ID
+	return team.DeleteByID(l.ctx)
 }

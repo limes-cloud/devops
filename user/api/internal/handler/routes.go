@@ -87,6 +87,41 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/team/info",
 				Handler: UpdateTeamHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/menu/list",
+				Handler: GetMenuHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/menu/info",
+				Handler: AddMenuHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/menu/info",
+				Handler: DeleteMenuHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPut,
+				Path:    "/menu/info",
+				Handler: UpdateMenuHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/role/menu",
+				Handler: CreateRoleMenuHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/role/menu_ids",
+				Handler: GetRoleMenuIdsHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/role/menus",
+				Handler: GetRoleMenuHandler(serverCtx),
+			},
 		},
 		rest.WithPrefix("/api/v1"),
 	)

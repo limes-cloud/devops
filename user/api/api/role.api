@@ -1,0 +1,72 @@
+syntax = "v1"
+
+type (
+    Role{
+        ID          int64     `json:"id"`
+        Name        string `json:"name"`
+        Keyword     string `json:"keyword"`
+        Status      bool  `json:"status"`
+        Weight      int    `json:"weight"`
+        Description string `json:"description"`
+        DataScope   string `json:"data_scope"`
+        Operator    string `json:"operator"`
+        OperatorID  int64   `json:"operator_id"`
+        CreatedAt   int64   `json:"created_at"`
+        UpdatedAt   int64   `json:"updated_at"`
+    }
+
+    GetRoleRequest{
+        Name        string `form:"name,optional"`
+        Keyword     string `form:"keyword,optional"`
+        Status      *bool  `form:"status,optional"`
+        OperatorID  int64 `form:"operator_id,optional"`
+    }
+
+    GetRoleResponse{
+        total int64 `json:"total"`
+        list []Role `json:"list"`
+    }
+
+    AddRoleRequest{
+        Name        string `json:"name"`
+        Keyword     string `json:"keyword"`
+        Status      bool   `json:"status,optional"`
+        Weight      int    `json:"weight,optional,default=0"`
+        Description string `json:"description,optional"`
+        DataScope   string `json:"data_scope"`
+    }
+
+    AddRoleMenuRequest{
+        RoleID      int64   `json:"role_id"`
+        MenuIds      []int64 `json:"menu_ids"`
+    }
+
+    GetRoleMenuIdsRequest{
+        RoleID      int64   `form:"role_id"`
+    }
+
+    GetRoleMenusRequest{
+        RoleID      int64   `form:"role_id,optional"`
+    }
+
+    GetRoleMenuIdsResponse{
+        List      []int64 `json:"list"`
+    }
+
+    UpdateRoleRequest{
+        ID         int64     `json:"id"`
+        Name        string `json:"name,optional"`
+        Keyword     string `json:"keyword,optional"`
+        Status      *bool   `json:"status,optional"`
+        Weight      int    `json:"weight,optional,default=0"`
+        Description string `json:"description,optional"`
+        DataScope   string `json:"data_scope,optional"`
+    }
+
+    DeleteRoleRequest{
+        ID         int64     `json:"id"`
+    }
+)
+
+
+

@@ -24,6 +24,6 @@ func NewDeleteRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Delete
 
 func (l *DeleteRoleLogic) DeleteRole(req *types.DeleteRoleRequest) error {
 	role := models.Role{}
-	tb := l.svcCtx.Orm.Table(role.Table())
-	return tb.Delete(&role, req.ID).Error
+	role.ID = req.ID
+	return role.DeleteByID(l.ctx)
 }

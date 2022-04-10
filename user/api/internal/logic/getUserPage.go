@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"devops/common/tools"
 	"devops/user/api/internal/svc"
 	"devops/user/api/internal/types"
 	"devops/user/models"
@@ -25,28 +26,8 @@ func NewGetUserPageLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 func (l *GetUserPageLogic) GetUserPage(req *types.GetUserPageRequest) (resp *types.GetUserPageResponse, err error) {
 	resp = new(types.GetUserPageResponse)
 	user := models.User{}
-
-	tb := l.svcCtx.Orm.Table(user.Table()).Select("user.*,team.name team_name,role.name role_name")
-
-	if req.TeamID != 0 {
-		tb = tb.Where("team_id = ?", req.TeamID)
-	}
-
-	if req.RoleID != 0 {
-		tb = tb.Where("role_id = ?", req.RoleID)
-	}
-
-	if req.Name == "" {
-		tb = tb.Where("name = ?", req.Name)
-	}
-
-	if req.OperatorID != 0 {
-		tb = tb.Where("operator_id = ?", req.OperatorID)
-	}
-
-	if req.Status != nil {
-		tb = tb.Where("status = ?", req.Status)
-	}
-
-	return resp, tb.First(resp.List).Error
+	list, total, err := user.Page(req, req.Page, req.Count)
+	tools.Transform(list, &resp.List)
+	resp.Total = total
+	return resp, err
 }

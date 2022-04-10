@@ -3,7 +3,8 @@ syntax = "v1"
 import (
 	"user.api"
 	"team.api"
-	"rule.api"
+	"role.api"
+	"menu.api"
 )
 info(
 	title: "etcd 配置中台"
@@ -76,4 +77,32 @@ service user-api{
 	@doc "修改指定部门信息"
 	@handler UpdateTeam
 	put /team/info(UpdateTeamRequest)
+	
+	@doc "获取菜单列表"
+	@handler GetMenu
+	get /menu/list(GetMenuRequest) returns (GetMenuResponse)
+	
+	@doc "新增菜单基本信息"
+	@handler AddMenu
+	post /menu/info(AddMenuRequest)
+	
+	@doc "删除指定菜单信息"
+	@handler DeleteMenu
+	delete /menu/info(DeleteMenuRequest)
+	
+	@doc "修改指定菜单信息"
+	@handler UpdateMenu
+	put /menu/info(UpdateMenuRequest)
+	
+	@doc "新增、修改角色菜单信息"
+	@handler CreateRoleMenu
+	post /role/menu(AddRoleMenuRequest)
+	
+	@doc "修改指定角色的菜单id集合"
+	@handler GetRoleMenuIds
+	get /role/menu_ids(GetRoleMenuIdsRequest) returns (GetRoleMenuIdsResponse)
+	
+	@doc "获取指定角色的菜单集合"
+	@handler GetRoleMenu
+	get /role/menus(GetRoleMenusRequest) returns (GetMenuResponse)
 }

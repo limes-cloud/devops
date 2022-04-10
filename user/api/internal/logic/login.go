@@ -7,9 +7,11 @@ import (
 	"devops/user/api/internal/svc"
 	"devops/user/api/internal/types"
 	"devops/user/models"
+	"encoding/json"
 	"errors"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/zeromicro/go-zero/core/logx"
+	"gorm.io/gorm"
 	"time"
 )
 
@@ -36,26 +38,39 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 		return nil, err
 	}
 
-	db := l.svcCtx.Orm
-	if db.Where("phone = ? or email = ?", req.UserName, req.UserName).First(&user).Error != nil {
+	if user.OneByCall(func(db *gorm.DB) *gorm.DB {
+		return db.Where("phone = ? or email = ?", req.UserName, req.UserName)
+	}) != nil {
 		return nil, errors.New("账号不存在")
+	}
+
+	if !*user.Status && user.ID != 1 {
+		return nil, errors.New("当前用户已被禁用")
 	}
 	if !meta.CompareHashPwd(user.Password, password) {
 		return nil, errors.New("密码错误")
 	}
 
-	resp.Token, err = l.NewToken(user.ID, user.Name)
+	resp.Token, err = l.NewToken(user)
 	return resp, err
 }
 
 // NewToken 进行token生成
-func (l *LoginLogic) NewToken(id int64, name string) (string, error) {
+func (l *LoginLogic) NewToken(user models.User) (string, error) {
 	auth := l.svcCtx.Config.Auth
 	claims := make(jwt.MapClaims)
 	claims["exp"] = time.Now().Unix() + auth.AccessExpire
 	claims["iat"] = time.Now().Unix()
-	claims[meta.UserIDKey] = id
-	claims[meta.UserNameKey] = name
+	b, _ := json.Marshal(map[string]interface{}{
+		meta.UserIDKey:      user.ID,
+		meta.UserNameKey:    user.Name,
+		meta.RoleNameKey:    user.RoleName,
+		meta.RoleIdKey:      user.RoleID,
+		meta.RoleKeywordKey: user.Keyword,
+	})
+
+	claims["userinfo"] = string(b)
+
 	token := jwt.New(jwt.SigningMethodHS256)
 	token.Claims = claims
 	return token.SignedString([]byte(auth.AccessSecret))

@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"devops/common/tools"
 	"devops/user/api/internal/svc"
 	"devops/user/api/internal/types"
 	"devops/user/models"
@@ -24,6 +25,6 @@ func NewUpdateRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Update
 
 func (l *UpdateRoleLogic) UpdateRole(req *types.UpdateRoleRequest) error {
 	role := models.Role{}
-	tb := l.svcCtx.Orm.Table(role.Table())
-	return tb.Updates(req).Error
+	tools.Transform(req, &role)
+	return role.Update(l.ctx)
 }

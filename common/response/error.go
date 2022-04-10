@@ -1,5 +1,10 @@
 package response
 
+import (
+	"github.com/go-sql-driver/mysql"
+	"strings"
+)
+
 const defaultCode = 400
 
 type CodeError struct {
@@ -42,7 +47,19 @@ func HandlerError(err error) interface{} {
 	switch e := err.(type) {
 	case *CodeError:
 		return e.Data()
+	case *mysql.MySQLError:
+		return NewDefaultError(handleMysqlError(e.Error()))
 	default:
 		return NewDefaultError(err.Error())
 	}
+}
+
+func handleMysqlError(e string) string {
+	if strings.Contains(e, "Duplicate") {
+		info := strings.Split(e, "'")
+		if len(info) > 1 {
+			return "系统已存在数据：" + info[1]
+		}
+	}
+	return e
 }

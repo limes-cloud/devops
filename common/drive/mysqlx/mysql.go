@@ -113,12 +113,16 @@ func registerCallBack(db *gorm.DB) {
 			return
 		}
 		callbacks.Query(db)
-		b, _ := json.Marshal(db.Statement.Dest)
-		redisx.Client.Set(ctx, redisKey, string(b), 2*time.Hour)
-		redisx.Client.Set(ctx, key, redisKey, 2*time.Hour)
+		if db.Error == nil {
+			b, _ := json.Marshal(db.Statement.Dest)
+			redisx.Client.Set(ctx, redisKey, string(b), 2*time.Hour)
+			redisx.Client.Set(ctx, key, redisKey, 2*time.Hour)
+		} else {
+			redisx.Client.Del(ctx, key, redisKey)
+		}
 	})
 
-	db.Callback().Update().Register("gorm:after_update", func(db *gorm.DB) {
+	db.Callback().Update().Replace("gorm:after_update", func(db *gorm.DB) {
 		key := ""
 		modelId := ModelID{}
 		tools.Transform(db.Statement.Model, &modelId)
@@ -133,7 +137,7 @@ func registerCallBack(db *gorm.DB) {
 		callbacks.AfterUpdate(db)
 	})
 
-	db.Callback().Delete().Register("gorm:after_delete", func(db *gorm.DB) {
+	db.Callback().Delete().Replace("gorm:after_delete", func(db *gorm.DB) {
 		key := ""
 		modelId := ModelID{}
 		tools.Transform(db.Statement.Model, &modelId)

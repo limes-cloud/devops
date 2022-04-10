@@ -29,19 +29,13 @@ func (l *GetTeamLogic) GetTeam() (resp *types.GetTeamResponse, err error) {
 	resp = new(types.GetTeamResponse)
 
 	team := models.Team{}
-	tb := l.svcCtx.Orm.Table(team.Table())
-	if err = tb.Find(&list).Error; err != nil {
-		return nil, err
-	}
-
+	list, _, err = team.All(nil)
 	var teamTree []TeamTree
 	tools.Transform(list, &teamTree)
-
 	nodeArray := make([]tree.Tree, len(teamTree))
 	for i := 0; i < len(teamTree); i++ {
 		nodeArray[i] = &teamTree[i]
 	}
-
 	//进行转菜单树
 	root := tree.BuildTree(nodeArray)
 	tools.Transform(root, resp)
@@ -61,6 +55,6 @@ func (t *TeamTree) ParentID() int64 {
 }
 
 func (t *TeamTree) AppendChildren(node interface{}) {
-	n, _ := node.(TeamTree)
-	t.Children = append(t.Children, n.GetTeamResponse)
+	n := node.(*TeamTree)
+	t.Children = append(t.Children, &n.GetTeamResponse)
 }

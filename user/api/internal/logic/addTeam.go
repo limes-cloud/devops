@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"devops/common/tools"
 	"devops/user/api/internal/svc"
 	"devops/user/api/internal/types"
 	"devops/user/models"
@@ -25,6 +26,6 @@ func NewAddTeamLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddTeamLo
 
 func (l *AddTeamLogic) AddTeam(req *types.AddTeamRequest) error {
 	team := models.Team{}
-	tb := l.svcCtx.Orm.Table(team.Table())
-	return tb.Create(req).Error
+	tools.Transform(req, &team)
+	return team.Create(l.ctx)
 }
