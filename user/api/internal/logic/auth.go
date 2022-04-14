@@ -32,13 +32,14 @@ func NewAuthLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AuthLogic {
 func (l *AuthLogic) Auth(r *http.Request, w http.ResponseWriter) error {
 	// 拿到真是的path 信息
 	path := r.Header.Get("X-Original-Uri")
-	//method := r.Header.Get("X-Original-Method")
+	method := r.Header.Get("X-Original-Method")
 	if strings.Contains(path, "?") {
 		path = strings.Split(path, "?")[0]
 	}
 
 	// 判断是否是白名单
 	if l.IsWhitePath(path) {
+		logx.WithContext(l.ctx).Infof("url:%v是白名单", path)
 		return nil
 	}
 
@@ -50,13 +51,14 @@ func (l *AuthLogic) Auth(r *http.Request, w http.ResponseWriter) error {
 	// token 解析判断
 	userinfo, err := l.ParseToken(r)
 	if err != nil || userinfo == "" {
+		logx.WithContext(l.ctx).Error(err)
 		return errors.New(errorx.AuthErr)
 	}
 
 	// RBAC 权限控制
-	//if l.rbac(userinfo, path, method) != nil {
-	//	return errors.New(errorx.RbacErr)
-	//}
+	if l.rbac(userinfo, path, method) != nil {
+		return errors.New(errorx.RbacErr)
+	}
 
 	w.Header().Set("x-user", userinfo)
 	return err

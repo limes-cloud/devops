@@ -4,52 +4,51 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28fe65d1-57f3-499e-a897-b49a37975517" name="Changes" comment="user权限控制">
-      <change afterPath="$PROJECT_DIR$/common/errorx/errors.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/tools/jsonx/json.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/typex/type.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/api/api/menu.api" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/api/api/role.api" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/models/role_menu.go" afterDir="false" />
+    <list default="true" id="28fe65d1-57f3-499e-a897-b49a37975517" name="Changes" comment="完成rbac 角色控制">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/drive/mysqlx/mysql.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/drive/mysqlx/mysql.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/meta/meta.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/meta/meta.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/model/base.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/model/base.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/model/catch.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/model/sql.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/response/error.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/response/error.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/tools/rsa/rsa.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/tools/rsa/rsa.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/tools/tool.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/tools/tool.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/api/api.api" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/api/api.api" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/api/rule.api" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/api/team.api" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/api/user.api" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/configure.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/etc/configure-api.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/config/config.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/addRoleHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/addTeamHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/addUserHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/deleteRoleHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/deleteTeamHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/deleteUserHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/getRoleHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/getTeamHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/getUserHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/getUserPageHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/loginHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/routes.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/updateRoleHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/updateTeamHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/updateUserHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/addRole.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/addTeam.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/addUser.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/deleteRole.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/deleteTeam.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/deleteUser.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/getRole.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/getTeam.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/getUser.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/getUserPage.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/login.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/updateRole.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/updateTeam.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/updateUser.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/svc/serviceContext.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/types/types.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dump.rdb" beforeDir="false" afterPath="$PROJECT_DIR$/dump.rdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/api/api.api" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/api/api.api" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/api/rule.api" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/api/team.api" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/api/team.api" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/api/user.api" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/api/user.api" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/handler/authHandler.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/handler/authHandler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/handler/getRoleHandler.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/handler/getUserHandler.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/handler/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/handler/routes.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/logic/addRole.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/logic/addRole.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/logic/addTeam.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/logic/addTeam.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/logic/addUser.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/logic/addUser.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/api/internal/logic/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/logic/auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/logic/deleteRole.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/logic/deleteRole.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/logic/deleteTeam.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/logic/deleteTeam.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/logic/deleteUser.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/logic/deleteUser.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/logic/getRole.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/logic/getRole.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/logic/getTeam.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/logic/getTeam.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/logic/getUser.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/logic/getUser.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/logic/getUserPage.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/logic/getUserPage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/logic/login.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/logic/login.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/logic/updateRole.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/logic/updateRole.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/logic/updateUser.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/logic/updateUser.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/svc/serviceContext.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/svc/serviceContext.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/types/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/types/types.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/models/base.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/models/base.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/models/menu.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/models/menu.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/models/role.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/models/role.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/models/team.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/models/team.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/models/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/api/internal/logic/createRoleMenu.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/logic/createRoleMenu.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,14 +58,20 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Api File" />
         <option value="Go File" />
+        <option value="Api File" />
       </list>
     </option>
   </component>
   <component name="GOROOT" url="file://$USER_HOME$/golib/go1.18" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/user/api/internal/logic/auth.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/user/api/internal/logic/createRoleMenu.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/user/models/role_menu.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/user/models/user.go" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -149,7 +154,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="user权限控制" />
-    <option name="LAST_COMMIT_MESSAGE" value="user权限控制" />
+    <MESSAGE value="完成rbac 角色控制" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成rbac 角色控制" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

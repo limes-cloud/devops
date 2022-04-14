@@ -45,7 +45,6 @@ func (l *CreateRoleMenuLogic) CreateRoleMenu(req *types.AddRoleMenuRequest) erro
 
 	//增加新的菜单权限
 	var list []models.RoleMenu
-	//var rules [][]string
 	for _, item := range menus {
 		list = append(list, models.RoleMenu{
 			RoleID: req.RoleID,
@@ -53,10 +52,8 @@ func (l *CreateRoleMenuLogic) CreateRoleMenu(req *types.AddRoleMenuRequest) erro
 		})
 		if item.Type == "A" && item.Permission != typex.BaseApiKey {
 			l.svcCtx.Rbac.AddPolicy(role.Keyword, item.Path, item.Method)
-			//rules = append(rules, []string{role.Keyword, item.Path, item.Method})
 		}
 	}
-	//l.svcCtx.Rbac.AddPolicies(rules)
 	var object models.RoleMenus = list
 	return object.Create(l.ctx)
 }
