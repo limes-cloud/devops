@@ -34,7 +34,7 @@ func (l *CreateRoleMenuLogic) CreateRoleMenu(req *types.AddRoleMenuRequest) erro
 	}
 
 	menu := models.Menu{}
-	menus, _, _ := menu.AllCall(func(db *gorm.DB) *gorm.DB {
+	menus, _, _ := menu.All(nil, func(db *gorm.DB) *gorm.DB {
 		return db.Where("id in ?", req.MenuIds)
 	})
 

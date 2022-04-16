@@ -3,7 +3,18 @@ package tools
 import (
 	"encoding/json"
 	"fmt"
+	"regexp"
+	"strings"
 )
+
+func CheckIP(ip string) bool {
+	addr := strings.Trim(ip, " ")
+	regStr := `^(([1-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.)(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){2}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$`
+	if match, _ := regexp.MatchString(regStr, addr); match {
+		return true
+	}
+	return false
+}
 
 func Transform(src, dst interface{}) {
 	b, _ := json.Marshal(src)

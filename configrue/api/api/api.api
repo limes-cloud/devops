@@ -1,7 +1,10 @@
 syntax = "v1"
 
 import (
-
+	"environment.api"
+	"service.api"
+	"configure.api"
+	"configure_log.api"
 )
 
 info(
@@ -13,10 +16,62 @@ info(
 )
 
 @server(
-	prefix: api/v1/configure
+	prefix: api/v1
 )
 service configure-api{
 	@doc "服务检查"
 	@handler CheckHealth
 	post /check_health
+	
+	@doc "获取环境列表"
+	@handler GetEnvironment
+	get /environment/list returns (GetEnvironmentResponse)
+	
+	@doc "新增环境配置"
+	@handler AddEnvironment
+	post /environment/add(AddEnvironmentRequest)
+	
+	@doc "更新环境配置"
+	@handler UpdateEnvironment
+	put /environment/info(UpdateEnvironmentRequest)
+	
+	@doc "删除指定环境"
+	@handler DeleteEnvironment
+	delete /environment/info(DeleteEnvironmentRequest)
+	
+	@doc "获取指定服务"
+	@handler GetService
+	get /service/list(GetServiceRequest) returns (GetServiceResponse)
+	
+	@doc "新增环境服务"
+	@handler AddService
+	post /service/add(AddServiceRequest)
+	
+	@doc "更新环境服务"
+	@handler UpdateService
+	put /service/info(UpdateServiceRequest)
+	
+	@doc "删除指定服务"
+	@handler DeleteService
+	delete /service/info(DeleteServiceRequest)
+	
+	@doc "获取指定配置"
+	@handler GetConfigrue
+	get /configrue/list(GetConfigureRequest) returns (GetConfigureResponse)
+	
+	@doc "新增环境配置"
+	@handler AddConfigrue
+	post /configrue/add(AddConfigureRequest)
+	
+	@doc "更新环境配置"
+	@handler UpdateConfigrue
+	put /configrue/info(UpdateConfigureRequest)
+	
+	@doc "删除指定配置"
+	@handler DeleteConfigrue
+	delete /configrue/info(DeleteConfigureRequest)
+	
+	@doc "获取指定操作记录"
+	@handler GetConfigrueLog
+	get /configrue_log/list(GetConfigureLogRequest) returns (GetConfigureLogResponse)
 }

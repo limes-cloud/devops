@@ -1,0 +1,44 @@
+syntax = "v1"
+
+type (
+    Configure{
+        ID          int64 `json:"id"`
+        ServiceId  string `json:"service_id"`
+        Template   string `json:"template"`
+        Version    string `json:"version"`
+        IsUse      bool   `json:"is_use"`
+        Operator   string `json:"operator"`
+        OperatorID int64  `json:"operator_id"`
+        CreatedAt  int64  `json:"created_at"`
+        UpdatedAt  int64  `json:"updated_at"`
+    }
+
+    GetConfigureRequest{
+        ServiceId  string `json:"service_id"`
+        Version    string `json:"version,optional"`
+        IsUse      *bool   `json:"is_use,optional"`
+    }
+
+    GetConfigureResponse{
+        List []Configure `json:"list"`
+    }
+
+    AddConfigureRequest{
+        ServiceId  string `json:"service_id"`
+        Template   string `json:"template"`
+        Version    string `json:"version"`
+        IsUse      bool   `json:"is_use"`
+    }
+
+    UpdateConfigureRequest{
+        ID          int64 `json:"id"`
+        ServiceId  string `json:"service_id"`
+        Template   string `json:"template"`
+        IsUse      bool   `json:"is_use,optional"`
+    }
+
+    DeleteConfigureRequest{
+        ID          int64 `json:"id"`
+    }
+
+)

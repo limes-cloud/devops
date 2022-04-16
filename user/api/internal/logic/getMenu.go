@@ -33,7 +33,7 @@ func (l *GetMenuLogic) GetMenu(req *types.GetMenuRequest) (resp *types.GetMenuRe
 	resp = new(types.GetMenuResponse)
 
 	menu := models.Menu{}
-	list, _, err = menu.AllCall(func(db *gorm.DB) *gorm.DB {
+	list, _, err = menu.All(nil, func(db *gorm.DB) *gorm.DB {
 		if req.IsFilter {
 			db = db.Where("permission != ?", typex.BaseApiKey)
 		}

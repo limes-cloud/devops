@@ -26,10 +26,13 @@ func (u *Team) OneByID(userId int64) error {
 	return database().Table(u.Table()).First(&u, userId).Error
 }
 
-func (u *Team) One(query interface{}) error {
+func (u *Team) One(query interface{}, f ...callback) error {
 	db := database().Table(u.Table())
 	if query != nil {
 		db = model.SqlWhere(db, query)
+	}
+	for _, fun := range f {
+		db = fun(db)
 	}
 	return db.First(&u).Error
 }
@@ -40,33 +43,42 @@ func (u *Team) Create(ctx context.Context) error {
 	return database().Table(u.Table()).Create(&u).Error
 }
 
-func (u *Team) Page(query interface{}, page, count int64) ([]Team, int64, error) {
+func (u *Team) Page(query interface{}, page, count int64, f ...callback) ([]Team, int64, error) {
 	var list []Team
 	var total int64
 	db := database().Table(u.Table())
 	if query != nil {
 		db = model.SqlWhere(db, query, "page", "count")
 	}
+	for _, fun := range f {
+		db = fun(db)
+	}
 	db.Count(&total)
 	db = db.Offset(int((page - 1) * count)).Limit(int(count))
 	return list, total, db.Find(&list).Error
 }
 
-func (u *Team) All(query interface{}) ([]Team, int64, error) {
+func (u *Team) All(query interface{}, f ...callback) ([]Team, int64, error) {
 	var list []Team
 	var total int64
 	db := database().Table(u.Table())
 	if query != nil {
 		db = model.SqlWhere(db, query)
 	}
+	for _, fun := range f {
+		db = fun(db)
+	}
 	db.Count(&total)
 	return list, total, db.Find(&list).Error
 }
 
-func (u *Team) UpdateByFields(ctx context.Context, c interface{}, m interface{}) error {
+func (u *Team) Update(ctx context.Context, c interface{}, m interface{}, f ...callback) error {
 	fields := tools.ToMap(m)
 	db := database().Table(u.Table())
 	db = model.SqlWhere(db, c)
+	for _, fun := range f {
+		db = fun(db)
+	}
 	fields["created_at"] = time.Now().Unix()
 	fields["updated_at"] = time.Now().Unix()
 	fields["operator"] = meta.UserName(ctx)
@@ -81,12 +93,6 @@ func (u *Team) UpdateByID(ctx context.Context, m interface{}) error {
 	fields["operator"] = meta.UserName(ctx)
 	fields["operator_id"] = meta.UserId(ctx)
 	return database().Table(u.Table()).Where("id = ?", u.ID).Updates(fields).Error
-}
-
-func (u *Team) Update(ctx context.Context) error {
-	u.OperatorID = meta.UserId(ctx)
-	u.Operator = meta.UserName(ctx)
-	return database().Table(u.Table()).Updates(u).Error
 }
 
 func (u *Team) DeleteByID(ctx context.Context) error {

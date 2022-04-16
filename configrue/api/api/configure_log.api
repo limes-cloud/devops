@@ -1,0 +1,22 @@
+syntax = "v1"
+
+type (
+    ConfigureLog{
+        ID          int64 `json:"id"`
+        ServiceName string `json:"service_name"`
+        Title       string `json:"title"`
+        Content     string `json:"content"`
+        Operator   string `json:"operator"`
+        OperatorID int64  `json:"operator_id"`
+        CreatedAt  int64  `json:"created_at"`
+        UpdatedAt  int64  `json:"updated_at"`
+    }
+
+    GetConfigureLogRequest{
+        ServiceName string `json:"service_name,optional"`
+    }
+
+    GetConfigureLogResponse{
+        List []ConfigureLog `json:"list"`
+    }
+)

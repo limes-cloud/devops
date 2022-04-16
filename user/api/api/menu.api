@@ -1,4 +1,4 @@
-syntax = "v1"
+    syntax = "v1"
 
 type(
     GetMenuRequest{

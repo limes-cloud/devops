@@ -56,7 +56,7 @@ func (l *GetRoleMenuLogic) GetRoleMenu(req *types.GetRoleMenusRequest) (resp *ty
 	}
 
 	menu := models.Menu{}
-	list, _, err = menu.AllCall(func(db *gorm.DB) *gorm.DB {
+	list, _, err = menu.All(nil, func(db *gorm.DB) *gorm.DB {
 		return db.Where("id in ?", menuIds)
 	})
 	if err != nil {

@@ -122,6 +122,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/role/menus",
 				Handler: GetRoleMenuHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/login/log",
+				Handler: GetLogHandler(serverCtx),
+			},
 		},
 		rest.WithPrefix("/api/v1"),
 	)

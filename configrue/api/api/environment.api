@@ -1,0 +1,40 @@
+syntax = "v1"
+
+type (
+    Environment {
+        ID          int64  `json:"id"`
+        Keyword     string `json:"keyword"`
+        Name        string `json:"name"`
+        Config      string `json:"config"`
+        Prefix      string `json:"prefix"`
+        Description string `json:"description"`
+        Operator    string `json:"operator"`
+        OperatorID  int64   `json:"operator_id"`
+        CreatedAt   int64   `json:"created_at"`
+        UpdatedAt   int64   `json:"updated_at"`
+    }
+
+    GetEnvironmentResponse{
+        List []Environment `json:"list"`
+    }
+
+    AddEnvironmentRequest{
+        Name        string `json:"name"`
+        Config      string `json:"config"`
+        Prefix      string `json:"prefix"`
+        Description string `json:"description"`
+    }
+
+    UpdateEnvironmentRequest {
+        ID          int64  `json:"id"`
+        Keyword     string `json:"keyword"`
+        Name        string `json:"name"`
+        Config      string `json:"config"`
+        Prefix      string `json:"prefix"`
+        Description string `json:"description"`
+    }
+
+    DeleteEnvironmentRequest{
+        ID          int64  `json:"id"`
+    }
+)

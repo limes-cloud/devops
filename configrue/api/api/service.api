@@ -1,0 +1,36 @@
+syntax = "v1"
+
+type (
+    Service{
+        ID          int64  `json:"id"`
+        Keyword     string `json:"keyword"`
+        Name        string `json:"name"`
+        Description string `json:"description"`
+        Operator    string `json:"operator"`
+        OperatorID  int64  `json:"operator_id"`
+        CreatedAt   int64   `json:"created_at"`
+        UpdatedAt   int64   `json:"updated_at"`
+    }
+    GetServiceRequest{
+        Page int64 `json:"page"`
+        Count int64 `json:"count"`
+        Keyword string `json:"keyword"`
+    }
+    GetServiceResponse{
+        List []Service `json:"list"`
+    }
+    AddServiceRequest{
+        Keyword     string `json:"keyword"`
+        Name        string `json:"name"`
+        Description string `json:"description"`
+    }
+    UpdateServiceRequest{
+        ID          int64  `json:"id"`
+        Keyword     string `json:"keyword"`
+        Name        string `json:"name"`
+        Description string `json:"description"`
+    }
+    DeleteServiceRequest{
+        ID          int64  `json:"id"`
+    }
+)

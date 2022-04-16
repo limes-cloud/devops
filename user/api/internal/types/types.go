@@ -231,3 +231,29 @@ type UpdateMenuRequest struct {
 type DeleteMenuRequest struct {
 	ID int64 `json:"id"`
 }
+
+type Log struct {
+	ID          int64  `json:"id"`
+	CreatedAt   int64  `json:"created_at"`
+	Username    string `json:"username"`
+	IP          string `json:"ip"`
+	Address     string `json:"address"`
+	Browser     string `json:"browser"`
+	Device      string `json:"device"`
+	Status      bool   `json:"status"`
+	Description string `json:"description"`
+}
+
+type GetLogRequest struct {
+	Start    int64  `form:"start,optional"`
+	End      int64  `form:"end,optional"`
+	Status   *bool  `form:"status,optional"`
+	Username string `form:"username,optional"`
+	Page     int64  `form:"page,optional"`
+	Count    int64  `form:"count,optional,range=[0:50]"`
+}
+
+type GetLogResponse struct {
+	List  []Log `json:"list"`
+	Total int64 `json:"total"`
+}

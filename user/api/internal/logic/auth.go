@@ -36,7 +36,7 @@ func (l *AuthLogic) Auth(r *http.Request, w http.ResponseWriter) error {
 	if strings.Contains(path, "?") {
 		path = strings.Split(path, "?")[0]
 	}
-
+	path = strings.Replace(path, meta.ApiPrefix, "", 1)
 	// 判断是否是白名单
 	if l.IsWhitePath(path) {
 		logx.WithContext(l.ctx).Infof("url:%v是白名单", path)
@@ -68,6 +68,9 @@ func (l *AuthLogic) rbac(info, path, method string) error {
 	user, err := meta.ParseUserInfo(info)
 	if err != nil {
 		return err
+	}
+	if user.RoleKeyword == meta.SuperAdmin {
+		return nil
 	}
 	if is, _ := l.svcCtx.Rbac.Enforce(user.RoleKeyword, path, method); !is {
 		return errors.New(errorx.RbacErr)

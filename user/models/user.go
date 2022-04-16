@@ -39,21 +39,15 @@ func (u *User) OneByID() error {
 		First(&u, u.ID).Error
 }
 
-func (u *User) One(query interface{}) error {
+func (u *User) One(query interface{}, f ...callback) error {
 	db := database().Table(u.Table()).
 		Select("user.*,team.name team_name,role.name role_name,role.keyword").
 		Joins("left join role on role.id = user.role_id").
 		Joins("left join team on team.id = user.team_id")
 	db = model.SqlWhere(db, query)
-	return db.First(&u).Error
-}
-
-func (u *User) OneByCall(f callback) error {
-	db := database().Table(u.Table()).
-		Select("user.*,team.name team_name,role.name role_name,role.keyword").
-		Joins("left join role on role.id = user.role_id").
-		Joins("left join team on team.id = user.team_id")
-	db = f(db)
+	for _, fun := range f {
+		db = fun(db)
+	}
 	return db.First(&u).Error
 }
 
@@ -63,7 +57,7 @@ func (u *User) Create(ctx context.Context) error {
 	return database().Table(u.Table()).Create(&u).Error
 }
 
-func (u *User) Page(query interface{}, page, count int64) ([]User, int64, error) {
+func (u *User) Page(query interface{}, page, count int64, f ...callback) ([]User, int64, error) {
 	var list []User
 	var total int64
 	db := database().Table(u.Table()).
@@ -71,12 +65,17 @@ func (u *User) Page(query interface{}, page, count int64) ([]User, int64, error)
 		Joins("left join role on role.id = user.role_id").
 		Joins("left join team on team.id = user.team_id")
 	db = model.SqlWhere(db, query, "page", "count")
+
+	for _, fun := range f {
+		db = fun(db)
+	}
+
 	db.Count(&total)
 	db = db.Offset(int((page - 1) * count)).Limit(int(count))
 	return list, total, db.Find(&list).Error
 }
 
-func (u *User) All(query interface{}) ([]User, int64, error) {
+func (u *User) All(query interface{}, f ...callback) ([]User, int64, error) {
 	var list []User
 	var total int64
 	db := database().Table(u.Table()).
@@ -84,6 +83,11 @@ func (u *User) All(query interface{}) ([]User, int64, error) {
 		Joins("left join role on role.id = user.role_id").
 		Joins("left join team on team.id = user.team_id")
 	db = model.SqlWhere(db, query)
+
+	for _, fun := range f {
+		db = fun(db)
+	}
+
 	db.Count(&total)
 	return list, total, db.Find(&list).Error
 }
@@ -94,10 +98,13 @@ func (u *User) Update(ctx context.Context) error {
 	return database().Table(u.Table()).Updates(u).Error
 }
 
-func (u *User) UpdateByFields(ctx context.Context, c interface{}, m interface{}) error {
+func (u *User) UpdateByFields(ctx context.Context, c interface{}, m interface{}, f ...callback) error {
 	fields := tools.ToMap(m)
 	db := database().Table(u.Table())
 	db = model.SqlWhere(db, c)
+	for _, fun := range f {
+		db = fun(db)
+	}
 	fields["created_at"] = time.Now().Unix()
 	fields["updated_at"] = time.Now().Unix()
 	fields["operator"] = meta.UserName(ctx)
@@ -120,10 +127,13 @@ func (u *User) DeleteByID(ctx context.Context) error {
 	return database().Table(u.Table()).Delete(&u).Error
 }
 
-func (u *User) Delete(ctx context.Context, m interface{}) error {
+func (u *User) Delete(ctx context.Context, m interface{}, f ...callback) error {
 	u.OperatorID = meta.UserId(ctx)
 	u.Operator = meta.UserName(ctx)
 	db := database().Table(u.Table())
 	db = model.SqlWhere(db, m)
+	for _, fun := range f {
+		db = fun(db)
+	}
 	return db.Delete(&u).Error
 }

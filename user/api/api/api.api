@@ -5,6 +5,7 @@ import (
 	"team.api"
 	"role.api"
 	"menu.api"
+	"log.api"
 )
 info(
 	title: "etcd 配置中台"
@@ -105,4 +106,8 @@ service user-api{
 	@doc "获取指定角色的菜单集合"
 	@handler GetRoleMenu
 	get /role/menus(GetRoleMenusRequest) returns (GetMenuResponse)
+	
+	@doc "获取登陆日志"
+	@handler GetLog
+	get /login/log(GetLogRequest) returns (GetLogResponse)
 }

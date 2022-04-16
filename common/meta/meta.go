@@ -12,11 +12,13 @@ import (
 )
 
 const (
+	ApiPrefix      = "/api/v1"
 	UserIDKey      = "user_id"
 	UserNameKey    = "user_name"
 	RoleNameKey    = "role_name"
 	RoleIdKey      = "role_id"
 	RoleKeywordKey = "role_keyword"
+	SuperAdmin     = "super_admin"
 )
 
 func UserId(ctx context.Context) int64 {
