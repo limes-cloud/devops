@@ -21,7 +21,7 @@ Redis:
   Pass: ""
 
 WhitePath:
-  - "/user/login"
+  - "/ums/user/login"
 
 Rsa:
   PublicFile: "internal/config/ca/public.pem"

@@ -1,7 +1,19 @@
 Name: configure-api
 Host: 0.0.0.0
-Port: 8888
+Port: 8887
 Etcd:
   Hosts:
     - 127.0.0.1:2379
   Prefix: /configure/service/
+
+Mysql:
+  DSN: "root:root@tcp(127.0.0.1:3306)/devops?charset=utf8mb4&parseTime=True&loc=Local"
+  Level: 4 #1-4
+  ConnMaxLifetime: 500
+  MaxOpenConn: 20
+  MaxIdleConn: 10
+  SlowThreshold: 1
+
+Redis:
+  Host: "127.0.0.1:6379"
+  Pass: ""

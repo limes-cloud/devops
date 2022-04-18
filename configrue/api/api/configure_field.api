@@ -1,0 +1,45 @@
+syntax = "v1"
+type(
+    ConfigureField{
+        ID          int64 `json:"id"`
+        Type        string `json:"type"`
+        Field       string `json:"field"`
+        Config      string `json:"config"`
+        Description string `json:"description"`
+        Operator    string `json:"operator"`
+        OperatorID  int64  `json:"operator_id"`
+        CreatedAt   int64 `json:"created_at"`
+        UpdatedAt   int64 `json:"updated_at"`
+    }
+
+    PageConfigureFieldRequest{
+        Page  int64 `form:"page"`
+        Count int64 `form:"count,range=[0:50]"`
+        Field string `form:"field,optional"`
+        Type  string `form:"type,optional"`
+    }
+
+    PageConfigureFieldResponse{
+        Total int64 `json:"total"`
+        List []ConfigureField `json:"list"`
+    }
+
+    AddConfigureFieldRequest{
+        Type        string `json:"type"`
+        Field       string `json:"field"`
+        Config      string `json:"config"`
+        Description string `json:"description"`
+    }
+
+    UpdateConfigureFieldRequest{
+        ID          int64 `json:"id"`
+        Type        string `json:"type"`
+        Field       string `json:"field"`
+        Config      string `json:"config"`
+        Description string `json:"description"`
+    }
+
+    DeleteConfigureFieldRequest{
+        ID          int64 `json:"id"`
+    }
+)

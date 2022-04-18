@@ -24,7 +24,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 			{
 				Method:  http.MethodPost,
-				Path:    "/environment/add",
+				Path:    "/environment/info",
 				Handler: AddEnvironmentHandler(serverCtx),
 			},
 			{
@@ -44,7 +44,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 			{
 				Method:  http.MethodPost,
-				Path:    "/service/add",
+				Path:    "/service/info",
 				Handler: AddServiceHandler(serverCtx),
 			},
 			{
@@ -59,30 +59,75 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 			{
 				Method:  http.MethodGet,
-				Path:    "/configrue/list",
-				Handler: GetConfigrueHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/configrue/add",
-				Handler: AddConfigrueHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPut,
-				Path:    "/configrue/info",
-				Handler: UpdateConfigrueHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodDelete,
-				Path:    "/configrue/info",
-				Handler: DeleteConfigrueHandler(serverCtx),
+				Path:    "/configure/info",
+				Handler: GetConfigureHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodGet,
-				Path:    "/configrue_log/list",
-				Handler: GetConfigrueLogHandler(serverCtx),
+				Path:    "/configure/list",
+				Handler: ListConfigureHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/configure/info",
+				Handler: AddConfigureHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPut,
+				Path:    "/configure/info",
+				Handler: UpdateConfigureHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/configure/info",
+				Handler: DeleteConfigureHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/configure_log/list",
+				Handler: GetConfigureLogHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/configure_field/page",
+				Handler: PageConfigureFieldHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/configure_field/info",
+				Handler: AddConfigureFieldHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPut,
+				Path:    "/configure_field/info",
+				Handler: UpdateConfigureFieldHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/configure_field/info",
+				Handler: DeleteConfigureFieldHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/service_field/page",
+				Handler: PageServiceFieldHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/service_field/info",
+				Handler: AddServiceFieldHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPut,
+				Path:    "/service_field/info",
+				Handler: UpdateServiceFieldHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/service_field/info",
+				Handler: DeleteServiceFieldHandler(serverCtx),
 			},
 		},
-		rest.WithPrefix("/api/v1"),
+		rest.WithPrefix("/api/v1/cms"),
 	)
 }

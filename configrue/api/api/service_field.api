@@ -1,0 +1,45 @@
+syntax = "v1"
+type(
+    ServiceField{
+        ID          int64  `json:"id"`
+        ServiceId   int64 `json:"service_id"`
+        Field       string `json:"field"`
+        Config      string `json:"config"`
+        Description string `json:"description"`
+        Operator    string `json:"operator"`
+        OperatorID  int64  `json:"operator_id"`
+        CreatedAt   int64 `json:"created_at"`
+        UpdatedAt   int64 `json:"updated_at"`
+    }
+
+    PageServiceFieldRequest{
+        Page  int64 `form:"page"`
+        Count int64 `form:"count,range=[0:50]"`
+        Field string `form:"field,optional"`
+        ServiceId  string `form:"service_id,optional"`
+    }
+
+    PageServiceFieldResponse{
+        Total int64 `json:"total"`
+        List []ServiceField `json:"list"`
+    }
+
+    AddServiceFieldRequest{
+        Type        string `json:"type"`
+        ServiceId   int64 `json:"service_id"`
+        Config      string `json:"config"`
+        Description string `json:"description"`
+    }
+
+    UpdateServiceFieldRequest{
+        ID          int64 `json:"id"`
+        ServiceId   int64 `json:"service_id"`
+        Field       string `json:"field"`
+        Config      string `json:"config"`
+        Description string `json:"description"`
+    }
+
+    DeleteServiceFieldRequest{
+        ID          int64 `json:"id"`
+    }
+)

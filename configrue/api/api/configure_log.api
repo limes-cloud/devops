@@ -13,10 +13,13 @@ type (
     }
 
     GetConfigureLogRequest{
-        ServiceName string `json:"service_name,optional"`
+        ServiceName string `form:"service_name,optional"`
+        Page int64 `form:"page"`
+        Count int64 `form:"count,range=[0:50]"`
     }
 
     GetConfigureLogResponse{
         List []ConfigureLog `json:"list"`
+        Total int64 `json:"total"`
     }
 )

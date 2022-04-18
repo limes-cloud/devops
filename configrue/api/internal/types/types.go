@@ -5,9 +5,11 @@ type Environment struct {
 	ID          int64  `json:"id"`
 	Keyword     string `json:"keyword"`
 	Name        string `json:"name"`
+	Drive       string `json:"drive"`
 	Config      string `json:"config"`
 	Prefix      string `json:"prefix"`
 	Description string `json:"description"`
+	Status      bool   `json:"status"`
 	Operator    string `json:"operator"`
 	OperatorID  int64  `json:"operator_id"`
 	CreatedAt   int64  `json:"created_at"`
@@ -19,19 +21,24 @@ type GetEnvironmentResponse struct {
 }
 
 type AddEnvironmentRequest struct {
+	Keyword     string `json:"keyword"`
 	Name        string `json:"name"`
+	Drive       string `json:"drive"`
 	Config      string `json:"config"`
 	Prefix      string `json:"prefix"`
 	Description string `json:"description"`
+	Status      bool   `json:"status"`
 }
 
 type UpdateEnvironmentRequest struct {
 	ID          int64  `json:"id"`
-	Keyword     string `json:"keyword"`
-	Name        string `json:"name"`
-	Config      string `json:"config"`
-	Prefix      string `json:"prefix"`
-	Description string `json:"description"`
+	Keyword     string `json:"keyword,optional"`
+	Name        string `json:"name,optional"`
+	Drive       string `json:"drive,optional"`
+	Config      string `json:"config,optional"`
+	Prefix      string `json:"prefix,optional"`
+	Description string `json:"description,optional"`
+	Status      *bool  `json:"status,optional"`
 }
 
 type DeleteEnvironmentRequest struct {
@@ -50,13 +57,14 @@ type Service struct {
 }
 
 type GetServiceRequest struct {
-	Page    int64  `json:"page"`
-	Count   int64  `json:"count"`
-	Keyword string `json:"keyword"`
+	Page    int64  `form:"page"`
+	Count   int64  `form:"count"`
+	Keyword string `form:"keyword,optional"`
 }
 
 type GetServiceResponse struct {
-	List []Service `json:"list"`
+	List  []Service `json:"list"`
+	Total int64     `json:"total"`
 }
 
 type AddServiceRequest struct {
@@ -67,9 +75,9 @@ type AddServiceRequest struct {
 
 type UpdateServiceRequest struct {
 	ID          int64  `json:"id"`
-	Keyword     string `json:"keyword"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
+	Keyword     string `json:"keyword,optional"`
+	Name        string `json:"name,optional"`
+	Description string `json:"description,optional"`
 }
 
 type DeleteServiceRequest struct {
@@ -77,39 +85,45 @@ type DeleteServiceRequest struct {
 }
 
 type Configure struct {
-	ID         int64  `json:"id"`
-	ServiceId  string `json:"service_id"`
-	Template   string `json:"template"`
-	Version    string `json:"version"`
-	IsUse      bool   `json:"is_use"`
-	Operator   string `json:"operator"`
-	OperatorID int64  `json:"operator_id"`
-	CreatedAt  int64  `json:"created_at"`
-	UpdatedAt  int64  `json:"updated_at"`
+	ID          int64  `json:"id"`
+	ServiceId   string `json:"service_id"`
+	Template    string `json:"template"`
+	Version     string `json:"version"`
+	IsUse       bool   `json:"is_use"`
+	Description string `json:"description"`
+	Operator    string `json:"operator"`
+	OperatorID  int64  `json:"operator_id"`
+	CreatedAt   int64  `json:"created_at"`
+	UpdatedAt   int64  `json:"updated_at"`
 }
 
 type GetConfigureRequest struct {
-	ServiceId string `json:"service_id"`
-	Version   string `json:"version,optional"`
-	IsUse     *bool  `json:"is_use,optional"`
+	ID int64 `form:"id"`
 }
 
-type GetConfigureResponse struct {
+type ListConfigureRequest struct {
+	ServiceId string `form:"service_id"`
+	Version   string `form:"version,optional"`
+	IsUse     *bool  `form:"is_use,optional"`
+}
+
+type ListConfigureResponse struct {
 	List []Configure `json:"list"`
 }
 
 type AddConfigureRequest struct {
-	ServiceId string `json:"service_id"`
-	Template  string `json:"template"`
-	Version   string `json:"version"`
-	IsUse     bool   `json:"is_use"`
+	ServiceId   int64  `json:"service_id"`
+	ServiceName string `json:"service_name"`
+	Template    string `json:"template"`
+	Description string `json:"description"`
 }
 
 type UpdateConfigureRequest struct {
-	ID        int64  `json:"id"`
-	ServiceId string `json:"service_id"`
-	Template  string `json:"template"`
-	IsUse     bool   `json:"is_use,optional"`
+	ID          int64  `json:"id"`
+	ServiceId   int64  `json:"service_id"`
+	ServiceName string `json:"service_name"`
+	Template    string `json:"template"`
+	IsUse       *bool  `json:"is_use,optional"`
 }
 
 type DeleteConfigureRequest struct {
@@ -128,9 +142,98 @@ type ConfigureLog struct {
 }
 
 type GetConfigureLogRequest struct {
-	ServiceName string `json:"service_name,optional"`
+	ServiceName string `form:"service_name,optional"`
+	Page        int64  `form:"page"`
+	Count       int64  `form:"count,range=[0:50]"`
 }
 
 type GetConfigureLogResponse struct {
-	List []ConfigureLog `json:"list"`
+	List  []ConfigureLog `json:"list"`
+	Total int64          `json:"total"`
+}
+
+type ConfigureField struct {
+	ID          int64  `json:"id"`
+	Type        string `json:"type"`
+	Field       string `json:"field"`
+	Config      string `json:"config"`
+	Description string `json:"description"`
+	Operator    string `json:"operator"`
+	OperatorID  int64  `json:"operator_id"`
+	CreatedAt   int64  `json:"created_at"`
+	UpdatedAt   int64  `json:"updated_at"`
+}
+
+type PageConfigureFieldRequest struct {
+	Page  int64  `form:"page"`
+	Count int64  `form:"count,range=[0:50]"`
+	Field string `form:"field,optional"`
+	Type  string `form:"type,optional"`
+}
+
+type PageConfigureFieldResponse struct {
+	Total int64            `json:"total"`
+	List  []ConfigureField `json:"list"`
+}
+
+type AddConfigureFieldRequest struct {
+	Type        string `json:"type"`
+	Field       string `json:"field"`
+	Config      string `json:"config"`
+	Description string `json:"description"`
+}
+
+type UpdateConfigureFieldRequest struct {
+	ID          int64  `json:"id"`
+	Type        string `json:"type"`
+	Field       string `json:"field"`
+	Config      string `json:"config"`
+	Description string `json:"description"`
+}
+
+type DeleteConfigureFieldRequest struct {
+	ID int64 `json:"id"`
+}
+
+type ServiceField struct {
+	ID          int64  `json:"id"`
+	ServiceId   int64  `json:"service_id"`
+	Field       string `json:"field"`
+	Config      string `json:"config"`
+	Description string `json:"description"`
+	Operator    string `json:"operator"`
+	OperatorID  int64  `json:"operator_id"`
+	CreatedAt   int64  `json:"created_at"`
+	UpdatedAt   int64  `json:"updated_at"`
+}
+
+type PageServiceFieldRequest struct {
+	Page      int64  `form:"page"`
+	Count     int64  `form:"count,range=[0:50]"`
+	Field     string `form:"field,optional"`
+	ServiceId string `form:"service_id,optional"`
+}
+
+type PageServiceFieldResponse struct {
+	Total int64          `json:"total"`
+	List  []ServiceField `json:"list"`
+}
+
+type AddServiceFieldRequest struct {
+	Type        string `json:"type"`
+	ServiceId   int64  `json:"service_id"`
+	Config      string `json:"config"`
+	Description string `json:"description"`
+}
+
+type UpdateServiceFieldRequest struct {
+	ID          int64  `json:"id"`
+	ServiceId   int64  `json:"service_id"`
+	Field       string `json:"field"`
+	Config      string `json:"config"`
+	Description string `json:"description"`
+}
+
+type DeleteServiceFieldRequest struct {
+	ID int64 `json:"id"`
 }

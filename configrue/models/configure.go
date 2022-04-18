@@ -9,13 +9,14 @@ import (
 )
 
 type Configure struct {
-	ServiceId  string `json:"service_id"`
-	Template   string `json:"template"`
-	Version    string `json:"version"`
-	IsUse      bool   `json:"is_use"`
-	Operator   string `json:"operator"`
-	OperatorID int64  `json:"operator_id"`
-	model.DeleteModel
+	ServiceId   int64  `json:"service_id"`
+	Template    string `json:"template"`
+	Version     string `json:"version"`
+	IsUse       bool   `json:"is_use"`
+	Description string `json:"description"`
+	Operator    string `json:"operator"`
+	OperatorID  int64  `json:"operator_id"`
+	model.BaseModel
 }
 
 func (e Configure) Table() string {
@@ -59,7 +60,9 @@ func (e *Configure) Page(query interface{}, page, count int64, f ...callback) ([
 func (e *Configure) All(query interface{}, f ...callback) ([]Configure, int64, error) {
 	var list []Configure
 	var total int64
-	db := database().Table(e.Table())
+
+	db := database().Table(e.Table()).
+		Select("id,service_id,version, is_use, description, operator, operator_id,created_at")
 	db = model.SqlWhere(db, query)
 
 	for _, fun := range f {

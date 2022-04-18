@@ -14,6 +14,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		[]rest.Route{
 			{
 				Method:  http.MethodPost,
+				Path:    "/check_health",
+				Handler: CheckHealthHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
 				Path:    "/user/login",
 				Handler: LoginHandler(serverCtx),
 			},
@@ -128,6 +133,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: GetLogHandler(serverCtx),
 			},
 		},
-		rest.WithPrefix("/api/v1"),
+		rest.WithPrefix("/api/v1/ums"),
 	)
 }

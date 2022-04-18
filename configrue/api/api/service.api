@@ -12,12 +12,13 @@ type (
         UpdatedAt   int64   `json:"updated_at"`
     }
     GetServiceRequest{
-        Page int64 `json:"page"`
-        Count int64 `json:"count"`
-        Keyword string `json:"keyword"`
+        Page int64 `form:"page"`
+        Count int64 `form:"count"`
+        Keyword string `form:"keyword,optional"`
     }
     GetServiceResponse{
         List []Service `json:"list"`
+        Total int64 `json:"total"`
     }
     AddServiceRequest{
         Keyword     string `json:"keyword"`
@@ -26,9 +27,9 @@ type (
     }
     UpdateServiceRequest{
         ID          int64  `json:"id"`
-        Keyword     string `json:"keyword"`
-        Name        string `json:"name"`
-        Description string `json:"description"`
+        Keyword     string `json:"keyword,optional"`
+        Name        string `json:"name,optional"`
+        Description string `json:"description,optional"`
     }
     DeleteServiceRequest{
         ID          int64  `json:"id"`

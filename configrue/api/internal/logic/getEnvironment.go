@@ -2,6 +2,8 @@ package logic
 
 import (
 	"context"
+	"devops/common/tools"
+	"devops/configrue/models"
 
 	"devops/configrue/api/internal/svc"
 	"devops/configrue/api/internal/types"
@@ -24,7 +26,9 @@ func NewGetEnvironmentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ge
 }
 
 func (l *GetEnvironmentLogic) GetEnvironment() (resp *types.GetEnvironmentResponse, err error) {
-	// todo: add your logic here and delete this line
-
-	return
+	env := models.Environment{}
+	resp = new(types.GetEnvironmentResponse)
+	list, _, err := env.All(nil)
+	tools.Transform(list, &resp.List)
+	return resp, err
 }

@@ -79,6 +79,9 @@ func (l *AuthLogic) rbac(info, path, method string) error {
 }
 
 func (l *AuthLogic) IsWhitePath(path string) bool {
+	if strings.Contains(path, "check_health") {
+		return true
+	}
 	return tools.InListStr(l.svcCtx.Config.WhitePath, path)
 }
 

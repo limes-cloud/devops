@@ -7,6 +7,7 @@ type (
         Template   string `json:"template"`
         Version    string `json:"version"`
         IsUse      bool   `json:"is_use"`
+        Description string `json:"description"`
         Operator   string `json:"operator"`
         OperatorID int64  `json:"operator_id"`
         CreatedAt  int64  `json:"created_at"`
@@ -14,27 +15,33 @@ type (
     }
 
     GetConfigureRequest{
-        ServiceId  string `json:"service_id"`
-        Version    string `json:"version,optional"`
-        IsUse      *bool   `json:"is_use,optional"`
+        ID int64 `form:"id"`
     }
 
-    GetConfigureResponse{
+    ListConfigureRequest{
+        ServiceId  string `form:"service_id"`
+        Version    string `form:"version,optional"`
+        IsUse      *bool   `form:"is_use,optional"`
+    }
+
+    ListConfigureResponse{
         List []Configure `json:"list"`
     }
 
     AddConfigureRequest{
-        ServiceId  string `json:"service_id"`
+        ServiceId  int64 `json:"service_id"`
+        ServiceName string `json:"service_name"`
         Template   string `json:"template"`
-        Version    string `json:"version"`
-        IsUse      bool   `json:"is_use"`
+        Description string `json:"description"`
     }
 
     UpdateConfigureRequest{
         ID          int64 `json:"id"`
-        ServiceId  string `json:"service_id"`
+        ServiceId  int64 `json:"service_id"`
+        ServiceName string `json:"service_name"`
         Template   string `json:"template"`
-        IsUse      bool   `json:"is_use,optional"`
+        IsUse      *bool   `json:"is_use,optional"`
+
     }
 
     DeleteConfigureRequest{

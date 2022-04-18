@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"devops/configrue/models"
 
 	"devops/configrue/api/internal/svc"
 	"devops/configrue/api/internal/types"
@@ -24,7 +25,7 @@ func NewDeleteServiceLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Del
 }
 
 func (l *DeleteServiceLogic) DeleteService(req *types.DeleteServiceRequest) error {
-	// todo: add your logic here and delete this line
-
-	return nil
+	service := models.Service{}
+	service.ID = req.ID
+	return service.DeleteByID(l.ctx)
 }

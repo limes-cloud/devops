@@ -5,9 +5,11 @@ type (
         ID          int64  `json:"id"`
         Keyword     string `json:"keyword"`
         Name        string `json:"name"`
+        Drive       string `json:"drive"`
         Config      string `json:"config"`
         Prefix      string `json:"prefix"`
         Description string `json:"description"`
+        Status       bool  `json:"status"`
         Operator    string `json:"operator"`
         OperatorID  int64   `json:"operator_id"`
         CreatedAt   int64   `json:"created_at"`
@@ -19,19 +21,24 @@ type (
     }
 
     AddEnvironmentRequest{
+        Keyword     string `json:"keyword"`
         Name        string `json:"name"`
+        Drive       string `json:"drive"`
         Config      string `json:"config"`
         Prefix      string `json:"prefix"`
         Description string `json:"description"`
+        Status       bool  `json:"status"`
     }
 
     UpdateEnvironmentRequest {
         ID          int64  `json:"id"`
-        Keyword     string `json:"keyword"`
-        Name        string `json:"name"`
-        Config      string `json:"config"`
-        Prefix      string `json:"prefix"`
-        Description string `json:"description"`
+        Keyword     string `json:"keyword,optional"`
+        Name        string `json:"name,optional"`
+        Drive       string `json:"drive,optional"`
+        Config      string `json:"config,optional"`
+        Prefix      string `json:"prefix,optional"`
+        Description string `json:"description,optional"`
+        Status       *bool  `json:"status,optional"`
     }
 
     DeleteEnvironmentRequest{

@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"devops/configrue/models"
 
 	"devops/configrue/api/internal/svc"
 	"devops/configrue/api/internal/types"
@@ -24,7 +25,7 @@ func NewDeleteEnvironmentLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *DeleteEnvironmentLogic) DeleteEnvironment(req *types.DeleteEnvironmentRequest) error {
-	// todo: add your logic here and delete this line
-
-	return nil
+	env := models.Environment{}
+	env.ID = req.ID
+	return env.DeleteByID(l.ctx)
 }

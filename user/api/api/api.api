@@ -16,9 +16,13 @@ info(
 )
 
 @server(
-	prefix: api/v1
+	prefix: api/v1/ums
 )
 service user-api{
+	@doc "服务检查"
+	@handler CheckHealth
+	post /check_health
+	
 	@doc "用户登陆"
 	@handler Login
 	post /user/login (LoginRequest) returns (LoginResponse)
