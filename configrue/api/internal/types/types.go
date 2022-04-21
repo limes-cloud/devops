@@ -56,15 +56,19 @@ type Service struct {
 	UpdatedAt   int64  `json:"updated_at"`
 }
 
-type GetServiceRequest struct {
+type PageServiceRequest struct {
 	Page    int64  `form:"page"`
 	Count   int64  `form:"count"`
 	Keyword string `form:"keyword,optional"`
 }
 
-type GetServiceResponse struct {
+type PageServiceResponse struct {
 	List  []Service `json:"list"`
 	Total int64     `json:"total"`
+}
+
+type AllServiceResponse struct {
+	List []Service `json:"list"`
 }
 
 type AddServiceRequest struct {
@@ -101,6 +105,16 @@ type GetConfigureRequest struct {
 	ID int64 `form:"id"`
 }
 
+type GetParseConfigureRequest struct {
+	ID  int64  `form:"id"`
+	Env string `form:"env"`
+}
+
+type SyncConfigureRequest struct {
+	ID  int64  `json:"id"`
+	Env string `json:"env"`
+}
+
 type ListConfigureRequest struct {
 	ServiceId string `form:"service_id"`
 	Version   string `form:"version,optional"`
@@ -122,8 +136,7 @@ type UpdateConfigureRequest struct {
 	ID          int64  `json:"id"`
 	ServiceId   int64  `json:"service_id"`
 	ServiceName string `json:"service_name"`
-	Template    string `json:"template"`
-	IsUse       *bool  `json:"is_use,optional"`
+	IsUse       bool   `json:"is_use"`
 }
 
 type DeleteConfigureRequest struct {
@@ -179,7 +192,7 @@ type PageConfigureFieldResponse struct {
 type AddConfigureFieldRequest struct {
 	Type        string `json:"type"`
 	Field       string `json:"field"`
-	Config      string `json:"config"`
+	Config      string `json:"config,optional"`
 	Description string `json:"description"`
 }
 
@@ -220,9 +233,9 @@ type PageServiceFieldResponse struct {
 }
 
 type AddServiceFieldRequest struct {
-	Type        string `json:"type"`
+	Field       string `json:"field"`
 	ServiceId   int64  `json:"service_id"`
-	Config      string `json:"config"`
+	Config      string `json:"config,optional"`
 	Description string `json:"description"`
 }
 

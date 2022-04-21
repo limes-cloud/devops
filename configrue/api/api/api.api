@@ -41,9 +41,13 @@ service configure-api{
 	@handler DeleteEnvironment
 	delete /environment/info(DeleteEnvironmentRequest)
 	
-	@doc "获取指定服务"
-	@handler GetService
-	get /service/list(GetServiceRequest) returns (GetServiceResponse)
+	@doc "获取服务分页"
+	@handler PageService
+	get /service/page(PageServiceRequest) returns (PageServiceResponse)
+	
+	@doc "获取全部服务"
+	@handler AllService
+	get /service/all returns (AllServiceResponse)
 	
 	@doc "新增环境服务"
 	@handler AddService
@@ -61,6 +65,10 @@ service configure-api{
 	@handler GetConfigure
 	get /configure/info(GetConfigureRequest) returns (Configure)
 	
+	@doc "获取指定配置指定环境的解析的数据"
+	@handler GetParseConfigure
+	get /configure/parse(GetParseConfigureRequest) returns (Configure)
+	
 	@doc "获取指定配置"
 	@handler ListConfigure
 	get /configure/list(ListConfigureRequest) returns (ListConfigureResponse)
@@ -72,6 +80,10 @@ service configure-api{
 	@doc "更新环境配置"
 	@handler UpdateConfigure
 	put /configure/info(UpdateConfigureRequest)
+	
+	@doc "同步指定配置"
+	@handler SyncConfigure
+	post /configure/sync(syncConfigureRequest)
 	
 	@doc "删除指定配置"
 	@handler DeleteConfigure
@@ -97,19 +109,19 @@ service configure-api{
 	@handler DeleteConfigureField
 	delete /configure_field/info(DeleteConfigureFieldRequest)
 	
-	@doc "获取全局分页字段配置"
+	@doc "获取服务分页字段配置"
 	@handler PageServiceField
 	get /service_field/page(PageServiceFieldRequest) returns (PageServiceFieldResponse)
 	
-	@doc "新增全局字段"
+	@doc "新增服务字段"
 	@handler AddServiceField
 	post /service_field/info(AddServiceFieldRequest)
 	
-	@doc "更新字段信息"
+	@doc "更新服务字段信息"
 	@handler UpdateServiceField
 	put /service_field/info(UpdateServiceFieldRequest)
 	
-	@doc "删除指定字段信息"
+	@doc "删除指定服务字段信息"
 	@handler DeleteServiceField
 	delete /service_field/info(DeleteServiceFieldRequest)
 }

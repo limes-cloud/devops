@@ -25,9 +25,9 @@ type(
     }
 
     AddServiceFieldRequest{
-        Type        string `json:"type"`
+        Field        string `json:"field"`
         ServiceId   int64 `json:"service_id"`
-        Config      string `json:"config"`
+        Config      string `json:"config,optional"`
         Description string `json:"description"`
     }
 

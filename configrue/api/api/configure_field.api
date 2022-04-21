@@ -27,7 +27,7 @@ type(
     AddConfigureFieldRequest{
         Type        string `json:"type"`
         Field       string `json:"field"`
-        Config      string `json:"config"`
+        Config      string `json:"config,optional"`
         Description string `json:"description"`
     }
 

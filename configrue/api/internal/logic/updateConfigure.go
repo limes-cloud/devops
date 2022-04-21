@@ -27,11 +27,10 @@ func NewUpdateConfigureLogic(ctx context.Context, svcCtx *svc.ServiceContext) *U
 
 func (l *UpdateConfigureLogic) UpdateConfigure(req *types.UpdateConfigureRequest) error {
 	conf := models.Configure{}
-	conf.ID = req.ID
 	conf.Update(l.ctx, nil, map[string]interface{}{"is_use": false}, func(db *gorm.DB) *gorm.DB {
 		return db.Where("id != ?", req.ID)
 	})
-	_ = conf.OneByID()
+	_ = conf.One(map[string]interface{}{"service_id": req.ServiceId})
 
 	if conf.UpdateByID(l.ctx, map[string]interface{}{"is_use": true}) == nil {
 		NewAddConfigureLog(l.ctx, l.svcCtx).Add(AddConfigureLogRequest{
@@ -40,9 +39,5 @@ func (l *UpdateConfigureLogic) UpdateConfigure(req *types.UpdateConfigureRequest
 			Content:     "同步配置版本:" + conf.Version,
 		})
 	}
-	//conf.up
-	//这里应该获取字段。然后把数据发送到mQ中。
-	//由mq去进行发送同步到ZK
 	return conf.UpdateByID(l.ctx, map[string]interface{}{"is_use": true})
-
 }

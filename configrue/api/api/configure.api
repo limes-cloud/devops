@@ -18,6 +18,16 @@ type (
         ID int64 `form:"id"`
     }
 
+    GetParseConfigureRequest{
+        ID int64 `form:"id"`
+        Env string `form:"env"`
+    }
+
+    syncConfigureRequest{
+        ID int64 `json:"id"`
+        Env string `json:"env"`
+    }
+
     ListConfigureRequest{
         ServiceId  string `form:"service_id"`
         Version    string `form:"version,optional"`
@@ -39,8 +49,7 @@ type (
         ID          int64 `json:"id"`
         ServiceId  int64 `json:"service_id"`
         ServiceName string `json:"service_name"`
-        Template   string `json:"template"`
-        IsUse      *bool   `json:"is_use,optional"`
+        IsUse      bool   `json:"is_use"`
 
     }
 

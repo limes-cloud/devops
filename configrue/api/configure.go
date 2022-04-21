@@ -2,14 +2,13 @@ package main
 
 import (
 	"devops/common/meta"
-	"flag"
-	"fmt"
-
 	"devops/configrue/api/internal/config"
 	"devops/configrue/api/internal/handler"
 	"devops/configrue/api/internal/svc"
-
+	"flag"
+	"fmt"
 	"github.com/zeromicro/go-zero/core/conf"
+
 	"github.com/zeromicro/go-zero/rest"
 )
 
@@ -20,7 +19,6 @@ func main() {
 
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
-
 	ctx := svc.NewServiceContext(c)
 	server := rest.MustNewServer(c.RestConf, rest.WithCors())
 	server.Use(meta.SetUserIdHandle)

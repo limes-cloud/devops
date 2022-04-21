@@ -39,8 +39,13 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 			{
 				Method:  http.MethodGet,
-				Path:    "/service/list",
-				Handler: GetServiceHandler(serverCtx),
+				Path:    "/service/page",
+				Handler: PageServiceHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/service/all",
+				Handler: AllServiceHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPost,
@@ -64,6 +69,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 			{
 				Method:  http.MethodGet,
+				Path:    "/configure/parse",
+				Handler: GetParseConfigureHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
 				Path:    "/configure/list",
 				Handler: ListConfigureHandler(serverCtx),
 			},
@@ -76,6 +86,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodPut,
 				Path:    "/configure/info",
 				Handler: UpdateConfigureHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/configure/sync",
+				Handler: SyncConfigureHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodDelete,

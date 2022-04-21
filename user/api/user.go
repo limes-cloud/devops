@@ -2,14 +2,12 @@ package main
 
 import (
 	"devops/common/meta"
-	"flag"
-	"fmt"
-
 	"devops/user/api/internal/config"
 	"devops/user/api/internal/handler"
 	"devops/user/api/internal/svc"
+	"flag"
+	"fmt"
 
-	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"
 )
 
@@ -19,7 +17,8 @@ func main() {
 	flag.Parse()
 
 	var c config.Config
-	conf.MustLoad(*configFile, &c)
+
+	//conf.MustLoad(*configFile, &c)
 	config.Init(&c)
 
 	ctx := svc.NewServiceContext(c)

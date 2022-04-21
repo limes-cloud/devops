@@ -4,47 +4,26 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28fe65d1-57f3-499e-a897-b49a37975517" name="Changes" comment="完成rbac 配置中心">
-      <change afterPath="$PROJECT_DIR$/configrue/api/api/configure_field.api" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/configrue/api/api/service_field.api" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/configrue/api/internal/logic/addConfigureLog.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/configrue/models/configure_field.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/configrue/models/service_field.go" afterDir="false" />
+    <list default="true" id="28fe65d1-57f3-499e-a897-b49a37975517" name="Changes" comment="配置中心">
+      <change afterPath="$PROJECT_DIR$/common/drive/etcx/base.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/drive/etcx/etcd.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/drive/etcx/update.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/configrue/api/internal/common/configure.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/configrue/api/api/api.api" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/api/api.api" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/configrue/api/api/configure.api" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/api/configure.api" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/api/configure_log.api" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/api/configure_log.api" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/api/environment.api" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/api/environment.api" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/api/configure_field.api" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/api/configure_field.api" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/configrue/api/api/service.api" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/api/service.api" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/api/service_field.api" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/api/service_field.api" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/configrue/api/configure.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/configure.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/etc/configure-api.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/etc/configure-api.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/internal/config/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/addConfigrueHandler.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/deleteConfigrueHandler.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/getConfigrueHandler.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/getConfigrueLogHandler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/etcdx/etcd.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/getServiceHandler.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/internal/handler/routes.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/updateConfigrueHandler.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/addConfigrue.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/addService.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/internal/logic/addService.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/deleteConfigrue.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/deleteEnvironment.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/internal/logic/deleteEnvironment.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/deleteService.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/internal/logic/deleteService.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/getConfigrue.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/getConfigrueLog.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/getEnvironment.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/internal/logic/getEnvironment.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/getService.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/internal/logic/getService.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/updateConfigrue.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/updateEnvironment.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/internal/logic/updateEnvironment.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/updateService.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/internal/logic/updateService.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/svc/serviceContext.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/internal/svc/serviceContext.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/addConfigure.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/internal/logic/addConfigure.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/getService.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/internal/logic/pageService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/updateConfigure.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/internal/logic/updateConfigure.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/configrue/api/internal/types/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/internal/types/types.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/models/configure.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/models/configure.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/models/environment.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/models/environment.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/api/api.api" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/api/api.api" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/etc/user-api.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/etc/user-api.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/handler/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/handler/routes.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/logic/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/logic/auth.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/api/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,8 +33,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Go File" />
         <option value="Api File" />
+        <option value="Go File" />
       </list>
     </option>
   </component>
@@ -97,7 +76,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "go.sdk",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -108,11 +87,19 @@
       <recent name="$PROJECT_DIR$/configrue/models" />
       <recent name="$PROJECT_DIR$/common/drive/cachex" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/common/drive" />
+    </key>
   </component>
   <component name="RunManager" selected="Go Build.go build devops/configrue/api">
     <configuration name="go build devops/configrue/api" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="devops" />
       <working_directory value="$PROJECT_DIR$/configrue/api" />
+      <envs>
+        <env name="env" value="dev" />
+        <env name="etc_type" value="etcd" />
+        <env name="etc_host" value="127.0.0.1:2379" />
+      </envs>
       <kind value="PACKAGE" />
       <package value="devops/configrue/api" />
       <directory value="$PROJECT_DIR$" />
@@ -158,7 +145,8 @@
     <MESSAGE value="user权限控制" />
     <MESSAGE value="完成rbac 角色控制" />
     <MESSAGE value="完成rbac 配置中心" />
-    <option name="LAST_COMMIT_MESSAGE" value="完成rbac 配置中心" />
+    <MESSAGE value="配置中心" />
+    <option name="LAST_COMMIT_MESSAGE" value="配置中心" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

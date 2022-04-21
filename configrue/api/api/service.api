@@ -11,15 +11,20 @@ type (
         CreatedAt   int64   `json:"created_at"`
         UpdatedAt   int64   `json:"updated_at"`
     }
-    GetServiceRequest{
+    PageServiceRequest{
         Page int64 `form:"page"`
         Count int64 `form:"count"`
         Keyword string `form:"keyword,optional"`
     }
-    GetServiceResponse{
+    PageServiceResponse{
         List []Service `json:"list"`
         Total int64 `json:"total"`
     }
+
+    AllServiceResponse{
+        List []Service `json:"list"`
+    }
+
     AddServiceRequest{
         Keyword     string `json:"keyword"`
         Name        string `json:"name"`
