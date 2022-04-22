@@ -79,8 +79,12 @@ func SetUserIdHandle(next http.HandlerFunc) http.HandlerFunc {
 			next(w, r.WithContext(ctx))
 			return
 		}
-
-		userinfo, err := ParseUserInfo(r.Header.Get("X-User"))
+		userStr := r.Header.Get("X-User")
+		if userStr == "" { //从redis 中获取白名单
+			next(w, r.WithContext(ctx))
+			return
+		}
+		userinfo, err := ParseUserInfo(userStr)
 		if err != nil {
 			httpx.OkJson(w, response.Resp{Code: 402, Msg: err.Error()})
 			return

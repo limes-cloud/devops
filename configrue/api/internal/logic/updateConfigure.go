@@ -28,9 +28,9 @@ func NewUpdateConfigureLogic(ctx context.Context, svcCtx *svc.ServiceContext) *U
 func (l *UpdateConfigureLogic) UpdateConfigure(req *types.UpdateConfigureRequest) error {
 	conf := models.Configure{}
 	conf.Update(l.ctx, nil, map[string]interface{}{"is_use": false}, func(db *gorm.DB) *gorm.DB {
-		return db.Where("id != ?", req.ID)
+		return db.Where("service_id != ?", req.ServiceId)
 	})
-	_ = conf.One(map[string]interface{}{"service_id": req.ServiceId})
+	_ = conf.One(map[string]interface{}{"id": req.ID})
 
 	if conf.UpdateByID(l.ctx, map[string]interface{}{"is_use": true}) == nil {
 		NewAddConfigureLog(l.ctx, l.svcCtx).Add(AddConfigureLogRequest{

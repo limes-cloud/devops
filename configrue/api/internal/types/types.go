@@ -16,6 +16,18 @@ type Environment struct {
 	UpdatedAt   int64  `json:"updated_at"`
 }
 
+type GetEnvConfigRequest struct {
+	Env string `form:"env"`
+}
+
+type GetEnvConfigResponse struct {
+	Type     string `json:"type"`
+	Host     string `json:"host"`
+	Prefix   string `json:"prefix"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
 type GetEnvironmentResponse struct {
 	List []Environment `json:"list"`
 }

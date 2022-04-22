@@ -1,7 +1,8 @@
 package etcx
 
 import (
-	"os"
+	"context"
+	"github.com/spf13/viper"
 	"time"
 )
 
@@ -20,30 +21,36 @@ type EtcEnv struct {
 }
 
 type Etc interface {
-	Init(interface{})
+	Init(*viper.Viper)
+	Watch(*viper.Viper)
 }
 
-func Init(conf interface{}) {
+func Init(info EtcEnv) *viper.Viper {
 	var etc Etc
 	var err error
-	info := NewEtcEnv()
 	switch info.Type {
 	case "etcd":
-		if etc, err = NewEtcd(info); err != nil {
+		if etc, err = NewEtcd(&info); err != nil {
 			panic(err)
 		}
 	default:
 		panic("错误的配置环境变量")
 	}
-	etc.Init(&conf)
+	v := viper.New()
+	etc.Init(v)
+	return v
 }
 
-func NewEtcEnv() *EtcEnv {
-	return &EtcEnv{
-		Env:      os.Getenv("env"),
-		Type:     os.Getenv("etc_type"),
-		Host:     os.Getenv("etc_host"),
-		Username: os.Getenv("username"),
-		Password: os.Getenv("Password"),
+func Update(info *EtcEnv, service, val string) error {
+	info.Prefix = info.Prefix + service
+	switch info.Type {
+	case "etcd":
+		if client, err := NewEtcd(info); err != nil {
+			return err
+		} else {
+			_, err = client.Client.KV.Put(context.TODO(), info.Prefix, val)
+			return err
+		}
 	}
+	return nil
 }

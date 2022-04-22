@@ -19,6 +19,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 			{
 				Method:  http.MethodGet,
+				Path:    "/envconfig/info",
+				Handler: GetEnvConfigHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
 				Path:    "/environment/list",
 				Handler: GetEnvironmentHandler(serverCtx),
 			},

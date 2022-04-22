@@ -25,6 +25,10 @@ service configure-api{
 	@handler CheckHealth
 	post /check_health
 	
+	@doc "获取环境配置信息"
+	@handler GetEnvConfig
+	get /envconfig/info(GetEnvConfigRequest) returns (GetEnvConfigResponse)
+	
 	@doc "获取环境列表"
 	@handler GetEnvironment
 	get /environment/list returns (GetEnvironmentResponse)

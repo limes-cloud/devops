@@ -39,7 +39,7 @@ func (l *LoginLogic) Login(r *http.Request, req *types.LoginRequest) (resp *type
 	}
 	user := models.User{}
 	resp = new(types.LoginResponse)
-	password, err := rsa.Decode(l.svcCtx.Config.Rsa.PrivateKey, req.Password)
+	password, err := rsa.Decode(l.svcCtx.Config.GetString("rsa.public_file"), req.Password)
 	if err != nil {
 		return nil, err
 	}
@@ -103,9 +103,9 @@ func (l *LoginLogic) ipLimit(r *http.Request) error {
 
 // NewToken 进行token生成
 func (l *LoginLogic) NewToken(user models.User) (string, error) {
-	auth := l.svcCtx.Config.Auth
+
 	claims := make(jwt.MapClaims)
-	claims["exp"] = time.Now().Unix() + auth.AccessExpire
+	claims["exp"] = time.Now().Unix() + l.svcCtx.Config.GetInt64("auth.access_expire")
 	claims["iat"] = time.Now().Unix()
 	b, _ := json.Marshal(map[string]interface{}{
 		meta.UserIDKey:      user.ID,
@@ -119,5 +119,6 @@ func (l *LoginLogic) NewToken(user models.User) (string, error) {
 
 	token := jwt.New(jwt.SigningMethodHS256)
 	token.Claims = claims
-	return token.SignedString([]byte(auth.AccessSecret))
+	return token.SignedString([]byte(l.svcCtx.Config.GetString("auth.access_secret")))
+
 }
