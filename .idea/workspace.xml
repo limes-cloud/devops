@@ -5,20 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="28fe65d1-57f3-499e-a897-b49a37975517" name="Changes" comment="配置中心">
-      <change afterPath="$PROJECT_DIR$/common/drive/etcx/consul.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img_5.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/configx/init.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/configx/init.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/drive/etcx/base.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/drive/etcx/base.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/drive/etcx/etcd.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/drive/etcx/etcd.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/meta/meta.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/meta/meta.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/addConfigure.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/internal/logic/addConfigure.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/updateConfigure.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/internal/logic/updateConfigure.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/api/internal/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/config/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/config/init.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/logic/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/logic/auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/logic/login.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/logic/login.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/svc/serviceContext.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/svc/serviceContext.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +30,9 @@
   </component>
   <component name="GOROOT" url="file://$USER_HOME$/golib/go1.18" />
   <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/user/api/internal/logic/auth.go" root0="FORCE_HIGHLIGHTING" />
@@ -83,6 +80,7 @@
       <recent name="$PROJECT_DIR$/common/drive/cachex" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/static" />
       <recent name="$PROJECT_DIR$/common/drive" />
     </key>
   </component>

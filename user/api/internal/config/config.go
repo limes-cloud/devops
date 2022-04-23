@@ -2,7 +2,7 @@ package config
 
 import (
 	"devops/common/configx"
-	"fmt"
+	"github.com/prometheus/common/log"
 	"github.com/spf13/viper"
 	"github.com/zeromicro/go-zero/rest"
 	"io"
@@ -25,7 +25,7 @@ func Init(serviceName string) *Config {
 }
 
 func Watch(v *viper.Viper) {
-	fmt.Printf("配置中心发生改变")
+	log.Info("配置中心发生改变")
 	RsaInit(v)
 }
 
