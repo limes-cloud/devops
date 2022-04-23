@@ -45,9 +45,12 @@ func (l *AddConfigureLogic) AddConfigure(req *types.AddConfigureRequest) (err er
 	//在创建之前进行模板检测
 	if err = config.Create(l.ctx); err == nil {
 		//删除之前20个版本。
-		list, _, _ := config.Page(nil, 20, 1)
+		list, _, _ := config.Page(nil, 20, 1, func(db *gorm.DB) *gorm.DB {
+			return db.Order("id desc")
+		})
 		if len(list) > 0 {
-			config.Delete(l.ctx, nil, func(db *gorm.DB) *gorm.DB {
+			del := models.Configure{}
+			del.Delete(l.ctx, nil, func(db *gorm.DB) *gorm.DB {
 				return db.Where("id < ?", list[0].ID)
 			})
 		}

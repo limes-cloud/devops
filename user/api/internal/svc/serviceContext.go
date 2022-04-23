@@ -13,13 +13,13 @@ import (
 )
 
 type ServiceContext struct {
-	Config config.Config
+	Config *config.Config
 	Orm    *gorm.DB
 	Redis  *redis.Client
 	Rbac   *casbin.Enforcer
 }
 
-func NewServiceContext(c config.Config) *ServiceContext {
+func NewServiceContext(c *config.Config) *ServiceContext {
 	db := NewOrm(c.Viper)
 	return &ServiceContext{
 		Config: c,

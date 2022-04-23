@@ -22,7 +22,7 @@ func NewEtcd(info *EtcEnv) (*Etcd, error) {
 		DialTimeout: Timeout,
 	})
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	return &Etcd{
 		Client: client,
@@ -57,6 +57,9 @@ func (e *Etcd) Watch(v *viper.Viper) {
 				case mvccpb.PUT:
 					fmt.Printf("配置被修改：%s", event.Kv.Value)
 					v.ReadConfig(bytes.NewBuffer(event.Kv.Value))
+					if CallBack != nil {
+						CallBack(v)
+					}
 				}
 			}
 		}

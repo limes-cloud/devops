@@ -40,6 +40,7 @@ func (l *AuthLogic) Auth(r *http.Request, w http.ResponseWriter) error {
 	// 判断是否是白名单
 	if l.IsWhitePath(path) {
 		logx.WithContext(l.ctx).Infof("url:%v是白名单", path)
+		w.Header().Set("x-user", meta.WhitelistKey)
 		return nil
 	}
 

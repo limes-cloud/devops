@@ -5,23 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="28fe65d1-57f3-499e-a897-b49a37975517" name="Changes" comment="配置中心">
-      <change afterPath="$PROJECT_DIR$/common/configx/init.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/drive/etcx/consul.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/configx/init.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/configx/init.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/drive/etcx/base.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/drive/etcx/base.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/drive/etcx/etcd.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/drive/etcx/etcd.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/drive/etcx/update.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/common/meta/meta.go" beforeDir="false" afterPath="$PROJECT_DIR$/common/meta/meta.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/api/api.api" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/api/api.api" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/api/configure.api" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/api/configure.api" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/api/environment.api" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/api/environment.api" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/common/configure.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/internal/common/configure.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/handler/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/internal/handler/routes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/addConfigure.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/internal/logic/addConfigure.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/configrue/api/internal/logic/updateConfigure.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/internal/logic/updateConfigure.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configrue/api/internal/types/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/configrue/api/internal/types/types.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/api/internal/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/config/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/api/internal/config/init.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/config/init.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/api/internal/config/init.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/user/api/internal/logic/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/logic/auth.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/api/internal/logic/login.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/logic/login.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/api/internal/svc/serviceContext.go" beforeDir="false" afterPath="$PROJECT_DIR$/user/api/internal/svc/serviceContext.go" afterDir="false" />
@@ -72,7 +65,7 @@
     "WebServerToolWindowFactoryState": "false",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "/Users/apple/GolandProjects/devops/configrue/api/internal/logic",
+    "last_opened_file_path": "/Users/apple/GolandProjects/devops",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -168,11 +161,6 @@
           <url>file://$PROJECT_DIR$/common/tools/tool.go</url>
           <line>63</line>
           <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/configrue/api/configure.go</url>
-          <line>21</line>
-          <option name="timeStamp" value="145" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

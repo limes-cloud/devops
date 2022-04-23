@@ -13,7 +13,7 @@ import (
 )
 
 // InitConfig 2:获取链接配置
-func InitConfig(serviceName string) *viper.Viper {
+func InitConfig(serviceName string, watch etcx.CallFunc) *viper.Viper {
 	info := GetEtc()
 	info.Prefix = info.Prefix + serviceName
 	v := etcx.Init(info)
@@ -21,6 +21,7 @@ func InitConfig(serviceName string) *viper.Viper {
 	if err := v.Unmarshal(&data); err != nil {
 		panic(err)
 	}
+	etcx.CallBack = watch
 	return v
 }
 
@@ -43,6 +44,7 @@ func GetEtc() etcx.EtcEnv {
 	defer response.Body.Close()
 	respData := struct {
 		Code int64       `json:"code"`
+		Msg  string      `json:"msg"`
 		Data interface{} `json:"data"`
 	}{}
 
@@ -50,6 +52,9 @@ func GetEtc() etcx.EtcEnv {
 	info := etcx.EtcEnv{}
 	if json.Unmarshal(b, &respData) != nil {
 		panic("解析配置中心失败")
+	}
+	if respData.Code != 200 {
+		panic("获取配置连接信息失败:" + respData.Msg)
 	}
 	tools.Transform(respData.Data, &info)
 	return info

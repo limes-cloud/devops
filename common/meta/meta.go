@@ -19,6 +19,7 @@ const (
 	RoleIdKey      = "role_id"
 	RoleKeywordKey = "role_keyword"
 	SuperAdmin     = "super_admin"
+	WhitelistKey   = "whitelist"
 )
 
 func UserId(ctx context.Context) int64 {
@@ -80,7 +81,7 @@ func SetUserIdHandle(next http.HandlerFunc) http.HandlerFunc {
 			return
 		}
 		userStr := r.Header.Get("X-User")
-		if userStr == "" { //从redis 中获取白名单
+		if userStr == WhitelistKey || userStr == "" { //白名单直接过滤
 			next(w, r.WithContext(ctx))
 			return
 		}

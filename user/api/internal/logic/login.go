@@ -39,7 +39,7 @@ func (l *LoginLogic) Login(r *http.Request, req *types.LoginRequest) (resp *type
 	}
 	user := models.User{}
 	resp = new(types.LoginResponse)
-	password, err := rsa.Decode(l.svcCtx.Config.GetString("rsa.public_file"), req.Password)
+	password, err := rsa.Decode(l.svcCtx.Config.GetString("rsa.private_key"), req.Password)
 	if err != nil {
 		return nil, err
 	}
