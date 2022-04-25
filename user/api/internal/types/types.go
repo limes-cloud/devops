@@ -58,6 +58,11 @@ type AddUserRequest struct {
 	Password string `json:"password"`
 }
 
+type UpdateUserPasswordRequest struct {
+	Oldpass string `json:"oldpass"`
+	Pass    string `json:"pass"`
+}
+
 type UpdateUserRequest struct {
 	ID       int64  `json:"id"`
 	RoleID   int64  `json:"role_id"`

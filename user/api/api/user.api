@@ -57,6 +57,11 @@ type (
         Password   string  `json:"password"`
     }
 
+    UpdateUserPasswordRequest{
+        Oldpass string `json:"oldpass"`
+        Pass string `json:"pass"`
+    }
+
     UpdateUserRequest{
         ID         int64     `json:"id"`
         RoleID     int64     `json:"role_id"`

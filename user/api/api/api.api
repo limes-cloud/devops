@@ -27,6 +27,10 @@ service user-api{
 	@handler Login
 	post /user/login (LoginRequest) returns (LoginResponse)
 	
+	@doc "修改用户密码"
+	@handler ChangePassword
+	post /user/changepwd (UpdateUserPasswordRequest)
+	
 	@doc "用户登陆验证"
 	@handler Auth
 	get /auth/validate

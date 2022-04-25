@@ -7,16 +7,18 @@ import (
 	"devops/user/api/internal/svc"
 	"flag"
 	"fmt"
+	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"
 )
 
 var configFile = flag.String("f", "etc/user-api.yaml", "the config file")
 
-const serviceName = "ums"
-
 func main() {
 	flag.Parse()
-	c := config.Init(serviceName)
+	var c config.Config
+	conf.MustLoad(*configFile, &c)
+	config.RsaInit(&c)
+
 	ctx := svc.NewServiceContext(c)
 	server := rest.MustNewServer(c.RestConf, rest.WithCors())
 	server.Use(meta.SetUserIdHandle)

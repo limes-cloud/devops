@@ -20,11 +20,11 @@ Redis:
   Host: "127.0.0.1:6379"
   Pass: ""
 
-WhitePath:
+Whitelist:
   - "/ums/user/login"
 
 Rsa:
-  PublicFile: "internal/config/ca/public.pem"
-  PrivateFile: "internal/config/ca/private.pem"
   PublicKey: ""
   PrivateKey: ""
+  PublicFile: "internal/config/ca/public.pem"
+  PrivateFile: "internal/config/ca/private.pem"

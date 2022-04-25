@@ -1,10 +1,6 @@
 Name: configure-api
 Host: 0.0.0.0
 Port: 8887
-Etcd:
-  Hosts:
-    - 127.0.0.1:2379
-  Prefix: /configure/service/
 
 Mysql:
   DSN: "root:root@tcp(127.0.0.1:3306)/devops?charset=utf8mb4&parseTime=True&loc=Local"
@@ -17,3 +13,9 @@ Mysql:
 Redis:
   Host: "127.0.0.1:6379"
   Pass: ""
+
+#WxAccount:
+#  AppId: "wxb81741cb4e7b415b"
+#  Secret: "4ced1b915d74d2e08c1dccd2bcd8c78d"
+
+

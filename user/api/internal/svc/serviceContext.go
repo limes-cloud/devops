@@ -3,46 +3,42 @@ package svc
 import (
 	"devops/common/drive/mysqlx"
 	"devops/common/drive/redisx"
+	"devops/common/tools"
 	"devops/user/api/internal/config"
 	"github.com/casbin/casbin/v2"
 	"github.com/casbin/casbin/v2/model"
 	gormadapter "github.com/casbin/gorm-adapter/v3"
 	"github.com/go-redis/redis/v8"
-	"github.com/spf13/viper"
 	"gorm.io/gorm"
 )
 
 type ServiceContext struct {
-	Config *config.Config
+	Config config.Config
 	Orm    *gorm.DB
 	Redis  *redis.Client
 	Rbac   *casbin.Enforcer
 }
 
-func NewServiceContext(c *config.Config) *ServiceContext {
-	db := NewOrm(c.Viper)
+func NewServiceContext(c config.Config) *ServiceContext {
+	db := NewOrm(c)
 	return &ServiceContext{
 		Config: c,
 		Orm:    db,
-		Redis:  NewRedis(c.Viper),
+		Redis:  NewRedis(c),
 		Rbac:   NewRbac(db),
 	}
 }
 
-func NewOrm(c *viper.Viper) *gorm.DB {
+func NewOrm(c config.Config) *gorm.DB {
 	conf := mysqlx.Config{}
-	if err := c.UnmarshalKey("mysql", &conf); err != nil {
-		panic("获取数据库配置失败" + err.Error())
-	}
+	tools.Transform(c.Mysql, &conf)
 	return mysqlx.NewOrm(conf)
 }
 
 // NewRedis 新增Redis
-func NewRedis(c *viper.Viper) *redis.Client {
+func NewRedis(c config.Config) *redis.Client {
 	conf := redisx.Config{}
-	if err := c.UnmarshalKey("redis", &conf); err != nil {
-		panic("获取redis配置失败" + err.Error())
-	}
+	tools.Transform(c.Redis, &conf)
 	return redisx.NewClient(conf)
 }
 

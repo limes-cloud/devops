@@ -30,7 +30,10 @@ func (l *GetLogLogic) GetLog(req *types.GetLogRequest) (resp *types.GetLogRespon
 	log := models.LoginLog{}
 	resp = new(types.GetLogResponse)
 	list, count, err := log.Page(req, req.Page, req.Count, func(db *gorm.DB) *gorm.DB {
-		return db.Where("created_at between ? and ?", req.Start, req.End)
+		if req.Start != 0 && req.End != 0 {
+			return db.Where("created_at between ? and ?", req.Start, req.End)
+		}
+		return db
 	})
 	tools.Transform(list, &resp.List)
 	resp.Total = count

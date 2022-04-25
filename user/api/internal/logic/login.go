@@ -39,13 +39,12 @@ func (l *LoginLogic) Login(r *http.Request, req *types.LoginRequest) (resp *type
 	}
 	user := models.User{}
 	resp = new(types.LoginResponse)
-	password, err := rsa.Decode(l.svcCtx.Config.GetString("rsa.private_key"), req.Password)
+	password, err := rsa.Decode(l.svcCtx.Config.Rsa.PrivateKey, req.Password)
 	if err != nil {
 		return nil, err
 	}
-
 	defer func() {
-		l.NewLoginLog(r, req.UserName, err)
+		go l.NewLoginLog(r, req.UserName, err)
 	}()
 	if user.One(nil, func(db *gorm.DB) *gorm.DB {
 		return db.Where("phone = ? or email = ?", req.UserName, req.UserName)
@@ -73,6 +72,7 @@ func (l *LoginLogic) NewLoginLog(r *http.Request, username string, err error) {
 	if err != nil {
 		errStr = err.Error()
 	}
+
 	log := models.LoginLog{
 		Username:    username,
 		IP:          ip,
@@ -105,7 +105,7 @@ func (l *LoginLogic) ipLimit(r *http.Request) error {
 func (l *LoginLogic) NewToken(user models.User) (string, error) {
 
 	claims := make(jwt.MapClaims)
-	claims["exp"] = time.Now().Unix() + l.svcCtx.Config.GetInt64("auth.access_expire")
+	claims["exp"] = time.Now().Unix() + l.svcCtx.Config.Auth.AccessExpire
 	claims["iat"] = time.Now().Unix()
 	b, _ := json.Marshal(map[string]interface{}{
 		meta.UserIDKey:      user.ID,
@@ -119,6 +119,6 @@ func (l *LoginLogic) NewToken(user models.User) (string, error) {
 
 	token := jwt.New(jwt.SigningMethodHS256)
 	token.Claims = claims
-	return token.SignedString([]byte(l.svcCtx.Config.GetString("auth.access_secret")))
+	return token.SignedString([]byte(l.svcCtx.Config.Auth.AccessSecret))
 
 }

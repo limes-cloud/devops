@@ -7,7 +7,6 @@ import (
 type LoginLog struct {
 	model.CreateModel
 	Username    string `json:"username"`
-	Password    string `json:"password"`
 	IP          string `json:"ip"`
 	Address     string `json:"address"`
 	Browser     string `json:"browser"`

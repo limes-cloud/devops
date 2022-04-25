@@ -83,12 +83,12 @@ func (l *AuthLogic) IsWhitePath(path string) bool {
 	if strings.Contains(path, "check_health") {
 		return true
 	}
-	return tools.InListStr(l.svcCtx.Config.GetStringSlice("whitelist"), path)
+	return tools.InListStr(l.svcCtx.Config.Whitelist, path)
 }
 
 func (l *AuthLogic) ParseToken(r *http.Request) (string, error) {
 	parser := token.NewTokenParser()
-	tok, err := parser.ParseToken(r, l.svcCtx.Config.GetString("auth.access_secret"), "")
+	tok, err := parser.ParseToken(r, l.svcCtx.Config.Auth.AccessSecret, "")
 	if err != nil {
 		return "", err
 	}
