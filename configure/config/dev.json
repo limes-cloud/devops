@@ -1,0 +1,48 @@
+{
+  "service": "user-center",
+  "system": {
+    "skip_request_log": {
+      "get:/auth": true
+    },
+    "client_timeout":{
+      "enable": false,
+      "timeout": "10s"
+    },
+    "client_limit": {
+      "enable": true,
+      "threshold": 100
+    },
+    "cpu_threshold": {
+      "enable": true,
+      "threshold": 900
+    }
+  },
+  "log": {
+    "level": 0,
+    "trace_key": "log-id",
+    "service_key": "service"
+  },
+  "request":{
+    "enable_log": true,
+    "retry_count": 3,
+    "retry_wait_time":"1s",
+    "timeout": "10s",
+    "request_msg": "http request",
+    "response_msg": "http response"
+  },
+  "mysql": [
+    {
+      "enable": true,
+      "name": "devops",
+      "dsn": "root:root@tcp(127.0.0.1:3306)/devops_configure?charset=utf8mb4&parseTime=True&loc=Local"
+    }
+  ],
+  "redis": [
+    {
+      "enable": true,
+      "name": "redis",
+      "host": "127.0.0.1:6379"
+    }
+  ]
+
+}
