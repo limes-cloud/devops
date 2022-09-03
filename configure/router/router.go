@@ -46,6 +46,7 @@ func Init() *gin.Engine {
 		v1.GET("/config/log", handler.ConfigLog)
 		v1.GET("/config/driver", handler.DriverConfig)
 		v1.POST("/config/rollback", handler.RollbackConfig)
+		v1.GET("/config", handler.Config)
 
 		// 服务字段相关
 		v1.GET("/service_field/page", handler.PageServiceField)

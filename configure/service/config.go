@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/limeschool/gin"
+	"github.com/limeschool/gin/config_drive"
 	"gorm.io/gorm"
 	"regexp"
 	"strings"
@@ -46,6 +47,25 @@ func DriverConfig(ctx *gin.Context, in *types.DriverConfigRequest) (string, erro
 	client.SetPath("/" + server.Keyword)
 	data, _ := client.Get()
 	return string(data), nil
+}
+
+func Config(ctx *gin.Context, in *types.ConfigRequest) (*config_drive.Config, error) {
+	// 获取服务信息
+	server := model.Service{}
+	if server.One(ctx, "keyword = ? ", in.Service) != nil {
+		return nil, errors.New("token value error")
+	}
+	// 获取环境信息
+	env := model.Environment{}
+	if env.One(ctx, "token = ? ", in.Token) != nil {
+		return nil, errors.New("env value error")
+	}
+	config := &config_drive.Config{
+		Drive: env.Drive,
+		Path:  env.Prefix + "/" + server.Keyword,
+		Type:  "json",
+	}
+	return config, json.Unmarshal([]byte(env.Config), &config)
 }
 
 func AllConfigLog(ctx *gin.Context, in *types.AllConfigLogRequest) ([]model.TemplateLog, error) {

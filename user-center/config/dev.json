@@ -50,7 +50,8 @@
   },
   "whitelist": {
     "post:/ums/user/login": true,
-    "post:/ums/token/refresh": true
+    "post:/ums/token/refresh": true,
+    "get:/configure/config": true
   },
   "login_limit": {
     "enable":true,

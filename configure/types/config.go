@@ -19,6 +19,11 @@ type DriverConfigRequest struct {
 	EnvId int64 `json:"env_id" form:"env_id" binding:"required"`
 }
 
+type ConfigRequest struct {
+	Service string `json:"service"  form:"service" binding:"required"`
+	Token   string `json:"token" form:"token" binding:"required"`
+}
+
 type ConfigLogRequest struct {
 	ID int64 `json:"id" form:"id"  binding:"required"`
 }

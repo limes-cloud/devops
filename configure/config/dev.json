@@ -2,7 +2,8 @@
   "service": "user-center",
   "system": {
     "skip_request_log": {
-      "get:/auth": true
+      "get:/auth": true,
+      "get:/configure/config": true
     },
     "client_timeout":{
       "enable": false,

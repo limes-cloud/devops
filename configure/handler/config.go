@@ -72,6 +72,19 @@ func DriverConfig(ctx *gin.Context) {
 	}
 }
 
+func Config(ctx *gin.Context) {
+	in := types.ConfigRequest{}
+	if ctx.ShouldBind(&in) != nil {
+		ctx.RespError(errors.ParamsError)
+		return
+	}
+	if resp, err := service.Config(ctx, &in); err != nil {
+		ctx.RespError(err)
+	} else {
+		ctx.RespData(resp)
+	}
+}
+
 func RollbackConfig(ctx *gin.Context) {
 	in := types.RollbackConfigRequest{}
 	if ctx.ShouldBind(&in) != nil {
