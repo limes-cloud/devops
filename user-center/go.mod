@@ -12,7 +12,7 @@ require (
 	gorm.io/gorm v1.23.8
 )
 
-//replace github.com/limeschool/gin v0.0.0 => ../../src/github.com/limeschool/gin
+replace github.com/limeschool/gin v0.0.2 => ../../src/github.com/limeschool/gin
 
 require (
 	github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible // indirect

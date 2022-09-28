@@ -26,6 +26,11 @@ func PageUser(ctx *gin.Context, in *types.PageUserRequest) ([]model.User, int64,
 	})
 }
 
+func GetUser(ctx *gin.Context, in *types.GetUserRequest) (model.User, error) {
+	user := model.User{}
+	return user, user.OneByID(ctx, in.ID)
+}
+
 func AddUser(ctx *gin.Context, in *types.AddUserRequest) error {
 	user := model.User{}
 	if in.Nickname == "" {

@@ -32,12 +32,12 @@ func Auth(ctx *gin.Context) (int, error) {
 	// 获取用户信息
 	user := model.User{}
 	if err = user.OneByID(ctx, userId); err != nil {
-		return 401, err
+		return 411, errors.UserNameNotFoundError
 	}
 	// 判断当前token 和 redis存的是否一致
 	if cacheToken, _ := ctx.Redis(consts.REDIS).Get(ctx, storeKey(userId)).Result(); cacheToken != "" {
 		if token != cacheToken {
-			return 401, errors.DulDeviceLoginError
+			return 412, errors.DulDeviceLoginError
 		}
 	}
 

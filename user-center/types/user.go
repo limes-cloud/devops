@@ -12,6 +12,10 @@ type PageUserRequest struct {
 	Status *bool  `json:"status" form:"status"`
 }
 
+type GetUserRequest struct {
+	ID int64 `json:"id" form:"id"  binding:"required"`
+}
+
 type AddUserRequest struct {
 	TeamID    int64  `json:"team_id" binding:"required"`
 	RoleID    int64  `json:"role_id" binding:"required"`

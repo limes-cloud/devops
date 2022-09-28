@@ -51,7 +51,8 @@
   "whitelist": {
     "post:/ums/user/login": true,
     "post:/ums/token/refresh": true,
-    "get:/configure/config": true
+    "get:/configure/config": true,
+    "get:/ums/api/v1/user": true
   },
   "login_limit": {
     "enable":true,
@@ -73,5 +74,6 @@
   "rbac": {
     "enable": true,
     "db": "devops"
-  }
+  },
+  "request-token": "12345678"
 }

@@ -22,6 +22,19 @@ func PageUser(ctx *gin.Context) {
 	}
 }
 
+func GetUser(ctx *gin.Context) {
+	in := types.GetUserRequest{}
+	if ctx.ShouldBind(&in) != nil {
+		ctx.RespError(errors.ParamsError)
+		return
+	}
+	if data, err := service.GetUser(ctx, &in); err != nil {
+		ctx.RespError(err)
+	} else {
+		ctx.RespData(data)
+	}
+}
+
 func CurUser(ctx *gin.Context) {
 	if user, err := service.CurUser(ctx); err != nil {
 		ctx.RespError(err)

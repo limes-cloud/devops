@@ -11,41 +11,46 @@ func Init() *gin.Engine {
 	root.GET("/healthy", gin.Success())
 	root.GET("/auth", handler.Auth)
 
-	v1 := root.Group("ums/")
+	ums := root.Group("ums/")
 	{
 		// 角色相关
-		v1.GET("/role/data_scope", handler.RoleDataScope)
-		v1.GET("/role", handler.AllRole)
-		v1.POST("/role", handler.AddRole)
-		v1.PUT("/role", handler.UpdateRole)
-		v1.DELETE("/role", handler.DeleteRole)
+		ums.GET("/role/data_scope", handler.RoleDataScope)
+		ums.GET("/role", handler.AllRole)
+		ums.POST("/role", handler.AddRole)
+		ums.PUT("/role", handler.UpdateRole)
+		ums.DELETE("/role", handler.DeleteRole)
 
 		// 部门相关
-		v1.GET("/team", handler.AllTeam)
-		v1.POST("/team", handler.AddTeam)
-		v1.PUT("/team", handler.UpdateTeam)
-		v1.DELETE("/team", handler.DeleteTeam)
-		v1.GET("/role/menu", handler.RoleMenu)
-		v1.GET("/role/menu_ids", handler.RoleMenuIds)
-		v1.POST("/role/menu", handler.AddRoleMenu)
+		ums.GET("/team", handler.AllTeam)
+		ums.POST("/team", handler.AddTeam)
+		ums.PUT("/team", handler.UpdateTeam)
+		ums.DELETE("/team", handler.DeleteTeam)
+		ums.GET("/role/menu", handler.RoleMenu)
+		ums.GET("/role/menu_ids", handler.RoleMenuIds)
+		ums.POST("/role/menu", handler.AddRoleMenu)
 
 		// 菜单相关
-		v1.GET("/menu", handler.AllMenu)
-		v1.POST("/menu", handler.AddMenu)
-		v1.PUT("/menu", handler.UpdateMenu)
-		v1.DELETE("/menu", handler.DeleteMenu)
+		ums.GET("/menu", handler.AllMenu)
+		ums.POST("/menu", handler.AddMenu)
+		ums.PUT("/menu", handler.UpdateMenu)
+		ums.DELETE("/menu", handler.DeleteMenu)
 
 		// 用户管理相关
-		v1.GET("/user/page", handler.PageUser)
-		v1.GET("/user", handler.CurUser)
-		v1.POST("/user", handler.AddUser)
-		v1.POST("/user/login", handler.UserLogin)
-		v1.POST("/token/refresh", handler.RefreshToken)
-		v1.PUT("/user", handler.UpdateUser)
-		v1.DELETE("/user", handler.DeleteUser)
+		ums.GET("/user/page", handler.PageUser)
+		ums.GET("/user", handler.CurUser)
+		ums.POST("/user", handler.AddUser)
+		ums.POST("/user/login", handler.UserLogin)
+		ums.POST("/token/refresh", handler.RefreshToken)
+		ums.PUT("/user", handler.UpdateUser)
+		ums.DELETE("/user", handler.DeleteUser)
 
 		// 登陆日志
-		v1.GET("/login/log", handler.LoginLog)
+		ums.GET("/login/log", handler.LoginLog)
+
+		v1 := ums.Group("/api/v1", gin.ExtRequestTokenAuth()) //提供给内部访问
+		{
+			v1.GET("/user", handler.GetUser)
+		}
 	}
 	return root
 }
