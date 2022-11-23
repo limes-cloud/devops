@@ -1,0 +1,16 @@
+version: "3"
+services:
+  devops_nginx:
+    image: nginx
+    container_name: devops_nginx
+    restart: always
+    entrypoint:
+      - TZ=Asia/Shanghai
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./devops_nginx/conf.d:/etc/nginx/conf.d
+      - ./devops_nginx/logs:/var/log/nginx
+
+

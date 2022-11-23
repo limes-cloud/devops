@@ -1,0 +1,68 @@
+{
+  "service": "user-center",
+  "system": {
+    "skip_request_log": {
+      "get:/auth": true
+    }
+  },
+  "log": {
+    "level": 0,
+    "trace_key": "log-id",
+    "service_key": "service"
+  },
+  "request":{
+    "enable_log": true,
+    "retry_count": 3,
+    "retry_wait_time":"1s",
+    "timeout": "10s",
+    "request_msg": "http request",
+    "response_msg": "http response"
+  },
+  "mysql": [
+    {
+      "enable": true,
+      "name": "devops",
+      "dsn": "root:root@tcp(127.0.0.1:3306)/devops_ums?charset=utf8mb4&parseTime=True&loc=Local"
+    }
+  ],
+  "redis": [
+    {
+      "enable": true,
+      "name": "redis",
+      "host": "127.0.0.1:6379"
+    }
+  ],
+  "jwt": {
+    "expire": 7200,
+    "max_expire": 172800,
+    "secret": "limeschool"
+  },
+  "whitelist": {
+    "post:/ums/user/login": true,
+    "post:/ums/token/refresh": true,
+    "get:/configure/config": true,
+    "get:/ums/api/v1/user": true
+  },
+  "login_limit": {
+    "enable":true,
+    "ip_limit": 10,
+    "password_error_limit": 3
+  },
+  "rsa": [
+    {
+      "enable": true,
+      "name": "private",
+      "path": "config/cert/private.pem"
+    },
+    {
+      "enable": true,
+      "name": "public",
+      "path": "config/cert/public.pem"
+    }
+  ],
+  "rbac": {
+    "enable": true,
+    "db": "devops"
+  },
+  "request-token": "12345678"
+}
