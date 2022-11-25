@@ -18,11 +18,11 @@ type Menu struct {
 	Permission string  `json:"permission"`
 	Method     string  `json:"method"`
 	Component  string  `json:"component"`
-	Redirect   string  `json:"redirect"`
+	Redirect   *string `json:"redirect"`
 	ParentID   int64   `json:"parent_id"`
-	Weight     int     `json:"weight"`
-	Hidden     bool    `json:"hidden"`
-	IsFrame    bool    `json:"is_frame"`
+	Weight     *int    `json:"weight"`
+	Hidden     *bool   `json:"hidden"`
+	IsFrame    *bool   `json:"is_frame"`
 	Operator   string  `json:"operator"`
 	OperatorID int64   `json:"operator_id"`
 	Children   []*Menu `json:"children" gorm:"-"`

@@ -3,7 +3,8 @@
   "system": {
     "skip_request_log": {
       "get:/auth": true,
-      "get:/ums/menu": true
+      "get:/ums/menu": true,
+      "get:/ums/role/menu": true
     }
   },
   "log": {
