@@ -58,11 +58,16 @@ func (u *Menu) Create(ctx *gin.Context) error {
 	user := CurUser(ctx)
 	u.OperatorID = user.ID
 	u.Operator = user.Name
+
+	if u.Permission == consts.BaseApi {
+		delayDelCache(ctx, consts.RedisBaseApi)
+	}
+
 	return transferErr(database(ctx).Table(u.Table()).Create(&u).Error)
 }
 
-func (u *Menu) One(ctx *gin.Context, conds ...interface{}) error {
-	return transferErr(database(ctx).Table(u.Table()).First(u, conds...).Error)
+func (u *Menu) One(ctx *gin.Context, cond ...interface{}) error {
+	return transferErr(database(ctx).Table(u.Table()).First(u, cond...).Error)
 }
 
 func (u *Menu) GetBaseApiPath(ctx *gin.Context) []*Menu {

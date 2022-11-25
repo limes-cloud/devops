@@ -38,7 +38,7 @@ func UpdateTeam(ctx *gin.Context, in *types.UpdateTeamRequest) error {
 	if copier.Copy(&team, in) != nil {
 		return errors.AssignError
 	}
-	return team.UpdateByID(ctx)
+	return team.Update(ctx)
 }
 
 func DeleteTeam(ctx *gin.Context, in *types.DeleteTeamRequest) error {

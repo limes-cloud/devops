@@ -14,6 +14,7 @@ var dataMap = map[string]string{
 	"phone":   "手机号码",
 	"email":   "电子邮箱",
 	"keyword": "标志",
+	"name":    "名称",
 }
 
 func transferErr(err error) error {

@@ -19,15 +19,15 @@ func Init() *gin.Engine {
 		ums.POST("/role", handler.AddRole)
 		ums.PUT("/role", handler.UpdateRole)
 		ums.DELETE("/role", handler.DeleteRole)
+		ums.GET("/role/menu", handler.RoleMenu)
+		ums.GET("/role/menu_ids", handler.RoleMenuIds)
+		ums.POST("/role/menu", handler.AddRoleMenu)
 
 		// 部门相关
 		ums.GET("/team", handler.AllTeam)
 		ums.POST("/team", handler.AddTeam)
 		ums.PUT("/team", handler.UpdateTeam)
 		ums.DELETE("/team", handler.DeleteTeam)
-		ums.GET("/role/menu", handler.RoleMenu)
-		ums.GET("/role/menu_ids", handler.RoleMenuIds)
-		ums.POST("/role/menu", handler.AddRoleMenu)
 
 		// 菜单相关
 		ums.GET("/menu", handler.AllMenu)

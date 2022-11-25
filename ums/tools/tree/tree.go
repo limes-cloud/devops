@@ -43,18 +43,20 @@ func BuildTreeByID(array []Tree, id int64) Tree {
 	return rootNode
 }
 
+func getTreeID(t Tree, ids *[]int64) {
+	if t == nil {
+		return
+	}
+
+	*ids = append(*ids, t.ID())
+
+	for _, item := range t.ChildrenNode() {
+		getTreeID(item, ids)
+	}
+}
+
 func GetTreeID(tree Tree) []int64 {
 	var ids []int64
-	ids = append(ids, tree.ID())
-	// 遍历菜单树
-	rangeTree := func(tree Tree, ids *[]int64) {
-		if len(tree.ChildrenNode()) == 0 {
-			return
-		}
-		for _, item := range tree.ChildrenNode() {
-			*ids = append(*ids, item.ID())
-		}
-	}
-	rangeTree(tree, &ids)
+	getTreeID(tree, &ids)
 	return ids
 }
