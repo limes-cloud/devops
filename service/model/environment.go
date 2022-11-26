@@ -1,19 +1,18 @@
 package model
 
 import (
-	"configure/meta"
 	"github.com/limeschool/gin"
+	"service/meta"
 )
 
 type Environment struct {
 	gin.BaseModel
-	EnvID      int64  `json:"env_id"`
-	Drive      string `json:"drive,omitempty"`
-	Config     string `json:"config,omitempty"`
-	Prefix     string `json:"prefix,omitempty"`
-	Token      string `json:"token,omitempty"`
-	Operator   string `json:"operator,omitempty"`
-	OperatorId int64  `json:"operator_id,omitempty"`
+	Keyword     string  `json:"keyword,omitempty"`
+	Name        string  `json:"name,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Status      *bool   `json:"status,omitempty"`
+	Operator    string  `json:"operator,omitempty"`
+	OperatorId  int64   `json:"operator_id,omitempty"`
 }
 
 func (u *Environment) Table() string {

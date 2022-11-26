@@ -14,13 +14,14 @@ func Init() *gin.Engine {
 	{
 		// 配置环境相关api
 		v1.GET("/environments", handler.AllEnvironment)
-		v1.GET("/environment/filter", handler.AllEnvironmentFilter)
 		v1.POST("/environment", handler.AddEnvironment)
 		v1.POST("/environment/connect", handler.EnvironmentConnect)
 		v1.PUT("/environment", handler.UpdateEnvironment)
 		v1.DELETE("/environment", handler.DeleteEnvironment)
-		v1.PUT("/environment/service", handler.UpdateEnvService)
-		v1.GET("/environment/service", handler.AllEnvService)
+
+		// 服务环境所属相关
+		//v1.PUT("/environment/service", handler.UpdateEnvService)
+		//v1.GET("/environment/service", handler.AllEnvService)
 
 		// 服务相关
 		v1.GET("/services", handler.AllService)
@@ -28,8 +29,12 @@ func Init() *gin.Engine {
 		v1.POST("/service", handler.AddService)
 		v1.PUT("/service", handler.UpdateService)
 		v1.DELETE("/service", handler.DeleteService)
-		v1.GET("/service/system_field", handler.AllServiceSystemField)
-		v1.POST("/service/system_field", handler.AddServiceSystemField)
+
+		// 服务资源
+		v1.GET("/service/resource", handler.AllServiceResource)
+		v1.POST("/service/resource", handler.AddServiceResource)
+
+		// 服务字段
 		v1.GET("/service/fields", handler.AllServiceField)
 
 		// 配置模板相关
@@ -57,12 +62,12 @@ func Init() *gin.Engine {
 		v1.POST("/service_field_value", handler.AddServiceFieldValue)
 
 		// 系统字段相关
-		v1.GET("/system_field/page", handler.PageSystemField)
-		v1.POST("/system_field", handler.AddSystemField)
-		v1.PUT("/system_field", handler.UpdateSystemField)
-		v1.DELETE("/system_field", handler.DeleteSystemField)
-		v1.GET("/system_field_value", handler.AllSystemFieldValue)
-		v1.POST("/system_field_value", handler.AddSystemFieldValue)
+		v1.GET("/resource/page", handler.PageResource)
+		v1.POST("/resource", handler.AddResource)
+		v1.PUT("/resource", handler.UpdateResource)
+		v1.DELETE("/resource", handler.DeleteResource)
+		v1.GET("/resource/value", handler.AllResourceValue)
+		v1.POST("/resource/value", handler.AddResourceValue)
 
 		// 操作日志
 		v1.GET("operator_log/page", handler.PageOperatorLog)

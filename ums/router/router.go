@@ -43,14 +43,15 @@ func Init() *gin.Engine {
 		ums.POST("/token/refresh", handler.RefreshToken)
 		ums.PUT("/user", handler.UpdateUser)
 		ums.DELETE("/user", handler.DeleteUser)
+		ums.GET("/user/team_ids", handler.UserTeamIds)
 
 		// 登陆日志
 		ums.GET("/login/log", handler.LoginLog)
 
-		v1 := ums.Group("/api/v1", gin.ExtRequestTokenAuth()) //提供给内部访问
-		{
-			v1.GET("/user", handler.GetUser)
-		}
+		//v1 := ums.Group("/api/v1", gin.ExtRequestTokenAuth()) //提供给内部访问
+		//{
+		//	v1.GET("/user", handler.GetUser)
+		//}
 	}
 	return root
 }

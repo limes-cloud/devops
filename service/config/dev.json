@@ -1,11 +1,10 @@
 {
-  "service": "configure",
+  "service": "service",
   "system": {
     "skip_request_log": {
-      "get:/auth": true,
-      "get:/configure/config": true
+      "get:/auth": true
     },
-    "timeout": "10s"
+    "client_timeout":"10s"
   },
   "log": {
     "level": 0,
@@ -24,7 +23,7 @@
     {
       "enable": true,
       "name": "devops",
-      "dsn": "root:root@tcp(127.0.0.1:3306)/devops_configure?charset=utf8mb4&parseTime=True&loc=Local"
+      "dsn": "root:root@tcp(127.0.0.1:3306)/devops_service?charset=utf8mb4&parseTime=True&loc=Local"
     }
   ],
   "redis": [
@@ -33,5 +32,6 @@
       "name": "redis",
       "host": "127.0.0.1:6379"
     }
-  ]
+  ],
+  "ums_addr": "http://y.cn/ums/user/team_ids"
 }

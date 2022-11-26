@@ -1,8 +1,8 @@
 package model
 
 import (
-	"configure/meta"
 	"github.com/limeschool/gin"
+	"service/meta"
 )
 
 type Service struct {
@@ -13,7 +13,7 @@ type Service struct {
 	Description *string `json:"description"`
 	Operator    string  `json:"operator"`
 	OperatorId  int64   `json:"operator_id"`
-	TeamID      int64   `json:"team_id"`
+	TeamID      *int64  `json:"team_id"`
 	EnvIds      []int64 `json:"env_ids" gorm:"-"`
 }
 
@@ -36,11 +36,19 @@ func (u *Service) OneByKeyword(ctx *gin.Context, key string) error {
 	return database(ctx).Table(u.Table()).First(u, "keyword=?", key).Error
 }
 
-func (u *Service) All(ctx *gin.Context, m interface{}) ([]Service, error) {
+func (u *Service) Page(ctx *gin.Context, page, count int, m interface{}, fs ...callback) ([]Service, int64, error) {
 	var list []Service
+	var total int64
+
 	db := database(ctx).Table(u.Table())
 	db = gin.GormWhere(db, u.Table(), m)
-	return list, transferErr(db.Find(&list).Error)
+	db = execCallback(db, fs...)
+
+	if err := db.Count(&total).Error; err != nil {
+		return nil, total, err
+	}
+
+	return list, total, transferErr(db.Offset((page - 1) * count).Limit(count).Find(&list).Error)
 }
 
 func (u *Service) UpdateByID(ctx *gin.Context) error {

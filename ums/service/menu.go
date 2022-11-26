@@ -3,7 +3,6 @@ package service
 import (
 	"github.com/jinzhu/copier"
 	"github.com/limeschool/gin"
-	"gorm.io/gorm"
 	"ums/consts"
 	"ums/errors"
 	"ums/model"
@@ -28,8 +27,7 @@ func AddMenu(ctx *gin.Context, in *types.AddMenuRequest) error {
 		return errors.AssignError
 	}
 
-	err := menu.One(ctx, "id!=? and name=?", menu.BaseModel.ID, in.Name)
-	if in.Name != "" && !errors.Is(err, gorm.ErrRecordNotFound) {
+	if in.Name != "" && menu.One(ctx, "id!=? and name=?", menu.ID(), in.Name) == nil {
 		return errors.DulMenuNameError
 	}
 
@@ -46,10 +44,9 @@ func UpdateMenu(ctx *gin.Context, in *types.UpdateMenuRequest) error {
 		return errors.MenuParentIdError
 	}
 
-	if menu.Name != in.Name {
-		if !errors.Is(menu.One(ctx, "id != ? and name=?", menu.ID, in.Name), gorm.ErrRecordNotFound) {
-			return errors.DulMenuNameError
-		}
+	if menu.Name != in.Name && menu.One(ctx, "id != ? and name=?", menu.ID(), in.Name) == nil {
+		return errors.DulMenuNameError
+
 	}
 
 	// 删除rbac权限

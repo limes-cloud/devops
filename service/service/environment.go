@@ -1,14 +1,12 @@
 package service
 
 import (
-	"configure/errors"
-	"configure/model"
-	"configure/tools"
-	"configure/types"
-	"encoding/json"
 	"github.com/jinzhu/copier"
 	"github.com/limeschool/gin"
-	"github.com/limeschool/gin/config_drive"
+	"service/errors"
+	"service/meta"
+	"service/model"
+	"service/types"
 )
 
 func AllEnvironment(ctx *gin.Context, in *types.AllEnvironmentRequest) ([]model.Environment, error) {
@@ -21,41 +19,11 @@ func AllEnvironmentFilter(ctx *gin.Context) ([]model.Environment, error) {
 	return env.AllFilter(ctx)
 }
 
-func EnvironmentConnect(ctx *gin.Context, in *types.EnvironmentConnectRequest) (config_drive.ConfigService, error) {
-	env := model.Environment{}
-	if env.OneById(ctx, in.ID) != nil {
-		return nil, errors.New("不存在此环境数据")
-	}
-	config := &config_drive.Config{
-		Drive: env.Drive,
-		Path:  env.Prefix,
-	}
-	_ = json.Unmarshal([]byte(env.Config), &config)
-	var err error
-	var cs config_drive.ConfigService
-	switch config.Drive {
-	case "etcd":
-		cs, err = config_drive.NewEtcd(config)
-	case "zk":
-		cs, err = config_drive.NewZK(config)
-	case "consul":
-		cs, err = config_drive.NewConsul(config)
-	default:
-		err = errors.New("不支持的中间件配置")
-	}
-	if err != nil {
-		return nil, errors.New("连接失败：" + err.Error())
-	}
-	return cs, nil
-}
-
 func AddEnvironment(ctx *gin.Context, in *types.AddEnvironmentRequest) error {
 	env := model.Environment{}
 	if copier.Copy(&env, in) != nil {
 		return errors.AssignError
 	}
-	env.Token = tools.GenToken()
-
 	return env.Create(ctx)
 }
 
@@ -71,3 +39,28 @@ func DeleteEnvironment(ctx *gin.Context, in *types.DeleteEnvironmentRequest) err
 	env := model.Environment{}
 	return env.DeleteByID(ctx, in.ID)
 }
+
+func UpdateServiceEnv(ctx *gin.Context, in *types.UpdateServiceEnvRequest) error {
+	m := model.ServiceEnv{}
+	_ = m.Delete(ctx, "env_id = ?", in.ID)
+	user := meta.User(ctx)
+	var list []model.ServiceEnv
+	for _, srvId := range in.SrvIds {
+		list = append(list, model.ServiceEnv{
+			EnvId:      in.ID,
+			SrvId:      srvId,
+			Operator:   user.UserName,
+			OperatorId: user.UserId,
+		})
+	}
+	return m.CreateAll(ctx, list)
+}
+
+//func AllServiceEnv(ctx *gin.Context, in *types.AllServiceEnvRequest) ([]model.ServiceEnv, error) {
+//	m := model.ServiceEnv{}
+//	if in.EnvId != 0 {
+//		return m.All(ctx, "env_id = ?", in.EnvId)
+//	} else {
+//		return m.All(ctx, "srv_id = ?", in.EnvId)
+//	}
+//}

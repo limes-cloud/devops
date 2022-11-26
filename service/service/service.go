@@ -1,80 +1,52 @@
 package service
 
 import (
-	"configure/errors"
-	"configure/meta"
-	"configure/model"
-	"configure/types"
 	"github.com/jinzhu/copier"
 	"github.com/limeschool/gin"
 	"gorm.io/gorm"
+	"service/errors"
+	"service/meta"
+	"service/model"
+	"service/tools"
+	"service/types"
 )
-
-func AddServiceResource(ctx *gin.Context, in *types.AddServiceResourceRequest) error {
-	srv := model.ServiceResource{ServiceId: in.ServiceId}
-	var list []model.ServiceResource
-
-	user := meta.User(ctx)
-	for _, systemId := range in.FieldIds {
-		list = append(list, model.ServiceResource{
-			ServiceId:  in.ServiceId,
-			ResourceId: systemId,
-			Operator:   user.UserName,
-			OperatorId: user.UserId,
-		})
-	}
-
-	return srv.CreateAll(ctx, list)
-}
-
-func AllServiceResource(ctx *gin.Context, in *types.AllServiceResourceRequest) ([]model.Resource, error) {
-	srv := model.ServiceResource{}
-	list, err := srv.All(ctx, in)
-	if err != nil {
-		return nil, err
-	}
-	var fieldIds []int64
-	for _, item := range list {
-		fieldIds = append(fieldIds, item.ResourceId)
-	}
-
-	field := model.Resource{}
-	return field.AllByCallback(ctx, func(db *gorm.DB) *gorm.DB {
-		return db.Where("id in ?", fieldIds)
-	})
-}
 
 func AllServiceEnv(ctx *gin.Context, in *types.AllServiceEnvRequest) ([]model.Environment, error) {
 	env := model.Environment{}
 	return env.AllFilter(ctx, "id in (select env_id from env_service where srv_id = ?)", in.SrvId)
 }
 
-func AllServiceField(ctx *gin.Context, in *types.AllServiceFieldRequest) (interface{}, error) {
-	srvField := model.ServiceField{}
-	srvFields, _ := srvField.All(ctx, "service_id = ?", in.SrvId)
-	if srvFields == nil {
-		srvFields = []model.ServiceField{}
+func PageService(ctx *gin.Context, in *types.PageServiceRequest) ([]model.Service, int64, error) {
+	// 获取当前用户的部门id
+	userTeamIds, err := UserTeamIds(ctx)
+	if err != nil {
+		return nil, 0, err
 	}
-	sysFiled := model.Resource{}
-	sysFields, _ := sysFiled.AllByCallback(ctx, func(db *gorm.DB) *gorm.DB {
-		return db.Where("id in (select system_field_id from service_system_field where service_id = ?)", in.SrvId)
+
+	// 判断是否具有部门的操作权限
+	if in.IsPrivate != nil && !*in.IsPrivate && in.TeamID != nil {
+		if !tools.InList(userTeamIds, *in.TeamID) {
+			return nil, 0, errors.New("暂无此部门的操作权限")
+		}
+	}
+
+	// 查询用户权限内的服务
+	srv := model.Service{}
+	list, total, err := srv.Page(ctx, in.Page, in.Count, in, func(db *gorm.DB) *gorm.DB {
+		if in.IsPrivate != nil && !*in.IsPrivate {
+			if in.TeamID != nil {
+				db = db.Where("team_id=?", in.TeamID)
+			} else {
+				db = db.Where("team_id in ?", userTeamIds)
+			}
+		}
+		return db
 	})
 
-	if sysFields == nil {
-		sysFields = []model.Resource{}
-	}
-	return gin.H{
-		"service":  srvFields,
-		"resource": sysFields,
-	}, nil
-}
-
-func AllService(ctx *gin.Context, in *types.AllServiceRequest) ([]model.Service, error) {
-	srv := model.Service{}
-	list, err := srv.All(ctx, in)
 	if err != nil {
-		return nil, err
+		return nil, total, err
 	}
+
 	for key, item := range list {
 		envSrv := model.ServiceEnv{}
 		envSrvList, _ := envSrv.All(ctx, "srv_id = ?", item.BaseModel.ID)
@@ -84,7 +56,8 @@ func AllService(ctx *gin.Context, in *types.AllServiceRequest) ([]model.Service,
 		}
 		list[key].EnvIds = ids
 	}
-	return list, nil
+
+	return list, total, nil
 }
 
 func AddService(ctx *gin.Context, in *types.AddServiceRequest) error {

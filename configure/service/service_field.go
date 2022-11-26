@@ -3,7 +3,6 @@ package service
 import (
 	"configure/errors"
 	"configure/model"
-	"configure/tools"
 	"configure/types"
 	"github.com/jinzhu/copier"
 	"github.com/limeschool/gin"
@@ -19,10 +18,7 @@ func AddServiceField(ctx *gin.Context, in *types.AddServiceFieldRequest) error {
 	if copier.Copy(&srv, in) != nil {
 		return errors.AssignError
 	}
-	if tools.DataDup(srv.Create(ctx)) {
-		return errors.DulSrvKeywordError
-	}
-	return nil
+	return srv.Create(ctx)
 }
 
 func UpdateServiceField(ctx *gin.Context, in *types.UpdateServiceFieldRequest) error {
@@ -30,11 +26,7 @@ func UpdateServiceField(ctx *gin.Context, in *types.UpdateServiceFieldRequest) e
 	if copier.Copy(&srv, in) != nil {
 		return errors.AssignError
 	}
-	err := srv.UpdateByID(ctx)
-	if tools.DataDup(err) {
-		return errors.DulSrvKeywordError
-	}
-	return err
+	return srv.UpdateByID(ctx)
 }
 
 func DeleteServiceField(ctx *gin.Context, in *types.DeleteServiceFieldRequest) error {

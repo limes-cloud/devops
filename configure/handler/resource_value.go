@@ -7,26 +7,26 @@ import (
 	"github.com/limeschool/gin"
 )
 
-func AllSystemFieldValue(ctx *gin.Context) {
-	in := types.AllSystemFieldValueRequest{}
+func AllResourceValue(ctx *gin.Context) {
+	in := types.AllResourceValueRequest{}
 	if err := ctx.ShouldBind(&in); err != nil {
 		ctx.RespError(errors.ParamsError)
 		return
 	}
-	if resp, err := service.AllSystemFieldValue(ctx, &in); err != nil {
+	if resp, err := service.AllResourceValue(ctx, &in); err != nil {
 		ctx.RespError(err)
 	} else {
 		ctx.RespData(resp)
 	}
 }
 
-func AddSystemFieldValue(ctx *gin.Context) {
-	in := types.AddSystemFieldValueRequest{}
+func AddResourceValue(ctx *gin.Context) {
+	in := types.AddResourceValueRequest{}
 	if err := ctx.ShouldBind(&in); err != nil {
 		ctx.RespError(errors.ParamsError)
 		return
 	}
-	if err := service.AddSystemFieldValue(ctx, &in); err != nil {
+	if err := service.AddResourceValue(ctx, &in); err != nil {
 		ctx.RespError(err)
 	} else {
 		ctx.RespSuccess()

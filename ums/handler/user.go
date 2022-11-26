@@ -3,6 +3,7 @@ package handler
 import (
 	"github.com/limeschool/gin"
 	"ums/errors"
+	"ums/model"
 	"ums/service"
 	"ums/types"
 )
@@ -20,6 +21,11 @@ func PageUser(ctx *gin.Context) {
 	} else {
 		ctx.RespList(in.Page, len(list), int(total), list)
 	}
+}
+
+func UserTeamIds(ctx *gin.Context) {
+	ids := model.CurUserTeamIds(ctx)
+	ctx.RespData(ids)
 }
 
 func GetUser(ctx *gin.Context) {

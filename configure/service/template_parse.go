@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/limeschool/gin"
+	"gorm.io/gorm"
 	"regexp"
 )
 
@@ -14,8 +15,10 @@ func CheckTemplate(ctx *gin.Context, serviceId int64, template string) error {
 	//获取指定服务的全部字段
 	srvFs, _ := sf.All(ctx, "service_id = ?", serviceId)
 
-	rf := model.SystemField{}
-	sysFs, _ := rf.All(ctx, "id in (select id from service_system_field where service_id = ?)", serviceId)
+	rf := model.Resource{}
+	sysFs, _ := rf.AllByCallback(ctx, func(db *gorm.DB) *gorm.DB {
+		return db.Where("id in (select id from service_system_field where service_id = ?)", serviceId)
+	})
 
 	//组合两边的key
 	keys := map[string]bool{}

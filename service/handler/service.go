@@ -1,37 +1,11 @@
 package handler
 
 import (
-	"configure/errors"
-	"configure/service"
-	"configure/types"
 	"github.com/limeschool/gin"
+	"service/errors"
+	"service/service"
+	"service/types"
 )
-
-func AddServiceResource(ctx *gin.Context) {
-	in := types.AddServiceResourceRequest{}
-	if ctx.ShouldBind(&in) != nil {
-		ctx.RespError(errors.ParamsError)
-		return
-	}
-	if err := service.AddServiceResource(ctx, &in); err != nil {
-		ctx.RespError(err)
-	} else {
-		ctx.RespSuccess()
-	}
-}
-
-func AllServiceResource(ctx *gin.Context) {
-	in := types.AllServiceResourceRequest{}
-	if ctx.ShouldBind(&in) != nil {
-		ctx.RespError(errors.ParamsError)
-		return
-	}
-	if resp, err := service.AllServiceResource(ctx, &in); err != nil {
-		ctx.RespError(err)
-	} else {
-		ctx.RespData(resp)
-	}
-}
 
 func AllServiceEnvs(ctx *gin.Context) {
 	in := types.AllServiceEnvRequest{}
@@ -46,29 +20,16 @@ func AllServiceEnvs(ctx *gin.Context) {
 	}
 }
 
-func AllServiceField(ctx *gin.Context) {
-	in := types.AllServiceFieldRequest{}
+func PageService(ctx *gin.Context) {
+	in := types.PageServiceRequest{}
 	if ctx.ShouldBind(&in) != nil {
 		ctx.RespError(errors.ParamsError)
 		return
 	}
-	if resp, err := service.AllServiceField(ctx, &in); err != nil {
+	if list, total, err := service.PageService(ctx, &in); err != nil {
 		ctx.RespError(err)
 	} else {
-		ctx.RespData(resp)
-	}
-}
-
-func AllService(ctx *gin.Context) {
-	in := types.AllServiceRequest{}
-	if ctx.ShouldBind(&in) != nil {
-		ctx.RespError(errors.ParamsError)
-		return
-	}
-	if resp, err := service.AllService(ctx, &in); err != nil {
-		ctx.RespError(err)
-	} else {
-		ctx.RespData(resp)
+		ctx.RespList(in.Page, in.Count, int(total), list)
 	}
 }
 

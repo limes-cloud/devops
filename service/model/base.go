@@ -1,10 +1,10 @@
 package model
 
 import (
-	"configure/consts"
-	"configure/errors"
 	"github.com/limeschool/gin"
 	"gorm.io/gorm"
+	"service/consts"
+	"service/errors"
 	"strings"
 )
 

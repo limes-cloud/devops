@@ -52,7 +52,7 @@ func DriverConfig(ctx *gin.Context, in *types.DriverConfigRequest) (string, erro
 func Config(ctx *gin.Context, in *types.ConfigRequest) (*config_drive.Config, error) {
 	// 获取服务信息
 	server := model.Service{}
-	if server.One(ctx, "keyword = ? ", in.Service) != nil {
+	if server.OneByKeyword(ctx, in.Service) != nil {
 		return nil, errors.New("token value error")
 	}
 	// 获取环境信息
@@ -175,7 +175,7 @@ func ParseTemplate(ctx *gin.Context, in *types.ParseTemplateRequest) (string, er
 			Where("service_field.service_id = ?", in.SrvId)
 	})
 
-	rf := model.SystemField{}
+	rf := model.Resource{}
 	sysFs, _ := rf.AllByCallback(ctx, func(db *gorm.DB) *gorm.DB {
 		return db.Select("field,sv.value field_value").
 			Joins("left join system_field_value sv on system_field.id = sv.field_id and sv.env_id = ?", in.EnvId).

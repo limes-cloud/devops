@@ -1,11 +1,11 @@
 package tools
 
 import (
-	"configure/consts"
 	"crypto/md5"
 	"fmt"
 	"github.com/google/uuid"
 	"github.com/limeschool/gin"
+	"service/consts"
 	"strings"
 	"time"
 )
