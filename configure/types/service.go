@@ -1,11 +1,7 @@
 package types
 
-type AllServiceEnvRequest struct {
-	SrvId int64 `json:"srv_id" form:"srv_id"  binding:"required"`
-}
-
 type AllServiceFieldRequest struct {
-	SrvId int64 `json:"srv_id" form:"srv_id"  binding:"required"`
+	Keyword string `json:"keyword" form:"keyword"  binding:"required"`
 }
 
 type AddServiceRequest struct {

@@ -7,7 +7,7 @@ import (
 
 type ResourceValue struct {
 	gin.BaseModel
-	EnvId      int64  `json:"env_id"`
+	EnvKeyword string `json:"env_keyword"`
 	ResourceId int64  `json:"resource_id"`
 	Value      string `json:"value"`
 	Operator   string `json:"operator"`

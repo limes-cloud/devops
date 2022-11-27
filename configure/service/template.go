@@ -19,7 +19,7 @@ func GetTemplate(ctx *gin.Context, in *types.GetTemplateRequest) (*model.Templat
 	if in.ID != 0 {
 		return &m, m.OneById(ctx, in.ID)
 	} else {
-		return &m, m.One(ctx, "service_id = ? and is_use = true", in.SrvId)
+		return &m, m.One(ctx, "service_keyword = ? and is_use = true", in.Keyword)
 	}
 }
 
@@ -28,7 +28,7 @@ func AddTemplate(ctx *gin.Context, in *types.AddTemplateRequest) error {
 	if copier.Copy(&m, in) != nil {
 		return errors.AssignError
 	}
-	if err := CheckTemplate(ctx, in.ServiceId, in.Content); err != nil {
+	if err := CheckTemplate(ctx, in.ServiceKeyword, in.Content); err != nil {
 		return err
 	}
 	m.IsUse = true

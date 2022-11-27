@@ -5,7 +5,7 @@
       "get:/auth": true,
       "get:/configure/config": true
     },
-    "timeout": "10s"
+    "timeout": "20s"
   },
   "log": {
     "level": 0,

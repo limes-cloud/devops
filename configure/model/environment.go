@@ -7,7 +7,7 @@ import (
 
 type Environment struct {
 	gin.BaseModel
-	EnvID      int64  `json:"env_id"`
+	EnvKeyword string `json:"env_keyword"`
 	Drive      string `json:"drive,omitempty"`
 	Config     string `json:"config,omitempty"`
 	Prefix     string `json:"prefix,omitempty"`

@@ -7,12 +7,12 @@ import (
 
 type TemplateLog struct {
 	gin.CreateModel
-	SrvId       int64  `json:"srv_id"`
-	EnvId       int64  `json:"env_id"`
-	Config      string `json:"config"`
-	Description string `json:"description"`
-	Operator    string `json:"operator"`
-	OperatorId  int64  `json:"operator_id"`
+	ServiceKeyword string `json:"service_keyword"`
+	EnvKeyword     string `json:"env_keyword"`
+	Config         string `json:"config"`
+	Description    string `json:"description"`
+	Operator       string `json:"operator"`
+	OperatorId     int64  `json:"operator_id"`
 }
 
 func (u *TemplateLog) Table() string {

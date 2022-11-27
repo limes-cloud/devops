@@ -13,7 +13,7 @@ import (
 
 func AllServiceEnv(ctx *gin.Context, in *types.AllServiceEnvRequest) ([]model.Environment, error) {
 	env := model.Environment{}
-	return env.AllFilter(ctx, "id in (select env_id from env_service where srv_id = ?)", in.SrvId)
+	return env.AllFilter(ctx, "id in (select env_id from service_env where srv_id = ?)", in.SrvId)
 }
 
 func PageService(ctx *gin.Context, in *types.PageServiceRequest) ([]model.Service, int64, error) {

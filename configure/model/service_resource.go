@@ -6,14 +6,14 @@ import (
 )
 
 type ServiceResource struct {
-	ServiceId  int64  `json:"service_id"`
-	ResourceId int64  `json:"resource_id"`
-	Operator   string `json:"operator"`
-	OperatorId int64  `json:"operator_id"`
+	ServiceKeyword string `json:"service_keyword"`
+	ResourceID     int64  `json:"resource_id"`
+	Operator       string `json:"operator"`
+	OperatorID     int64  `json:"operator_id"`
 }
 
 func (u *ServiceResource) Table() string {
-	return "service_system_field"
+	return "service_resource"
 }
 
 func (u *ServiceResource) All(ctx *gin.Context, m interface{}) ([]ServiceResource, error) {
@@ -25,7 +25,7 @@ func (u *ServiceResource) All(ctx *gin.Context, m interface{}) ([]ServiceResourc
 
 func (u *ServiceResource) CreateAll(ctx *gin.Context, list []ServiceResource) error {
 	return database(ctx).Table(u.Table()).Transaction(func(tx *gorm.DB) error {
-		if tx.Where("service_id = ?", u.ServiceId).Delete(&u).Error != nil {
+		if tx.Where("resource_id=?", u.ResourceID).Delete(&u).Error != nil {
 			tx.Rollback()
 		}
 		if len(list) == 0 {

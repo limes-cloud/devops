@@ -1,8 +1,8 @@
 package types
 
 type CompareConfigRequest struct {
-	SrvId int64 `json:"srv_id" binding:"required"`
-	EnvId int64 `json:"env_id" binding:"required"`
+	SrvKeyword string `json:"srv_keyword" form:"srv_keyword" binding:"required"`
+	EnvKeyword string `json:"env_keyword" form:"env_keyword" binding:"required"`
 }
 
 type RollbackConfigRequest struct {
@@ -10,13 +10,13 @@ type RollbackConfigRequest struct {
 }
 
 type AllConfigLogRequest struct {
-	SrvId int64 `json:"srv_id" form:"srv_id" binding:"required"`
-	EnvId int64 `json:"env_id" form:"env_id" binding:"required"`
+	ServiceKeyword string `json:"service_keyword" form:"service_keyword" binding:"required"`
+	EnvKeyword     string `json:"env_keyword" form:"env_keyword" binding:"required"`
 }
 
 type DriverConfigRequest struct {
-	SrvId int64 `json:"srv_id" form:"srv_id" binding:"required"`
-	EnvId int64 `json:"env_id" form:"env_id" binding:"required"`
+	SrvKeyword string `json:"srv_keyword" form:"srv_keyword" binding:"required"`
+	EnvKeyword string `json:"env_keyword" form:"env_keyword" binding:"required"`
 }
 
 type ConfigRequest struct {
@@ -29,11 +29,6 @@ type ConfigLogRequest struct {
 }
 
 type SyncConfigRequest struct {
-	SrvId int64 `json:"srv_id" binding:"required"`
-	EnvId int64 `json:"env_id" binding:"required"`
-}
-
-type ParseTemplateRequest struct {
-	SrvId int64 `json:"srv_id" form:"srv_id" binding:"required"`
-	EnvId int64 `json:"env_id" form:"env_id" binding:"required"`
+	SrvKeyword string `json:"srv_keyword" form:"srv_keyword" binding:"required"`
+	EnvKeyword string `json:"env_keyword" form:"env_keyword" binding:"required"`
 }

@@ -16,15 +16,10 @@ func AllEnvironment(ctx *gin.Context, in *types.AllEnvironmentRequest) ([]model.
 	return env.All(ctx, in)
 }
 
-func AllEnvironmentFilter(ctx *gin.Context) ([]model.Environment, error) {
-	env := model.Environment{}
-	return env.AllFilter(ctx)
-}
-
 func EnvironmentConnect(ctx *gin.Context, in *types.EnvironmentConnectRequest) (config_drive.ConfigService, error) {
 	env := model.Environment{}
-	if env.OneById(ctx, in.ID) != nil {
-		return nil, errors.New("不存在此环境数据")
+	if env.One(ctx, "env_keyword=?", in.Keyword) != nil {
+		return nil, errors.New("不存在此环境中间件配置")
 	}
 	config := &config_drive.Config{
 		Drive: env.Drive,

@@ -39,7 +39,7 @@ func GetTemplate(ctx *gin.Context) {
 		ctx.RespError(errors.ParamsError)
 		return
 	}
-	if in.ID == 0 && in.SrvId == 0 {
+	if in.ID == 0 && in.Keyword == "" {
 		ctx.RespError(errors.ParamsError)
 		return
 	}

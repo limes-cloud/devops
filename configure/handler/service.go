@@ -7,106 +7,15 @@ import (
 	"github.com/limeschool/gin"
 )
 
-func AddServiceResource(ctx *gin.Context) {
-	in := types.AddServiceResourceRequest{}
-	if ctx.ShouldBind(&in) != nil {
-		ctx.RespError(errors.ParamsError)
-		return
-	}
-	if err := service.AddServiceResource(ctx, &in); err != nil {
-		ctx.RespError(err)
-	} else {
-		ctx.RespSuccess()
-	}
-}
-
-func AllServiceResource(ctx *gin.Context) {
-	in := types.AllServiceResourceRequest{}
-	if ctx.ShouldBind(&in) != nil {
-		ctx.RespError(errors.ParamsError)
-		return
-	}
-	if resp, err := service.AllServiceResource(ctx, &in); err != nil {
-		ctx.RespError(err)
-	} else {
-		ctx.RespData(resp)
-	}
-}
-
-func AllServiceEnvs(ctx *gin.Context) {
-	in := types.AllServiceEnvRequest{}
-	if ctx.ShouldBind(&in) != nil {
-		ctx.RespError(errors.ParamsError)
-		return
-	}
-	if resp, err := service.AllServiceEnv(ctx, &in); err != nil {
-		ctx.RespError(err)
-	} else {
-		ctx.RespData(resp)
-	}
-}
-
-func AllServiceField(ctx *gin.Context) {
+func AllServiceFieldAndResource(ctx *gin.Context) {
 	in := types.AllServiceFieldRequest{}
 	if ctx.ShouldBind(&in) != nil {
 		ctx.RespError(errors.ParamsError)
 		return
 	}
-	if resp, err := service.AllServiceField(ctx, &in); err != nil {
+	if resp, err := service.AllServiceFieldAndResource(ctx, &in); err != nil {
 		ctx.RespError(err)
 	} else {
 		ctx.RespData(resp)
-	}
-}
-
-func AllService(ctx *gin.Context) {
-	in := types.AllServiceRequest{}
-	if ctx.ShouldBind(&in) != nil {
-		ctx.RespError(errors.ParamsError)
-		return
-	}
-	if resp, err := service.AllService(ctx, &in); err != nil {
-		ctx.RespError(err)
-	} else {
-		ctx.RespData(resp)
-	}
-}
-
-func AddService(ctx *gin.Context) {
-	in := types.AddServiceRequest{}
-	if ctx.ShouldBind(&in) != nil {
-		ctx.RespError(errors.ParamsError)
-		return
-	}
-	if err := service.AddService(ctx, &in); err != nil {
-		ctx.RespError(err)
-	} else {
-		ctx.RespSuccess()
-	}
-}
-
-func UpdateService(ctx *gin.Context) {
-	in := types.UpdateServiceRequest{}
-	if ctx.ShouldBind(&in) != nil {
-		ctx.RespError(errors.ParamsError)
-		return
-	}
-	if err := service.UpdateService(ctx, &in); err != nil {
-		ctx.RespError(err)
-	} else {
-		ctx.RespSuccess()
-	}
-}
-
-func DeleteService(ctx *gin.Context) {
-	in := types.DeleteServiceRequest{}
-	if ctx.ShouldBind(&in) != nil {
-		ctx.RespError(errors.ParamsError)
-		return
-	}
-	if err := service.DeleteService(ctx, &in); err != nil {
-		ctx.RespError(err)
-	} else {
-		ctx.RespSuccess()
 	}
 }

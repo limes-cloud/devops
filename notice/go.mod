@@ -5,11 +5,10 @@ go 1.18
 require (
 	github.com/go-resty/resty/v2 v2.7.0
 	github.com/jinzhu/copier v0.3.5
-	github.com/limeschool/gin v0.0.2
+	github.com/limeschool/gin v0.0.14
 	gorm.io/gorm v1.23.8
 )
 
-replace github.com/limeschool/gin v0.0.2 => ../../src/github.com/limeschool/gin
 
 require (
 	github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible // indirect

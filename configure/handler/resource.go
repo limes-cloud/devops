@@ -60,3 +60,29 @@ func DeleteResource(ctx *gin.Context) {
 		ctx.RespSuccess()
 	}
 }
+
+func AddResourceService(ctx *gin.Context) {
+	in := types.AddResourceServiceRequest{}
+	if ctx.ShouldBind(&in) != nil {
+		ctx.RespError(errors.ParamsError)
+		return
+	}
+	if err := service.AddResourceService(ctx, &in); err != nil {
+		ctx.RespError(err)
+	} else {
+		ctx.RespSuccess()
+	}
+}
+
+func AllResourceService(ctx *gin.Context) {
+	in := types.AllResourceServiceRequest{}
+	if ctx.ShouldBind(&in) != nil {
+		ctx.RespError(errors.ParamsError)
+		return
+	}
+	if resp, err := service.AllResourceService(ctx, &in); err != nil {
+		ctx.RespError(err)
+	} else {
+		ctx.RespData(resp)
+	}
+}

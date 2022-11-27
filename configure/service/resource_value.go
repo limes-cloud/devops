@@ -14,7 +14,7 @@ func AddResourceValue(ctx *gin.Context, in *types.AddResourceValueRequest) error
 	user := meta.User(ctx)
 	for _, item := range in.Data {
 		list = append(list, model.ResourceValue{
-			EnvId:      item.EnvId,
+			EnvKeyword: item.EnvKeyword,
 			ResourceId: in.ResourceID,
 			Value:      item.Value,
 			Operator:   user.UserName,

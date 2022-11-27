@@ -1,13 +1,13 @@
 package types
 
-type AddServiceFieldValueRequest struct {
+type AddFieldValueRequest struct {
 	FieldId int64 `json:"field_id"`
 	Data    []struct {
-		EnvId int64  `json:"env_id"`
-		Value string `json:"value"`
+		EnvKeyword string `json:"env_keyword"`
+		Value      string `json:"value"`
 	} `json:"data" binding:"required"`
 }
 
-type AllServiceFieldValueRequest struct {
+type AllFieldValueRequest struct {
 	FieldId int64 `json:"field_id" form:"field_id" binding:"required"`
 }

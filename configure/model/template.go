@@ -8,13 +8,13 @@ import (
 
 type Template struct {
 	gin.BaseModel
-	ServiceId   int64   `json:"service_id"`
-	Content     string  `json:"content"`
-	Version     string  `json:"version"`
-	IsUse       bool    `json:"is_use"`
-	Description *string `json:"description"`
-	Operator    string  `json:"operator"`
-	OperatorId  int64   `json:"operator_id"`
+	ServiceKeyword string  `json:"service_keyword"`
+	Content        string  `json:"content"`
+	Version        string  `json:"version"`
+	IsUse          bool    `json:"is_use"`
+	Description    *string `json:"description"`
+	Operator       string  `json:"operator"`
+	OperatorId     int64   `json:"operator_id"`
 }
 
 func (u *Template) Table() string {
@@ -55,7 +55,7 @@ func (u *Template) All(ctx *gin.Context, m interface{}) ([]Template, error) {
 	var list []Template
 	db := database(ctx).Table(u.Table()).Order("created_at desc")
 	db = gin.GormWhere(db, u.Table(), m)
-	return list, db.Select("id,service_id,version,is_use,description,operator,operator_id,created_at").Find(&list).Error
+	return list, db.Select("id,service_keyword,version,is_use,description,operator,operator_id,created_at").Find(&list).Error
 }
 
 func (u *Template) UpdateVersionByID(ctx *gin.Context) error {

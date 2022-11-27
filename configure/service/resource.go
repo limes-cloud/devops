@@ -2,6 +2,7 @@ package service
 
 import (
 	"configure/errors"
+	"configure/meta"
 	"configure/model"
 	"configure/types"
 	"github.com/jinzhu/copier"
@@ -34,4 +35,27 @@ func UpdateResource(ctx *gin.Context, in *types.UpdateResourceRequest) error {
 func DeleteResource(ctx *gin.Context, in *types.DeleteResourceRequest) error {
 	srv := model.Resource{}
 	return srv.DeleteByID(ctx, in.ID)
+}
+
+func AddResourceService(ctx *gin.Context, in *types.AddResourceServiceRequest) error {
+	srv := model.ServiceResource{ResourceID: in.ResourceID}
+	var list []model.ServiceResource
+
+	user := meta.User(ctx)
+	for _, keyword := range in.ServiceKeywords {
+		list = append(list, model.ServiceResource{
+			ServiceKeyword: keyword,
+			ResourceID:     in.ResourceID,
+			Operator:       user.UserName,
+			OperatorID:     user.UserId,
+		})
+	}
+
+	return srv.CreateAll(ctx, list)
+}
+
+func AllResourceService(ctx *gin.Context, in *types.AllResourceServiceRequest) ([]model.ServiceResource, error) {
+	srv := model.ServiceResource{}
+	return srv.All(ctx, in)
+
 }

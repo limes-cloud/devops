@@ -1,20 +1,25 @@
 package types
 
 type AllTemplateRequest struct {
-	ServiceId int64 `json:"service_id" form:"service_id" binding:"required"`
+	ServiceKeyword string `json:"service_keyword" form:"service_keyword" binding:"required"`
 }
 
 type GetTemplateRequest struct {
-	ID    int64 `json:"id" form:"id"`
-	SrvId int64 `json:"srv_id" form:"srv_id"`
+	ID      int64  `json:"id" form:"id"`
+	Keyword string `json:"keyword" form:"keyword"`
 }
 
 type AddTemplateRequest struct {
-	ServiceId   int64  `json:"service_id" binding:"required"`
-	Content     string `json:"content" binding:"required"`
-	Description string `json:"description" binding:"required"`
+	ServiceKeyword string `json:"service_keyword" binding:"required"`
+	Content        string `json:"content" binding:"required"`
+	Description    string `json:"description" binding:"required"`
 }
 
 type UpdateTemplateRequest struct {
 	ID int64 `json:"id" form:"id"  binding:"required"`
+}
+
+type ParseTemplateRequest struct {
+	SrvKeyword string `json:"srv_keyword" form:"srv_keyword" binding:"required"`
+	EnvKeyword string `json:"env_keyword" form:"env_keyword" binding:"required"`
 }

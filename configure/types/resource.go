@@ -26,11 +26,11 @@ type DeleteResourceRequest struct {
 	ID int64 `json:"id" binding:"required"`
 }
 
-type AllServiceResourceRequest struct {
-	ServiceId int64 `json:"service_id" form:"service_id"  binding:"required"`
+type AllResourceServiceRequest struct {
+	ResourceID int64 `json:"resource_id" form:"resource_id"  binding:"required"`
 }
 
-type AddServiceResourceRequest struct {
-	FieldIds  []int64 `json:"field_ids" binding:"required"`
-	ServiceId int64   `json:"service_id"  binding:"required"`
+type AddResourceServiceRequest struct {
+	ServiceKeywords []string `json:"service_keywords" binding:"required"`
+	ResourceID      int64    `json:"resource_id"  binding:"required"`
 }
