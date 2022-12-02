@@ -1,0 +1,22 @@
+version: '3.6'
+services:
+  registry:
+    restart: always
+    image: "registry:latest"
+    container_name: registry
+    ports:
+      - 8001:5000
+    environment:
+      - REGISTRY_AUTH=htpasswd
+      - REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm
+      - REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd
+      - REGISTRY_STORAGE=oss
+      - REGISTRY_STORAGE_OSS_ACCESSKEYID=LTAI4FokBsk4jpkXjx4yP1Kv
+      - REGISTRY_STORAGE_OSS_ACCESSKEYSECRET=Ignx4neUyWpUT5nPrWPk6Ms0EEANK7
+      - REGISTRY_STORAGE_OSS_REGION=oss-cn-hangzhou
+      - REGISTRY_STORAGE_OSS_BUCKET=lime-docker-registry
+      - REGISTRY_STORAGE_OSS_INTERNAL=false #是否走内网
+      - REGISTRY_STORAGE_OSS_SECURE=false
+      - REGISTRY_STORAGE_DELETE_ENABLED=true
+    volumes:
+      - ./auth:/auth
