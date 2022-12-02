@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/limeschool/gin"
-	"gorm.io/gorm"
 )
 
 const (
@@ -27,6 +26,6 @@ var (
 	}
 
 	Is = func(err, tar error) bool {
-		return errors.Is(err, gorm.ErrRecordNotFound)
+		return errors.Is(err, tar)
 	}
 )

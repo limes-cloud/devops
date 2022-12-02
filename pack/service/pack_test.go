@@ -1,6 +1,11 @@
 package service
 
-import "testing"
+import (
+	"fmt"
+	"strings"
+	"testing"
+	"time"
+)
 
 func TestPack(t *testing.T) {
 	pk := NewPack()
@@ -9,7 +14,7 @@ func TestPack(t *testing.T) {
 	pk.GitUrl = "https://gitee.com/limeschool/hello.git"
 	pk.RegistryUser = "root"
 	pk.RegistryPass = "xrxy0852"
-	pk.ServerName = "helloworld"
+	pk.ServerName = "helloworld1"
 	pk.ServerBranch = "origin/master"
 	pk.ServerVersion = "qwer"
 	pk.Exec = "/bin/sh"
@@ -17,7 +22,6 @@ func TestPack(t *testing.T) {
 ENV GOPROXY=https://goproxy.cn,direct
 ENV GO111MODULE on
 WORKDIR /go/cache
-
 ADD go.mod .
 ADD go.sum .
 RUN go mod download
@@ -25,16 +29,21 @@ RUN go mod download
 WORKDIR /go/build
 ADD . .
 RUN GOOS=linux CGO_ENABLED=0 go build -ldflags="-s -w" -installsuffix cgo -o entry main.go
-
 FROM alpine
 EXPOSE 9001
 WORKDIR /go/build
-COPY --from=build /go/build/entry /go/build/entry
+COPY --from=build /go/build/entry /go/build/{entry}
 CMD ["./entry"]`
-	pk.Args = []string{}
+	pk.Args = map[string]string{"entry": "entry"}
+
+	pk.SetWatch(func(s string) {
+		s = strings.ReplaceAll(s, "\n", "")
+		fmt.Println(s + "  -" + time.Now().Format("2006-01-02 15:04:05"))
+	})
 
 	if err := pk.Start(); err != nil {
 		t.Fatal(err)
 	}
+
 	t.Log("pack success")
 }

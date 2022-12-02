@@ -1,8 +1,11 @@
 package service
 
 import (
+	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
+	"pack/tools"
 	"pack/tools/exec"
 	"regexp"
 	"strconv"
@@ -10,23 +13,27 @@ import (
 )
 
 type pack struct {
+	call          func(string)
 	cmd           exec.Interface
-	WorkDir       string   `json:"work_dir"`       // 工作目录
-	GitUrl        string   `json:"git_url"`        // git代码地址
-	RegistryUrl   string   `json:"registry_url"`   // 仓库地址
-	RegistryUser  string   `json:"registry_user"`  // 仓库账号
-	RegistryPass  string   `json:"registry_pass"`  // 仓库密码
-	ServerName    string   `json:"server_name"`    // 服务名
-	ServerBranch  string   `json:"server_branch"`  // 服务分支
-	ServerVersion string   `json:"server_version"` // 服务版本
-	Exec          string   `json:"exec"`           // 执行器
-	Dockerfile    string   `json:"dockerfile"`     // 打包脚本
-	Args          []string `json:"args"`           // 打包脚本变量
+	WorkDir       string            `json:"work_dir"`       // 工作目录
+	GitUrl        string            `json:"git_url"`        // git代码地址
+	RegistryUrl   string            `json:"registry_url"`   // 仓库地址
+	RegistryUser  string            `json:"registry_user"`  // 仓库账号
+	RegistryPass  string            `json:"registry_pass"`  // 仓库密码
+	ServerName    string            `json:"server_name"`    // 服务名
+	ServerBranch  string            `json:"server_branch"`  // 服务分支
+	ServerVersion string            `json:"server_version"` // 服务版本
+	Exec          string            `json:"exec"`           // 执行器
+	Dockerfile    string            `json:"dockerfile"`     // 打包脚本
+	Args          map[string]string `json:"args"`           // 打包脚本变量
 }
+
+type PackCall func(string)
 
 func NewPack() *pack {
 	return &pack{
-		cmd: exec.New(),
+		cmd:  exec.New(),
+		call: nil,
 	}
 }
 
@@ -39,6 +46,10 @@ func (p *pack) HasWorkDir() bool {
 	return fi.IsDir()
 }
 
+func (p *pack) SetWatch(f func(string)) {
+	p.call = f
+}
+
 func (p *pack) GetImageName() string {
 	return fmt.Sprintf("%v/%v:%v", p.RegistryUrl, p.ServerName, p.ServerVersion)
 }
@@ -48,8 +59,8 @@ func (p *pack) GetServerWorkDir() string {
 	return p.WorkDir + "/" + name
 }
 
-// HasImage 是否存在镜像
-func (p *pack) HasImage() bool {
+// HasDevImage 是否存在本地镜像
+func (p *pack) HasDevImage() bool {
 	cmd := p.cmd.Command(p.Exec, "-c", fmt.Sprintf("docker images %v|wc -l", p.GetImageName()))
 	out, err := cmd.Output()
 	if err != nil {
@@ -59,6 +70,27 @@ func (p *pack) HasImage() bool {
 	outStr := reg.FindString(string(out))
 	length, _ := strconv.ParseInt(outStr, 10, 64)
 	return length == 2
+}
+
+// HasRemoteImage 是否存在本地镜像
+func (p *pack) HasRemoteImage() (bool, error) {
+	shell := fmt.Sprintf("curl -X GET -u %v:%v %v/v2/%v/tags/list", p.RegistryUser, p.RegistryPass, p.RegistryUrl, p.ServerName)
+	cmd := p.cmd.Command(p.Exec, "-c", shell)
+	out, err := cmd.Output()
+	if err != nil {
+		return false, errors.New("镜像仓库访问失败")
+	}
+
+	resp := struct {
+		Name string   `json:"name"`
+		Tags []string `json:"tags"`
+	}{}
+
+	_ = json.Unmarshal(out, &resp)
+	if resp.Name == "" {
+		return false, nil
+	}
+	return tools.InList(resp.Tags, p.ServerVersion), nil
 }
 
 // CreateWorkDir 创建工作目录
@@ -71,6 +103,7 @@ func (p *pack) CreateWorkDir() error {
 	return nil
 }
 
+// GetGitName 获取git代码名
 func (p *pack) GetGitName() (string, error) {
 	url := p.GitUrl
 	if len(url) < 4 {
@@ -132,6 +165,8 @@ func (p *pack) GitCloneCode() error {
 
 // Pack 进行打包镜像
 func (p *pack) Pack() error {
+	// 渲染dockerfile
+	p.RenderDockerfile()
 	// 创建dockerfile
 	err := os.WriteFile(p.GetServerWorkDir()+"/Dockerfile", []byte(p.Dockerfile), os.ModePerm)
 	if err != nil {
@@ -148,9 +183,18 @@ func (p *pack) Pack() error {
 	return nil
 }
 
+func (p *pack) RenderDockerfile() {
+	reg := regexp.MustCompile(`\{\w+}`)
+	list := reg.FindAllString(p.Dockerfile, -1)
+	for _, val := range list {
+		key := val[1 : len(val)-1]
+		p.Dockerfile = strings.ReplaceAll(p.Dockerfile, val, p.Args[key])
+	}
+}
+
 // Upload 进行镜像上传
 func (p *pack) Upload() error {
-	if !p.HasImage() {
+	if !p.HasDevImage() {
 		return fmt.Errorf("docker image not exist")
 	}
 
@@ -170,7 +214,7 @@ func (p *pack) Upload() error {
 }
 
 func (p *pack) RemoveImage() {
-	if !p.HasImage() {
+	if !p.HasDevImage() {
 		return
 	}
 
@@ -178,47 +222,68 @@ func (p *pack) RemoveImage() {
 }
 
 func (p *pack) Start() error {
+
 	// 环境检测
+	p.call("check git and docker version")
+
 	dv, err := p.GetDockerVersion()
 	if err != nil {
 		return err
 	}
-	fmt.Println("docker version", dv)
+
+	p.call(dv)
 
 	gv, err := p.GetGitVersion()
 	if err != nil {
 		return err
 	}
-	fmt.Println("git version", gv)
+
+	p.call(gv)
 
 	// 清理工作痕迹
 	defer func() {
+		p.call("clear work mark")
 		p.RemoveServerPath()
 		p.RemoveImage()
 	}()
 
-	if p.HasImage() {
+	p.call("get remote images")
+	has, err := p.HasRemoteImage()
+	if err != nil {
+		p.call(err.Error())
+		return err
+	}
+	if has {
+		p.call("remote image has exist")
 		return nil
 	}
 
 	// 防止人为创建
+	p.call("start create word dir")
 	p.RemoveServerPath()
 	if err := p.CreateWorkDir(); err != nil {
+		p.call(err.Error())
 		return err
 	}
 
 	// 拉取代码
+	p.call("start clone code")
 	if err := p.GitCloneCode(); err != nil {
+		p.call(err.Error())
 		return err
 	}
 
 	// 打包
+	p.call("start pack")
 	if err := p.Pack(); err != nil {
+		p.call(err.Error())
 		return err
 	}
 
 	// 上传
+	p.call("start upload")
 	if err := p.Upload(); err != nil {
+		p.call(err.Error())
 		return err
 	}
 
