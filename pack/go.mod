@@ -1,4 +1,4 @@
-module docker_pack
+module pack
 
 go 1.18
 
