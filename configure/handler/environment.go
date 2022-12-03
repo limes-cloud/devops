@@ -20,6 +20,14 @@ func AllEnvironment(ctx *gin.Context) {
 	}
 }
 
+func AllEnvironmentFilter(ctx *gin.Context) {
+	if resp, err := service.AllEnvironmentFilter(ctx); err != nil {
+		ctx.RespError(err)
+	} else {
+		ctx.RespData(resp)
+	}
+}
+
 func EnvironmentConnect(ctx *gin.Context) {
 	in := types.EnvironmentConnectRequest{}
 	if ctx.ShouldBind(&in) != nil {

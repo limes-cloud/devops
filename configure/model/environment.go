@@ -35,10 +35,10 @@ func (u *Environment) One(ctx *gin.Context, cond ...interface{}) error {
 	return transferErr(database(ctx).Table(u.Table()).First(u, cond...).Error)
 }
 
-func (u *Environment) AllFilter(ctx *gin.Context, cond ...any) ([]Environment, error) {
+func (u *Environment) AllFilter(ctx *gin.Context) ([]Environment, error) {
 	var list []Environment
-	db := database(ctx).Table(u.Table()).Select("id,keyword,name").Where("status = true")
-	return list, transferErr(db.Find(&list, cond...).Error)
+	db := database(ctx).Table(u.Table()).Select("id,env_keyword")
+	return list, transferErr(db.Find(&list).Error)
 }
 
 func (u *Environment) All(ctx *gin.Context, m any) ([]Environment, error) {

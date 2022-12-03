@@ -16,6 +16,11 @@ func AllEnvironment(ctx *gin.Context, in *types.AllEnvironmentRequest) ([]model.
 	return env.All(ctx, in)
 }
 
+func AllEnvironmentFilter(ctx *gin.Context) ([]model.Environment, error) {
+	env := model.Environment{}
+	return env.AllFilter(ctx)
+}
+
 func EnvironmentConnect(ctx *gin.Context, in *types.EnvironmentConnectRequest) (config_drive.ConfigService, error) {
 	env := model.Environment{}
 	if env.One(ctx, "env_keyword=?", in.Keyword) != nil {

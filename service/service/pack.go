@@ -5,29 +5,29 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"pack/tools"
-	"pack/tools/exec"
 	"regexp"
+	"service/tools"
+	"service/tools/exec"
 	"strconv"
 	"strings"
 )
 
 type pack struct {
-	call          func(string)
-	cmd           exec.Interface
-	WorkDir       string            `json:"work_dir"`       // 工作目录
-	GitUrl        string            `json:"git_url"`        // git代码地址
-	GitUser       string            `json:"git_user"`       // git账号
-	GitPass       string            `json:"git_pass"`       // git密码
-	RegistryUrl   string            `json:"registry_url"`   // 仓库地址
-	RegistryUser  string            `json:"registry_user"`  // 仓库账号
-	RegistryPass  string            `json:"registry_pass"`  // 仓库密码
-	ServerName    string            `json:"server_name"`    // 服务名
-	ServerBranch  string            `json:"server_branch"`  // 服务分支
-	ServerVersion string            `json:"server_version"` // 服务版本
-	Exec          string            `json:"exec"`           // 执行器
-	Dockerfile    string            `json:"dockerfile"`     // 打包脚本
-	Args          map[string]string `json:"args"`           // 打包脚本变量
+	call           func(string)
+	cmd            exec.Interface
+	WorkDir        string            `json:"work_dir"`        // 工作目录
+	GitUrl         string            `json:"git_url"`         // git代码地址
+	GitUser        string            `json:"git_user"`        // git账号
+	GitPass        string            `json:"git_pass"`        // git密码
+	RegistryUrl    string            `json:"registry_url"`    // 仓库地址
+	RegistryUser   string            `json:"registry_user"`   // 仓库账号
+	RegistryPass   string            `json:"registry_pass"`   // 仓库密码
+	ServiceName    string            `json:"service_name"`    // 服务名
+	ServiceBranch  string            `json:"service_branch"`  // 服务分支
+	ServiceVersion string            `json:"service_version"` // 服务版本
+	Exec           string            `json:"exec"`            // 执行器
+	Dockerfile     string            `json:"dockerfile"`      // 打包脚本
+	Args           map[string]string `json:"args"`            // 打包脚本变量
 }
 
 type PackCall func(string)
@@ -53,7 +53,7 @@ func (p *pack) SetWatch(f func(string)) {
 }
 
 func (p *pack) GetImageName() string {
-	return fmt.Sprintf("%v/%v:%v", p.RegistryUrl, p.ServerName, p.ServerVersion)
+	return fmt.Sprintf("%v/%v:%v", p.RegistryUrl, p.ServiceName, p.ServiceVersion)
 }
 
 func (p *pack) GetServerWorkDir() string {
@@ -76,7 +76,7 @@ func (p *pack) HasDevImage() bool {
 
 // HasRemoteImage 是否存在本地镜像
 func (p *pack) HasRemoteImage() (bool, error) {
-	shell := fmt.Sprintf("curl -X GET -u %v:%v %v/v2/%v/tags/list", p.RegistryUser, p.RegistryPass, p.RegistryUrl, p.ServerName)
+	shell := fmt.Sprintf("curl -X GET -u %v:%v %v/v2/%v/tags/list", p.RegistryUser, p.RegistryPass, p.RegistryUrl, p.ServiceName)
 	cmd := p.cmd.Command(p.Exec, "-c", shell)
 	out, err := cmd.Output()
 	if err != nil {
@@ -92,7 +92,7 @@ func (p *pack) HasRemoteImage() (bool, error) {
 	if resp.Name == "" {
 		return false, nil
 	}
-	return tools.InList(resp.Tags, p.ServerVersion), nil
+	return tools.InList(resp.Tags, p.ServiceVersion), nil
 }
 
 // CreateWorkDir 创建工作目录
@@ -164,7 +164,7 @@ func (p *pack) GitCloneCode() error {
 	}
 
 	// 切换分支
-	cmd = p.cmd.Command(p.Exec, "-c", fmt.Sprintf("git checkout %v", p.ServerBranch))
+	cmd = p.cmd.Command(p.Exec, "-c", fmt.Sprintf("git checkout %v", p.ServiceBranch))
 	cmd.SetDir(p.GetServerWorkDir())
 	out, err = cmd.CombinedOutput()
 	if err != nil {

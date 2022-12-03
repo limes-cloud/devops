@@ -14,6 +14,8 @@ func Init() *gin.Engine {
 	{
 		// 配置环境相关api
 		v1.GET("/environments", handler.AllEnvironment)
+		v1.GET("/environment/filter", handler.AllEnvironmentFilter)
+
 		v1.POST("/environment", handler.AddEnvironment)
 		v1.POST("/environment/connect", handler.EnvironmentConnect)
 		v1.PUT("/environment", handler.UpdateEnvironment)

@@ -6,7 +6,7 @@ require (
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/golang-jwt/jwt/v4 v4.4.2
 	github.com/jinzhu/copier v0.3.5
-	github.com/limeschool/gin v0.0.14
+	github.com/limeschool/gin v0.0.15
 	github.com/spf13/viper v1.12.0
 	golang.org/x/crypto v0.0.0-20220411220226-7b82a4e95df4
 	gorm.io/gorm v1.23.8

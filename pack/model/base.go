@@ -1,10 +1,10 @@
 package model
 
 import (
-	"docker_pack/consts"
-	"docker_pack/errors"
 	"github.com/limeschool/gin"
 	"gorm.io/gorm"
+	"pack/consts"
+	"pack/errors"
 	"strings"
 )
 
