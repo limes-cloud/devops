@@ -1,7 +1,6 @@
 package service
 
 import (
-	"fmt"
 	"github.com/jinzhu/copier"
 	"github.com/limeschool/gin"
 	"gorm.io/gorm"
@@ -45,7 +44,6 @@ func AddUser(ctx *gin.Context, in *types.AddUserRequest) error {
 	}
 
 	if err := user.Create(ctx); err != nil {
-		fmt.Println(err.Error())
 		return err
 	}
 	return nil

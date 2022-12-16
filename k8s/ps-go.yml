@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ps-go
+  namespace: backend
+  labels:
+    app: ps-go
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: ps-go
+      labels:
+        app: ps-go
+    spec:
+      imagePullSecrets:
+        - name: docker-hub
+      containers:
+        - name: ps-go
+          image: docker-hub.qlime.cn/ps-go:v1.0
+          imagePullPolicy: IfNotPresent
+
+          livenessProbe:
+            httpGet:
+              port: 8081
+              path: /check_healthy
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 3
+            successThreshold: 1
+            failureThreshold: 2
+          readinessProbe:
+            httpGet:
+              port: 8081
+              path: /check_healthy
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            timeoutSeconds: 3
+            successThreshold: 1
+            failureThreshold: 2
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: ps-go

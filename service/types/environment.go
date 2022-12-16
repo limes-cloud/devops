@@ -11,18 +11,28 @@ type EnvironmentConnectRequest struct {
 }
 
 type AddEnvironmentRequest struct {
-	Keyword     string `json:"keyword" binding:"required"`
-	Name        string `json:"name" binding:"required"`
-	Description string `json:"description"`
-	Status      bool   `json:"status"`
+	Keyword      string `json:"keyword" binding:"required"`
+	Name         string `json:"name" binding:"required"`
+	Description  string `json:"description"`
+	DcHost       string `json:"dc_host"`
+	DcToken      string `json:"dc_token"`
+	K8sHost      string `json:"k8s_host"`
+	K8sToken     string `json:"k8s_token"`
+	K8sNamespace string `json:"k8s_namespace"`
+	Status       bool   `json:"status"`
 }
 
 type UpdateEnvironmentRequest struct {
-	ID          int64  `json:"id"  binding:"required"`
-	Name        string `json:"name"`
-	Keyword     string `json:"keyword"`
-	Description string `json:"description"`
-	Status      bool   `json:"status"`
+	ID           int64   `json:"id"  binding:"required"`
+	Name         *string `json:"name"`
+	Keyword      *string `json:"keyword"`
+	Description  *string `json:"description"`
+	Status       *bool   `json:"status"`
+	DcHost       *string `json:"dc_host"`
+	DcToken      *string `json:"dc_token"`
+	K8sHost      *string `json:"k8s_host"`
+	K8sToken     *string `json:"k8s_token"`
+	K8sNamespace *string `json:"k8s_namespace"`
 }
 
 type DeleteEnvironmentRequest struct {
@@ -33,8 +43,3 @@ type UpdateServiceEnvRequest struct {
 	ID     int64   `json:"id"  binding:"required"`
 	SrvIds []int64 `json:"srv_ids" binding:"required"`
 }
-
-//type AllServiceEnvRequest struct {
-//	EnvId int64 `json:"env_id" form:"env_id"`
-//	SrvId int64 `json:"srv_id" form:"srv_id"`
-//}

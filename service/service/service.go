@@ -55,9 +55,49 @@ func PageService(ctx *gin.Context, in *types.PageServiceRequest) ([]model.Servic
 			ids = append(ids, ite.EnvId)
 		}
 		list[key].EnvIds = ids
+
+		// 获取代码仓库信息
+		code := model.CodeRegistry{}
+		_ = code.OneById(ctx, item.CodeRegistryID)
+		list[key].CodeRegistryName = code.Name
+
+		// 获取镜像仓库信息
+		image := model.ImageRegistry{}
+		_ = image.OneById(ctx, item.ImageRegistryID)
+		list[key].ImageRegistryName = image.Name
+
+		// 获取docker仓库信息
+		docker := model.Dockerfile{}
+		_ = docker.OneById(ctx, item.DockerfileID)
+		list[key].DockerfileName = docker.Name
+
 	}
 
 	return list, total, nil
+}
+
+func PageServiceFilter(ctx *gin.Context, in *types.PageServiceRequest) ([]model.Service, int64, error) {
+	// 获取当前用户的部门id
+	userTeamIds, err := UserTeamIds(ctx)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	// 判断是否具有部门的操作权限
+	if in.IsPrivate != nil && !*in.IsPrivate && in.TeamID != nil {
+		if !tools.InList(userTeamIds, *in.TeamID) {
+			return nil, 0, errors.New("暂无此部门的操作权限")
+		}
+	}
+
+	// 查询用户权限内的服务
+	srv := model.Service{}
+	return srv.Filter(ctx, in.Page, in.Count, in, func(db *gorm.DB) *gorm.DB {
+		if in.IsPrivate != nil && !*in.IsPrivate {
+			return db.Where("team_id in ?", userTeamIds)
+		}
+		return db
+	})
 }
 
 func AddService(ctx *gin.Context, in *types.AddServiceRequest) error {

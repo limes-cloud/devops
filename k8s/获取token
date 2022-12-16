@@ -1,0 +1,51 @@
+# 查询token，脚本稍长，分解一下很好理解，就是先获取secert实际名字，然后读取里面的token信息
+kubectl -n kube-system get secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}') -o "jsonpath={.data.token}"
+
+
+eyJhbGciOiJSUzI1NiIsImtpZCI6ImU5cnZfd2M4SXBLaHhmYmhWV2F3b0U4Z2lyeTRSVHpkX215MW5GaVN1TDgifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi11c2VyLXRva2VuLTc4YmJmIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImFkbWluLXVzZXIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiI3MWEwM2UzMi1hNjJjLTQwNTAtOGIxMS1kNWU4MjI5Y2NkNDgiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZS1zeXN0ZW06YWRtaW4tdXNlciJ9.jXmk3ku1qvZ9SP-AM49B_6nnOmdKscQCWVFzWjcql8V-lvn6nZXgePNiAwy_Uo_mdHg1yorQz8QFT3TK7q0qXYPRlgko9E1q0GaUENW2y6wpf-gbTaTjxUS4mRgeXBjH1AnhlvCAKWagsHsRJIPFQCnANepmLOt4q0hE0h4n3hlVn6ydpVqLt2jDpccuSy6WBb4OTAiOUGEH_9h3bzsmR1NBBQ7c7RbhD5SLzNSpmrcnmmhH_YY_w9idqhrR_iSTXscPoZAHI0QB_jMbmdCzlX_2s-om0Vku8Rw2wCey-Gxc_f4Vp-10boSvtLjKTFEkVkXmTUXKHhBusY25aE-4hg
+
+
+# 1 获取密钥资源
+kubectl -n kube-system get secret
+
+# 2 描述指定的密钥资源
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ps-go
+  labels:
+    app: ps-go
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: ps-go
+      labels:
+        app: ps-go
+    spec:
+      containers:
+        - name: ps-go
+          image: ps-go
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            httpGet:
+              port: /check_healthy
+            initialDelaySeconds: 15 #第一次启动后多少秒进行探测
+            periodSeconds: 10 # 请求间隔时间
+            timeoutSeconds: 3 #探测最长时间
+            successThreshold: 1 # 探测一次即为成功
+            failureThreshold: 2
+          readinessProbe:
+            httpGet:
+              port: /check_healthy
+            initialDelaySeconds: { ProbeInitDelay } #第一次启动后多少秒进行探测
+            periodSeconds: 5 # 请求间隔时间
+            timeoutSeconds: 3 #探测最长时间
+            successThreshold: 1 # 探测一次即为成功
+            failureThreshold: 2
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: ps-go

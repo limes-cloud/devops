@@ -7,12 +7,17 @@ import (
 
 type Environment struct {
 	gin.BaseModel
-	Keyword     string  `json:"keyword,omitempty"`
-	Name        string  `json:"name,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Status      *bool   `json:"status,omitempty"`
-	Operator    string  `json:"operator,omitempty"`
-	OperatorId  int64   `json:"operator_id,omitempty"`
+	Keyword      string  `json:"keyword,omitempty"`
+	Name         string  `json:"name,omitempty"`
+	Description  *string `json:"description,omitempty"`
+	DcHost       *string `json:"dc_host"`
+	DcToken      *string `json:"dc_token"`
+	K8sHost      *string `json:"k8s_host"`
+	K8sToken     *string `json:"k8s_token"`
+	K8sNamespace *string `json:"k8s_namespace"`
+	Status       *bool   `json:"status,omitempty"`
+	Operator     string  `json:"operator,omitempty"`
+	OperatorId   int64   `json:"operator_id,omitempty"`
 }
 
 func (u *Environment) Table() string {
@@ -28,6 +33,10 @@ func (u *Environment) Create(ctx *gin.Context) error {
 
 func (u *Environment) OneById(ctx *gin.Context, id int64) error {
 	return transferErr(database(ctx).Table(u.Table()).First(u, "id = ?", id).Error)
+}
+
+func (u *Environment) OneByKeyword(ctx *gin.Context, key string) error {
+	return transferErr(database(ctx).Table(u.Table()).First(u, "keyword = ?", key).Error)
 }
 
 func (u *Environment) One(ctx *gin.Context, cond ...interface{}) error {

@@ -9,10 +9,7 @@ import (
 )
 
 var dataMap = map[string]string{
-	"keyword": "标志",
-	"name":    "名称",
-	"field":   "字段",
-	"type":    "类型",
+	"name": "名称",
 }
 
 type callback func(db *gorm.DB) *gorm.DB
@@ -51,5 +48,8 @@ func transferErr(err error) error {
 		return errors.NewF(`%v "%v" 已存在`, dataMap[arr[1]], arr[0])
 	}
 
+	if strings.Contains(err.Error(), "a foreign key constraint fails") {
+		return errors.New("当前数据正在被使用")
+	}
 	return errors.DBError
 }

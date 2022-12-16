@@ -2,10 +2,15 @@ package handler
 
 import (
 	"github.com/limeschool/gin"
+	"service/consts"
 	"service/errors"
 	"service/service"
 	"service/types"
 )
+
+func AllVariable(ctx *gin.Context) {
+	ctx.RespData(consts.Variables)
+}
 
 func AllServiceEnvs(ctx *gin.Context) {
 	in := types.AllServiceEnvRequest{}
@@ -27,6 +32,19 @@ func PageService(ctx *gin.Context) {
 		return
 	}
 	if list, total, err := service.PageService(ctx, &in); err != nil {
+		ctx.RespError(err)
+	} else {
+		ctx.RespList(in.Page, in.Count, int(total), list)
+	}
+}
+
+func PageServiceFilter(ctx *gin.Context) {
+	in := types.PageServiceRequest{}
+	if ctx.ShouldBind(&in) != nil {
+		ctx.RespError(errors.ParamsError)
+		return
+	}
+	if list, total, err := service.PageServiceFilter(ctx, &in); err != nil {
 		ctx.RespError(err)
 	} else {
 		ctx.RespList(in.Page, in.Count, int(total), list)
