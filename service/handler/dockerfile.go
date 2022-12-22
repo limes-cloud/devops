@@ -8,15 +8,15 @@ import (
 )
 
 func PageDockerfile(ctx *gin.Context) {
-	in := types.AllDockerfileRequest{}
+	in := types.PageDockerfileRequest{}
 	if ctx.ShouldBind(&in) != nil {
 		ctx.RespError(errors.ParamsError)
 		return
 	}
-	if resp, err := service.AllDockerfile(ctx, &in); err != nil {
+	if resp, total, err := service.PageDockerfile(ctx, &in); err != nil {
 		ctx.RespError(err)
 	} else {
-		ctx.RespData(resp)
+		ctx.RespList(in.Page, in.Count, int(total), resp)
 	}
 }
 

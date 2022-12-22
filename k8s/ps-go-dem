@@ -1,47 +1,46 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ps-go
-  namespace: backend
+  name: {ServiceName}
+  namespace: {Namespace}
   labels:
-    app: ps-go
+    app: {ServiceName}
 spec:
-  replicas: 1
+  replicas: {Replicas}
   template:
     metadata:
-      name: ps-go
+      name: {ServiceName}
       labels:
-        app: ps-go
+        app: {ServiceName}
     spec:
       imagePullSecrets:
         - name: docker-hub
       containers:
-        - name: ps-go
-          image: docker-hub.qlime.cn/ps-go:v1.0
+        - name: {ServiceName}
+          image: {ImageRegistryName}/{ServiceName}:{ImageVersion}
           imagePullPolicy: IfNotPresent
           livenessProbe:
             httpGet:
-              port: 8081
-              path: /check_healthy
+              port: {ListenPort}
+              path: {ProbeValue}
             periodSeconds: 10
             timeoutSeconds: 3
             successThreshold: 1
             failureThreshold: 2
           readinessProbe:
             httpGet:
-              port: 8081
-              path: /check_healthy
+              port: {ListenPort}
+              path: {ProbeValue}
             periodSeconds: 5
             timeoutSeconds: 3
             successThreshold: 1
             failureThreshold: 2
           startupProbe:
-            initialDelaySeconds: 10
+            initialDelaySeconds: {ProbeInitDelay}
             httpGet:
-              port: 8081
-              path: /check_healthy
-
+              port: {ListenPort}
+              path: {ProbeValue}
       restartPolicy: Always
   selector:
     matchLabels:
-      app: ps-go
+      app: {ServiceName}

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-v19
+  labels:
+    app: hello-v19
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: hello-v19
+      labels:
+        app: hello-v19
+    spec:
+
+      imagePullSecrets:
+        - name: docker-hub
+      containers:
+        - name: hello-v19
+          image: docker-hub.qlime.cn/hello:v1.19
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: config
+              mountPath: /usr/share/nginx/html
+              readOnly: true
+      restartPolicy: Always
+      volumes:
+        - name: config
+          emptyDir: { }
+  selector:
+    matchLabels:
+      app: hello-v19

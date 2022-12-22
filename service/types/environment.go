@@ -14,6 +14,7 @@ type AddEnvironmentRequest struct {
 	Keyword      string `json:"keyword" binding:"required"`
 	Name         string `json:"name" binding:"required"`
 	Description  string `json:"description"`
+	Type         string `json:"type" binding:"required"`
 	DcHost       string `json:"dc_host"`
 	DcToken      string `json:"dc_token"`
 	K8sHost      string `json:"k8s_host"`
@@ -26,6 +27,7 @@ type UpdateEnvironmentRequest struct {
 	ID           int64   `json:"id"  binding:"required"`
 	Name         *string `json:"name"`
 	Keyword      *string `json:"keyword"`
+	Type         string  `json:"type" binding:"required"`
 	Description  *string `json:"description"`
 	Status       *bool   `json:"status"`
 	DcHost       *string `json:"dc_host"`

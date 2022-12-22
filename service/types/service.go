@@ -31,6 +31,7 @@ type AddServiceRequest struct {
 
 type PageServiceRequest struct {
 	Keyword   string `json:"keyword" form:"keyword"`
+	ID        int64  `json:"id" form:"id"`
 	Name      string `json:"name" form:"name" sql:"like '%?%'"`
 	IsPrivate *bool  `json:"is_private" form:"is_private"`
 	TeamID    *int64 `json:"team_id"  form:"team_id" sql:"-"`

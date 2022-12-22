@@ -9,9 +9,9 @@ import (
 	"service/types"
 )
 
-func AllRelease(ctx *gin.Context, in *types.AllReleaseRequest) ([]model.Release, error) {
+func PageRelease(ctx *gin.Context, in *types.PageReleaseRequest) ([]model.Release, int64, error) {
 	release := model.Release{}
-	return release.All(ctx, in)
+	return release.Page(ctx, in.Page, in.Count, in)
 }
 
 func AddRelease(ctx *gin.Context, in *types.AddReleaseRequest) error {
@@ -38,7 +38,7 @@ func DeleteRelease(ctx *gin.Context, in *types.DeleteReleaseRequest) error {
 func AllReleaseImages(ctx *gin.Context, in *types.AllReleaseImagesRequest) ([]model.PackLog, error) {
 	log := model.PackLog{}
 	logs, _, err := log.All(ctx, func(db *gorm.DB) *gorm.DB {
-		return db.Select("service_name,image_name,created_at").
+		return db.Select("service_name,image_name,created_at,id").
 			Where("service_keyword = ?", in.ServiceKeyword).
 			Where("is_clear = false"). // 镜像未清理
 			Where("status = true")     // 发布成功的

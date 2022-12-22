@@ -51,6 +51,12 @@ func (p *pack) HasWorkDir() bool {
 	return fi.IsDir()
 }
 
+func (p *pack) Call(str string) {
+	if p.call != nil {
+		p.call(str)
+	}
+}
+
 func (p *pack) SetWatch(f func(string)) {
 	p.call = f
 }
@@ -66,9 +72,9 @@ func (p *pack) GetServerWorkDir() string {
 
 // HasDevImage 是否存在本地镜像
 func (p *pack) HasDevImage() (res bool) {
-	p.call(fmt.Sprintf("判断是否存在本地镜像"))
+	p.Call(fmt.Sprintf("判断是否存在本地镜像"))
 	defer func() {
-		p.call(fmt.Sprintf("判断是否存在本地镜像 => %v", res))
+		p.Call(fmt.Sprintf("判断是否存在本地镜像 => %v", res))
 	}()
 
 	cmd := p.cmd.Command(p.Exec, "-c", fmt.Sprintf("docker images %v|wc -l", p.GetImageName()))
@@ -86,12 +92,12 @@ func (p *pack) HasDevImage() (res bool) {
 
 // HasRemoteImage 是否存在远程镜像
 func (p *pack) HasRemoteImage() (res bool, err error) {
-	p.call(fmt.Sprintf("判断是否存在远程镜像"))
+	p.Call(fmt.Sprintf("判断是否存在远程镜像"))
 	defer func() {
 		if err != nil {
-			p.call(fmt.Sprintf("判断是否存在远程镜像失败 => %v", err.Error()))
+			p.Call(fmt.Sprintf("判断是否存在远程镜像失败 => %v", err.Error()))
 		}
-		p.call(fmt.Sprintf("判断是否存在远程镜像 => %v", res))
+		p.Call(fmt.Sprintf("判断是否存在远程镜像 => %v", res))
 	}()
 
 	shell := fmt.Sprintf("curl -X GET -u %v:%v %v/v2/%v/tags/list", p.RegistryUser, p.RegistryPass, p.RegistryUrl, p.ServerName)
@@ -118,10 +124,10 @@ func (p *pack) HasRemoteImage() (res bool, err error) {
 
 // CreateWorkDir 创建工作目录
 func (p *pack) CreateWorkDir() (err error) {
-	p.call(fmt.Sprintf("创建全局工作目录"))
+	p.Call(fmt.Sprintf("创建全局工作目录"))
 	defer func() {
 		if err != nil {
-			p.call(fmt.Sprintf("创建全局工作目录失败 => %v", err.Error()))
+			p.Call(fmt.Sprintf("创建全局工作目录失败 => %v", err.Error()))
 		}
 	}()
 
@@ -154,17 +160,17 @@ func (p *pack) RemoveServerPath() {
 
 // GetGitVersion 获取git版本
 func (p *pack) GetGitVersion() (res string, err error) {
-	p.call("获取git版本")
+	p.Call("获取git版本")
 	defer func() {
 		if err != nil {
-			p.call(fmt.Sprintf("获取git版本失败 => %v", err.Error()))
+			p.Call(fmt.Sprintf("获取git版本失败 => %v", err.Error()))
 		}
-		p.call(fmt.Sprintf("git版本 => %v", res))
+		p.Call(fmt.Sprintf("git版本 => %v", res))
 	}()
 
 	shell := "git version"
 
-	p.call(shell)
+	p.Call(shell)
 
 	cmd := p.cmd.Command(p.Exec, "-c", shell)
 	version, err := cmd.Output()
@@ -177,17 +183,17 @@ func (p *pack) GetGitVersion() (res string, err error) {
 
 // GetDockerVersion 获取docker版本
 func (p *pack) GetDockerVersion() (res string, err error) {
-	p.call(fmt.Sprintf("获取docker版本"))
+	p.Call(fmt.Sprintf("获取docker版本"))
 	defer func() {
 		if err != nil {
-			p.call(fmt.Sprintf("获取docker版本 => %v", err.Error()))
+			p.Call(fmt.Sprintf("获取docker版本 => %v", err.Error()))
 		}
-		p.call(fmt.Sprintf("docker版本 => %v", res))
+		p.Call(fmt.Sprintf("docker版本 => %v", res))
 	}()
 
 	shell := "docker -v"
 
-	p.call(shell)
+	p.Call(shell)
 
 	cmd := p.cmd.Command(p.Exec, "-c", shell)
 	version, err := cmd.Output()
@@ -200,10 +206,10 @@ func (p *pack) GetDockerVersion() (res string, err error) {
 
 // GitCloneCode 进行代码拉去
 func (p *pack) GitCloneCode() (err error) {
-	p.call(fmt.Sprintf("进行代码拉取"))
+	p.Call(fmt.Sprintf("进行代码拉取"))
 	defer func() {
 		if err != nil {
-			p.call(fmt.Sprintf("进行代码拉取失败 => %v", err.Error()))
+			p.Call(fmt.Sprintf("进行代码拉取失败 => %v", err.Error()))
 		}
 	}()
 
@@ -241,7 +247,7 @@ func (p *pack) RemoveRemoteImage(name string, version string) {
 	var err error
 	defer func() {
 		if err != nil {
-			p.call(fmt.Sprintf("清理镜像 %v/%v:%v 失败 => %v", p.RegistryUrl, name, version, err.Error()))
+			p.Call(fmt.Sprintf("清理镜像 %v/%v:%v 失败 => %v", p.RegistryUrl, name, version, err.Error()))
 		}
 	}()
 
@@ -274,10 +280,10 @@ func (p *pack) RemoveRemoteImage(name string, version string) {
 // Pack 进行打包镜像
 func (p *pack) Pack() (err error) {
 
-	p.call(fmt.Sprintf("进行打包镜像"))
+	p.Call(fmt.Sprintf("进行打包镜像"))
 	defer func() {
 		if err != nil {
-			p.call(fmt.Sprintf("进行打包镜像 => %v", err.Error()))
+			p.Call(fmt.Sprintf("进行打包镜像 => %v", err.Error()))
 		}
 	}()
 
@@ -303,10 +309,10 @@ func (p *pack) Pack() (err error) {
 
 func (p *pack) RenderDockerfile() {
 
-	p.call("进行docker模板渲染")
+	p.Call("进行docker模板渲染")
 	defer func() {
-		p.call("进行docker模板渲染成功")
-		p.call(p.Dockerfile)
+		p.Call("进行docker模板渲染成功")
+		p.Call(p.Dockerfile)
 	}()
 
 	reg := regexp.MustCompile(`\{\w+}`)
@@ -319,10 +325,10 @@ func (p *pack) RenderDockerfile() {
 
 // Login 登陆仓库
 func (p *pack) Login() (err error) {
-	p.call("进行docker镜像仓库登陆")
+	p.Call("进行docker镜像仓库登陆")
 	defer func() {
 		if err != nil {
-			p.call(fmt.Sprintf("进行docker镜像仓库登陆失败 => %v", err.Error()))
+			p.Call(fmt.Sprintf("进行docker镜像仓库登陆失败 => %v", err.Error()))
 		}
 	}()
 
@@ -337,10 +343,10 @@ func (p *pack) Login() (err error) {
 
 // Upload 进行镜像上传
 func (p *pack) Upload() (err error) {
-	p.call("进行镜像上传")
+	p.Call("进行镜像上传")
 	defer func() {
 		if err != nil {
-			p.call(fmt.Sprintf("进行镜像上传 => %v", err.Error()))
+			p.Call(fmt.Sprintf("进行镜像上传 => %v", err.Error()))
 		}
 	}()
 
@@ -368,7 +374,7 @@ func (p *pack) RemoveImage() {
 	if !p.HasDevImage() {
 		return
 	}
-	p.call(fmt.Sprintf("删除本地镜像:%v", p.GetImageName()))
+	p.Call(fmt.Sprintf("删除本地镜像:%v", p.GetImageName()))
 	p.cmd.Command(p.Exec, "-c", fmt.Sprintf("docker rmi -f %v .", p.GetImageName()))
 }
 
@@ -384,7 +390,7 @@ func (p *pack) Start() error {
 
 	// 清理工作痕迹
 	defer func() {
-		p.call("清理工作痕迹")
+		p.Call("清理工作痕迹")
 		p.RemoveServerPath()
 		p.RemoveImage()
 	}()
@@ -418,6 +424,6 @@ func (p *pack) Start() error {
 		return err
 	}
 
-	p.call("pack success")
+	p.Call("pack success")
 	return nil
 }

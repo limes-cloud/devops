@@ -4,6 +4,7 @@ import (
 	"github.com/jinzhu/copier"
 	"github.com/limeschool/gin"
 	"gorm.io/gorm"
+	"service/consts"
 	"service/errors"
 	"service/model"
 	"service/tools"
@@ -60,8 +61,7 @@ func ConnectImageRegistry(ctx *gin.Context, in *types.ConnectImageRegistryReques
 	pack.RegistryUrl = image.Host
 	pack.RegistryUser = image.Username
 	pack.RegistryPass = image.Password
-	pack.Exec = "/bin/sh"
-
+	pack.Exec = consts.Exec
 	if _, err := pack.GetDockerVersion(); err != nil {
 		return errors.New("安装主机必须存在docker运行环境")
 	}

@@ -9,9 +9,9 @@ import (
 	"service/types"
 )
 
-func AllDockerfile(ctx *gin.Context, in *types.AllDockerfileRequest) ([]model.Dockerfile, error) {
+func PageDockerfile(ctx *gin.Context, in *types.PageDockerfileRequest) ([]model.Dockerfile, int64, error) {
 	image := model.Dockerfile{}
-	return image.All(ctx, in)
+	return image.Page(ctx, in.Page, in.Count, in)
 }
 
 func AllDockerfileFilter(ctx *gin.Context) ([]model.Dockerfile, error) {

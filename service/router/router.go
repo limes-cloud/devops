@@ -28,6 +28,7 @@ func Init() *gin.Engine {
 		v1.PUT("/service", handler.UpdateService)
 		v1.DELETE("/service", handler.DeleteService)
 
+		// 代码仓库相关
 		v1.GET("/code_registries", handler.AllCodeRegistries)
 		v1.GET("/code_registry/filter", handler.AllCodeRegistryFilter)
 		v1.GET("/code_registry/types", handler.AllCodeRegistryTypes)
@@ -36,11 +37,11 @@ func Init() *gin.Engine {
 		v1.POST("/code_registry/connect", handler.ConnectCodeRegistry)
 		v1.PUT("/code_registry", handler.UpdateCodeRegistry)
 		v1.DELETE("/code_registry", handler.DeleteCodeRegistry)
-
 		v1.GET("/code_registry/project", handler.GetCodeRegistryProject)
 		v1.GET("/code_registry/branches", handler.AllCodeRegistryBranches)
 		v1.GET("/code_registry/tags", handler.AllCodeRegistryTags)
 
+		// 镜像仓库相关
 		v1.GET("/image_registries", handler.AllImageRegistries)
 		v1.GET("/image_registry/filter", handler.AllImageRegistryFilter)
 		v1.POST("/image_registry", handler.AddImageRegistry)
@@ -48,12 +49,14 @@ func Init() *gin.Engine {
 		v1.PUT("/image_registry", handler.UpdateImageRegistry)
 		v1.DELETE("/image_registry", handler.DeleteImageRegistry)
 
+		// 打包模板相关
 		v1.GET("/dockerfile/page", handler.PageDockerfile)
 		v1.GET("/dockerfile/filter", handler.AllDockerfileFilter)
 		v1.POST("/dockerfile", handler.AddDockerfile)
 		v1.PUT("/dockerfile", handler.UpdateDockerfile)
 		v1.DELETE("/dockerfile", handler.DeleteDockerfile)
 
+		// 发布模板相关
 		v1.GET("/release/page", handler.PageRelease)
 		v1.GET("/release/types", handler.AllReleaseTypes)
 		v1.GET("/release/status", handler.AllReleaseStatus)
@@ -62,11 +65,19 @@ func Init() *gin.Engine {
 		v1.DELETE("/release", handler.DeleteRelease)
 		v1.GET("/release/images", handler.AllReleaseImages)
 
+		// 打包相关
 		v1.GET("/pack_log/page", handler.PagePackLog)
 		v1.POST("/pack", handler.AddPack)
 
+		// 发布相关
 		v1.GET("/release_log/page", handler.PageReleaseLog)
 		v1.POST("/release_log", handler.AddReleaseLog)
+
+		// 网络相关
+		v1.GET("/network/page", handler.PageNetwork)
+		v1.POST("/network", handler.AddNetwork)
+		v1.PUT("/network", handler.UpdateNetwork)
+		v1.DELETE("/network", handler.DeleteNetwork)
 
 	}
 	return root

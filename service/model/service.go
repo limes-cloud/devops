@@ -1,12 +1,8 @@
 package model
 
 import (
-	"fmt"
 	"github.com/limeschool/gin"
-	"regexp"
-	"service/consts"
 	"service/meta"
-	"strings"
 )
 
 type Service struct {
@@ -100,27 +96,4 @@ func (u *Service) UpdateByID(ctx *gin.Context) error {
 
 func (u *Service) DeleteByID(ctx *gin.Context, id int64) error {
 	return transferErr(database(ctx).Table(u.Table()).Where("id = ?", id).Delete(&u).Error)
-}
-
-func (u *Service) Replace(text string) string {
-	reg := regexp.MustCompile(`\{\w+}`)
-	args := reg.FindAllString(text, -1)
-	for _, val := range args {
-		key := val[1 : len(val)-1]
-		switch key {
-		case consts.RunPort:
-			text = strings.ReplaceAll(text, val, fmt.Sprint(u.RunPort))
-		case consts.ListenPort:
-			text = strings.ReplaceAll(text, val, fmt.Sprint(u.ListenPort))
-		case consts.Replicas:
-			text = strings.ReplaceAll(text, val, fmt.Sprint(u.Replicas))
-		case consts.ProbeValue:
-			text = strings.ReplaceAll(text, val, u.ProbeValue)
-		case consts.ProbeInitDelay:
-			text = strings.ReplaceAll(text, val, fmt.Sprint(u.ProbeInitDelay))
-		case consts.ServiceName:
-			text = strings.ReplaceAll(text, val, u.Keyword)
-		}
-	}
-	return text
 }

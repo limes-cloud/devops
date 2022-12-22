@@ -30,6 +30,20 @@ func (u *Release) OneById(ctx *gin.Context, id int64) error {
 	return transferErr(database(ctx).Table(u.Table()).First(u, "id = ?", id).Error)
 }
 
+func (u *Release) Page(ctx *gin.Context, page, count int, m interface{}, fs ...callback) ([]Release, int64, error) {
+	var list []Release
+	var total int64
+
+	db := database(ctx).Table(u.Table())
+	db = gin.GormWhere(db, u.Table(), m)
+	db = execCallback(db, fs...).Order("created_at desc")
+	if err := db.Count(&total).Error; err != nil {
+		return nil, total, err
+	}
+
+	return list, total, transferErr(db.Offset((page - 1) * count).Limit(count).Find(&list).Error)
+}
+
 func (u *Release) All(ctx *gin.Context, m any, fs ...callback) ([]Release, error) {
 	var list []Release
 	db := database(ctx).Table(u.Table())

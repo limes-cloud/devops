@@ -1,13 +1,17 @@
 package service
 
 import (
+	"fmt"
 	"github.com/limeschool/gin"
+	"regexp"
 	"service/consts"
 	"service/errors"
 	"service/model"
 	"service/tools/image_release"
 	"service/tools/image_release/k8s"
 	"service/types"
+	"strings"
+	"time"
 )
 
 func PageReleaseLog(ctx *gin.Context, in *types.PageReleaseLogRequest) ([]model.ReleaseLog, int64, error) {
@@ -16,6 +20,14 @@ func PageReleaseLog(ctx *gin.Context, in *types.PageReleaseLogRequest) ([]model.
 }
 
 func AddReleaseLog(ctx *gin.Context, in *types.AddReleaseLogRequest) error {
+	// 查询打包日志信息
+	pack := model.PackLog{}
+	if err := pack.OneById(ctx, in.PackID); err != nil {
+		return err
+	}
+	if (pack.Status == nil || !*pack.Status) || pack.IsClear || pack.ServiceKeyword != in.ServiceKeyword {
+		return errors.New("未找到构建镜像信息")
+	}
 
 	// 查询服务信息
 	service := model.Service{}
@@ -27,6 +39,7 @@ func AddReleaseLog(ctx *gin.Context, in *types.AddReleaseLogRequest) error {
 	if err := image.OneById(ctx, service.ImageRegistryID); err != nil {
 		return err
 	}
+	service.ImageRegistryName = image.Name
 
 	// 查询环境信息
 	env := model.Environment{}
@@ -58,9 +71,12 @@ func AddReleaseLog(ctx *gin.Context, in *types.AddReleaseLogRequest) error {
 	if err = release.OneById(ctx, service.ReleaseID); err != nil {
 		return err
 	}
+	if release.Type != env.Type {
+		return errors.NewF("%v只支持%v发布方式", env.Name, env.Type)
+	}
 
 	// 模板解析
-	template := service.Replace(release.Template)
+	template := Replace(env, service, pack, release.Template)
 
 	// 连接到远程
 	var client image_release.ImageRelease
@@ -68,10 +84,7 @@ func AddReleaseLog(ctx *gin.Context, in *types.AddReleaseLogRequest) error {
 	if release.Type == consts.Dc {
 
 	} else {
-		if env.K8sHost == nil || env.K8sToken == nil {
-			return errors.New("此环境未设置k8s配置信息")
-		}
-		client, err = k8s.NewK8sClient(*env.K8sHost, *env.K8sToken, *env.K8sNamespace)
+		client, err = k8s.NewK8sClient(env.K8sHost, env.K8sToken, env.K8sNamespace)
 		if err != nil {
 			return err
 		}
@@ -83,7 +96,7 @@ func AddReleaseLog(ctx *gin.Context, in *types.AddReleaseLogRequest) error {
 		EnvName:           env.Name,
 		ServiceKeyword:    service.Keyword,
 		ServiceName:       service.Name,
-		ImageName:         in.ImageName,
+		ImageName:         pack.ImageName,
 		ImageRegistryName: image.Name,
 	}
 
@@ -95,9 +108,11 @@ func AddReleaseLog(ctx *gin.Context, in *types.AddReleaseLogRequest) error {
 	go func() {
 		newLog := model.ReleaseLog{}
 		newLog.ID = log.ID
+		startTime := time.Now().Unix()
 
 		defer func() {
 			newLog.IsFinish = true
+			newLog.UseTime = time.Now().Unix() - startTime
 			_ = newLog.UpdateByID(ctx)
 		}()
 
@@ -105,11 +120,49 @@ func AddReleaseLog(ctx *gin.Context, in *types.AddReleaseLogRequest) error {
 		if err = client.UpdateFromYaml(ctx, template); err != nil {
 			newLog.Desc = err.Error()
 			newLog.Status = consts.Fail
+			return
 		}
 
 		// 监听启动状态
-
+		if err = client.GetStartStatus(ctx, service.Keyword); err != nil {
+			newLog.Desc = err.Error()
+			newLog.Status = consts.Fail
+		} else {
+			newLog.Status = consts.Success
+		}
 	}()
 
 	return nil
+}
+
+func Replace(env model.Environment, srv model.Service, pack model.PackLog, text string) string {
+	reg := regexp.MustCompile(`\{\w+}`)
+	args := reg.FindAllString(text, -1)
+	for _, val := range args {
+		key := val[1 : len(val)-1]
+		key = strings.ReplaceAll(key, " ", "")
+		switch key {
+		case consts.RunPort:
+			text = strings.ReplaceAll(text, val, fmt.Sprint(srv.RunPort))
+		case consts.ListenPort:
+			text = strings.ReplaceAll(text, val, fmt.Sprint(srv.ListenPort))
+		case consts.Replicas:
+			text = strings.ReplaceAll(text, val, fmt.Sprint(srv.Replicas))
+		case consts.ProbeValue:
+			text = strings.ReplaceAll(text, val, srv.ProbeValue)
+		case consts.ProbeInitDelay:
+			text = strings.ReplaceAll(text, val, fmt.Sprint(srv.ProbeInitDelay))
+		case consts.ServiceName:
+			text = strings.ReplaceAll(text, val, srv.Keyword)
+		case consts.Image:
+			text = strings.ReplaceAll(text, val, pack.ImageName)
+		case consts.Namespace:
+			namespace := "default"
+			if env.K8sNamespace != "" {
+				namespace = env.K8sNamespace
+			}
+			text = strings.ReplaceAll(text, val, namespace)
+		}
+	}
+	return text
 }

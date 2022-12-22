@@ -13,7 +13,7 @@ type PageReleaseLogRequest struct {
 type AddReleaseLogRequest struct {
 	EnvKeyword     string `json:"env_keyword" binding:"required"`
 	ServiceKeyword string `json:"service_keyword" binding:"required"`
-	ImageName      string `json:"image_name" binding:"required"`
+	PackID         int64  `json:"pack_id"`
 }
 
 type AllReleaseImagesRequest struct {

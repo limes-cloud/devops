@@ -7,9 +7,12 @@ const (
 	ProbeValue     = "ProbeValue"
 	ProbeInitDelay = "ProbeInitDelay"
 	ServiceName    = "ServiceName"
+	Image          = "Image"
+	Namespace      = "Namespace"
 
-	K8s = "k8s"
-	Dc  = "docker-compose"
+	K8s            = "k8s"
+	K8sLabelPrefix = "app"
+	Dc             = "docker-compose"
 
 	Success = "success"
 	Fail    = "fail"
@@ -23,6 +26,8 @@ var Variables = map[string]string{
 	ProbeValue:     "探测值",
 	ProbeInitDelay: "探测延迟时间",
 	ServiceName:    "服务标志",
+	Image:          "发布镜像",
+	Namespace:      "所属环境",
 }
 
 var ReleaseStatus = map[string]string{

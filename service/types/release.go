@@ -1,6 +1,6 @@
 package types
 
-type AllReleaseRequest struct {
+type PageReleaseRequest struct {
 	Page  int    `json:"page" form:"page" binding:"required" sql:"-"`
 	Count int    `json:"count" form:"count"  binding:"required,max=50"  sql:"-"`
 	Name  string `json:"name" form:"name" sql:"like '%?%'"`
