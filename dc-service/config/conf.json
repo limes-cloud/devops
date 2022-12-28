@@ -1,0 +1,19 @@
+{
+  "service": "dc-service",
+  "system": {
+    "skip_request_log": {
+      "get:/auth": true
+    },
+    "client_timeout":"60s"
+  },
+  "log": {
+    "level": 0,
+    "trace_key": "log-id",
+    "service_key": "service"
+  },
+  "request-token": "limeschool",
+  "nginx_hosts_path": "/etc/nginx/conf.d",
+  "nginx_nginx_path": "/etc/nginx/nginx.conf",
+  "exec_type": "/bin/sh"
+
+}

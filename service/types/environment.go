@@ -11,30 +11,26 @@ type EnvironmentConnectRequest struct {
 }
 
 type AddEnvironmentRequest struct {
-	Keyword      string `json:"keyword" binding:"required"`
-	Name         string `json:"name" binding:"required"`
-	Description  string `json:"description"`
-	Type         string `json:"type" binding:"required"`
-	DcHost       string `json:"dc_host"`
-	DcToken      string `json:"dc_token"`
-	K8sHost      string `json:"k8s_host"`
-	K8sToken     string `json:"k8s_token"`
-	K8sNamespace string `json:"k8s_namespace"`
-	Status       bool   `json:"status"`
+	Keyword     string `json:"keyword" binding:"required"`
+	Name        string `json:"name" binding:"required"`
+	Description string `json:"description"`
+	Type        string `json:"type" binding:"required"`
+	Host        string `json:"host"`
+	Token       string `json:"token"`
+	Namespace   string `json:"namespace"`
+	Status      bool   `json:"status"`
 }
 
 type UpdateEnvironmentRequest struct {
-	ID           int64   `json:"id"  binding:"required"`
-	Name         *string `json:"name"`
-	Keyword      *string `json:"keyword"`
-	Type         string  `json:"type" binding:"required"`
-	Description  *string `json:"description"`
-	Status       *bool   `json:"status"`
-	DcHost       *string `json:"dc_host"`
-	DcToken      *string `json:"dc_token"`
-	K8sHost      *string `json:"k8s_host"`
-	K8sToken     *string `json:"k8s_token"`
-	K8sNamespace *string `json:"k8s_namespace"`
+	ID          int64   `json:"id"  binding:"required"`
+	Name        *string `json:"name"`
+	Keyword     *string `json:"keyword"`
+	Type        string  `json:"type" binding:"required"`
+	Description *string `json:"description"`
+	Status      *bool   `json:"status"`
+	Host        *string `json:"host"`
+	Token       *string `json:"token"`
+	Namespace   *string `json:"namespace"`
 }
 
 type DeleteEnvironmentRequest struct {

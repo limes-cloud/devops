@@ -9,7 +9,7 @@ import (
 )
 
 func AllReleaseTypes(ctx *gin.Context) {
-	ctx.RespData([]string{consts.Dc, consts.K8s})
+	ctx.RespData(ctx.Config.GetStringSlice("release_type"))
 }
 
 func AllReleaseStatus(ctx *gin.Context) {

@@ -10,9 +10,12 @@ const (
 	Image          = "Image"
 	Namespace      = "Namespace"
 
-	K8s            = "k8s"
-	K8sLabelPrefix = "app"
-	Dc             = "docker-compose"
+	K8s = "k8s"
+	Dc  = "docker-compose"
+
+	K8sLabelPrefix          = "app"
+	K8sControllerDeployment = "deployment"
+	K8sControllerDaemonSet  = "daemonSet"
 
 	Success = "success"
 	Fail    = "fail"

@@ -13,8 +13,6 @@ const (
 )
 
 const (
-	WorkDir = "/Users/apple/docker"
-	Exec    = "/bin/sh"
 	SSHURL  = "sshUrl"
 	HTMLURL = "htmlUrl"
 )

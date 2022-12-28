@@ -1,0 +1,36 @@
+version: '3'
+services:
+  redis:
+    image: redis:6.2.5
+    container_name: redis
+    privileged: true
+    volumes:
+      - ./redis/data:/data
+      - ./redis/logs:/logs
+    ports:
+      - 6379:6379
+    environment:
+      - TZ="Asia/Shanghai"
+  mysql:
+    container_name: mysql
+    image: mysql:5.7 #mysql版本
+    volumes:
+      - ./mysql/data/db:/var/lib/mysql
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+  consul:
+    container_name: consul
+    image: consul:1.13.3
+    restart: always
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - 8500:8500
+    volumes:
+      - ./consul/conf:/consul/conf
+      - ./consul/data:/consul/data
+    privileged: true
+

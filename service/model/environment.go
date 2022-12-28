@@ -7,19 +7,17 @@ import (
 
 type Environment struct {
 	gin.BaseModel
-	Keyword      string  `json:"keyword,omitempty"`
-	Name         string  `json:"name,omitempty"`
-	Description  *string `json:"description,omitempty"`
-	ReleaseType  string  `json:"release_type"`
-	Type         string  `json:"type"`
-	DcHost       string  `json:"dc_host"`
-	DcToken      string  `json:"dc_token"`
-	K8sHost      string  `json:"k8s_host"`
-	K8sToken     string  `json:"k8s_token"`
-	K8sNamespace string  `json:"k8s_namespace"`
-	Status       *bool   `json:"status,omitempty"`
-	Operator     string  `json:"operator,omitempty"`
-	OperatorId   int64   `json:"operator_id,omitempty"`
+	Keyword     string  `json:"keyword,omitempty"`
+	Name        string  `json:"name,omitempty"`
+	Description *string `json:"description,omitempty"`
+	ReleaseType string  `json:"release_type"`
+	Type        string  `json:"type"`
+	Host        string  `json:"host"`
+	Token       string  `json:"token"`
+	Namespace   string  `json:"namespace"`
+	Status      *bool   `json:"status,omitempty"`
+	Operator    string  `json:"operator,omitempty"`
+	OperatorId  int64   `json:"operator_id,omitempty"`
 }
 
 func (u *Environment) Table() string {

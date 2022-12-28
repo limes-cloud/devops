@@ -20,6 +20,7 @@ func Init() *gin.Engine {
 		v1.DELETE("/environment", handler.DeleteEnvironment)
 
 		// 服务相关
+		v1.GET("/run_types", handler.ServiceRunTypes)
 		v1.GET("/variable", handler.AllVariable)
 		v1.GET("/service/filter", handler.PageServiceFilter)
 		v1.GET("/service/page", handler.PageService)
@@ -78,7 +79,6 @@ func Init() *gin.Engine {
 		v1.POST("/network", handler.AddNetwork)
 		v1.PUT("/network", handler.UpdateNetwork)
 		v1.DELETE("/network", handler.DeleteNetwork)
-
 	}
 	return root
 }

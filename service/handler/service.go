@@ -12,6 +12,10 @@ func AllVariable(ctx *gin.Context) {
 	ctx.RespData(consts.Variables)
 }
 
+func ServiceRunTypes(ctx *gin.Context) {
+	ctx.RespData([]string{consts.K8sControllerDeployment, consts.K8sControllerDaemonSet})
+}
+
 func AllServiceEnvs(ctx *gin.Context) {
 	in := types.AllServiceEnvRequest{}
 	if ctx.ShouldBind(&in) != nil {

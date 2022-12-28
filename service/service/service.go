@@ -71,6 +71,10 @@ func PageService(ctx *gin.Context, in *types.PageServiceRequest) ([]model.Servic
 		_ = docker.OneById(ctx, item.DockerfileID)
 		list[key].DockerfileName = docker.Name
 
+		// 获取镜像的发布信息
+		release := model.Release{}
+		_ = release.OneById(ctx, item.ReleaseID)
+		list[key].ReleaseName = release.Name
 	}
 
 	return list, total, nil

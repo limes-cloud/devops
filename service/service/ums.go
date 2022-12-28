@@ -18,7 +18,12 @@ func UserTeamIds(ctx *gin.Context) ([]int64, error) {
 		Data []int64
 	}{}
 
-	if err := request.Get(ctx.Config.GetString("ums_addr")).Result(&resp); err != nil {
+	response, err := request.Get(ctx.Config.GetString("ums_addr"))
+	if err != nil {
+		return nil, err
+	}
+
+	if response.Result(&resp); err != nil {
 		return nil, err
 	}
 

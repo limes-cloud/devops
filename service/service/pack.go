@@ -108,7 +108,7 @@ func AddPack(ctx *gin.Context, in *types.AddPackRequest) error {
 		var argStr []string
 		startTime := time.Now().Unix()
 		pk := code_pack.NewPack()
-		pk.WorkDir = consts.WorkDir
+		pk.WorkDir = ctx.Config.GetString("work_dir")
 		pk.GitUrl = url
 		pk.IsSsh = isShh
 		pk.GitToken = code.Token
@@ -119,7 +119,7 @@ func AddPack(ctx *gin.Context, in *types.AddPackRequest) error {
 		pk.ServerBranch = in.CloneValue
 		pk.ServerVersion = in.CommitID
 		pk.RegistryProtocol = image.Protocol
-		pk.Exec = consts.Exec
+		pk.Exec = ctx.Config.GetDefaultString("exec_type", "/bin/sh")
 		pk.Dockerfile = dockerfile.Template
 		pk.Args = map[string]string{
 			consts.ListenPort: fmt.Sprint(service.ListenPort),

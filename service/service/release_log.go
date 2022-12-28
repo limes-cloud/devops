@@ -7,8 +7,8 @@ import (
 	"service/consts"
 	"service/errors"
 	"service/model"
-	"service/tools/image_release"
-	"service/tools/image_release/k8s"
+	"service/tools/remote"
+	remoteModel "service/tools/remote/model"
 	"service/types"
 	"strings"
 	"time"
@@ -79,17 +79,10 @@ func AddReleaseLog(ctx *gin.Context, in *types.AddReleaseLogRequest) error {
 	template := Replace(env, service, pack, release.Template)
 
 	// 连接到远程
-	var client image_release.ImageRelease
-
-	if release.Type == consts.Dc {
-
-	} else {
-		client, err = k8s.NewK8sClient(env.K8sHost, env.K8sToken, env.K8sNamespace)
-		if err != nil {
-			return err
-		}
+	client, err := remote.NewClient(env.Type, env.Host, env.Token)
+	if err != nil {
+		return err
 	}
-
 	// 创建任务日志
 	log := model.ReleaseLog{
 		EnvKeyword:        env.Keyword,
@@ -109,6 +102,18 @@ func AddReleaseLog(ctx *gin.Context, in *types.AddReleaseLogRequest) error {
 		newLog := model.ReleaseLog{}
 		newLog.ID = log.ID
 		startTime := time.Now().Unix()
+		config := remoteModel.ServiceConfig{
+			Type:          service.RunType,
+			Yaml:          template,
+			Namespace:     env.Namespace,
+			ServiceName:   service.Keyword,
+			Replicas:      service.Replicas,
+			RunPort:       service.RunPort,
+			ListenPort:    service.ListenPort,
+			ImageUser:     image.Username,
+			ImagePass:     image.Password,
+			ImageRegistry: image.Host,
+		}
 
 		defer func() {
 			newLog.IsFinish = true
@@ -117,17 +122,18 @@ func AddReleaseLog(ctx *gin.Context, in *types.AddReleaseLogRequest) error {
 		}()
 
 		// 执行创建
-		if err = client.UpdateFromYaml(ctx, template); err != nil {
+		if err = client.CreateService(ctx, config); err != nil {
 			newLog.Desc = err.Error()
 			newLog.Status = consts.Fail
 			return
 		}
 
 		// 监听启动状态
-		if err = client.GetStartStatus(ctx, service.Keyword); err != nil {
+		if err = client.GetServiceRelease(ctx, config); err != nil {
 			newLog.Desc = err.Error()
 			newLog.Status = consts.Fail
 		} else {
+			newLog.Desc = "发布成功"
 			newLog.Status = consts.Success
 		}
 	}()
@@ -158,8 +164,8 @@ func Replace(env model.Environment, srv model.Service, pack model.PackLog, text 
 			text = strings.ReplaceAll(text, val, pack.ImageName)
 		case consts.Namespace:
 			namespace := "default"
-			if env.K8sNamespace != "" {
-				namespace = env.K8sNamespace
+			if env.Namespace != "" {
+				namespace = env.Namespace
 			}
 			text = strings.ReplaceAll(text, val, namespace)
 		}

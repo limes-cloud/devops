@@ -3,11 +3,11 @@ package service
 import (
 	"github.com/jinzhu/copier"
 	"github.com/limeschool/gin"
-	"service/consts"
 	"service/errors"
 	"service/model"
-	"service/tools/image_release"
-	"service/tools/image_release/k8s"
+	"service/tools/remote"
+	remoteModel "service/tools/remote/model"
+
 	"service/types"
 )
 
@@ -51,29 +51,25 @@ func AddNetwork(ctx *gin.Context, in *types.AddNetworkRequest) error {
 	}
 
 	// 连接
-	var client image_release.ImageRelease
-	var err error
-	if env.Type == consts.Dc {
-
-	} else {
-		client, err = k8s.NewK8sClient(env.K8sHost, env.K8sToken, env.K8sNamespace)
-		if err != nil {
-			return err
-		}
+	client, err := remote.NewClient(env.Type, env.Host, env.Token)
+	if err != nil {
+		return err
 	}
+
 	// 生成config
-	config := image_release.NetworkConfig{
-		Namespace:  env.K8sNamespace,
-		Service:    service.Keyword,
-		Host:       in.Host,
-		Cert:       in.Cert,
-		Key:        in.Key,
-		Redirect:   in.Redirect,
-		TargetPort: service.ListenPort,
-		RunPort:    service.RunPort,
+	config := remoteModel.NetworkConfig{
+		Namespace:   env.Namespace,
+		ServiceName: service.Keyword,
+		Host:        in.Host,
+		Cert:        in.Cert,
+		Key:         in.Key,
+		Redirect:    in.Redirect,
+		TargetPort:  service.ListenPort,
+		RunPort:     service.RunPort,
+		Replicas:    service.Replicas,
 	}
 	_ = client.DeleteNetwork(ctx, config)
-	if err = client.AddNetwork(ctx, config); err != nil {
+	if err = client.CreateNetwork(ctx, config); err != nil {
 		return err
 	}
 
@@ -115,36 +111,32 @@ func UpdateNetwork(ctx *gin.Context, in *types.UpdateNetworkRequest) error {
 	}
 
 	// 连接
-	var client image_release.ImageRelease
-	var err error
-	if env.Type == consts.Dc {
-
-	} else {
-		client, err = k8s.NewK8sClient(env.K8sHost, env.K8sToken, env.K8sNamespace)
-		if err != nil {
-			return err
-		}
+	client, err := remote.NewClient(env.Type, env.Host, env.Token)
+	if err != nil {
+		return err
 	}
 
 	// 生成config
-	config := image_release.NetworkConfig{
-		Namespace:  oldEnv.K8sNamespace,
-		Service:    oldService.Keyword,
-		Host:       old.Host,
-		Cert:       old.Cert,
-		Key:        old.Key,
-		Redirect:   old.Redirect,
-		TargetPort: oldService.ListenPort,
-		RunPort:    oldService.RunPort,
+	config := remoteModel.NetworkConfig{
+		Namespace:   oldEnv.Namespace,
+		ServiceName: oldService.Keyword,
+		Host:        old.Host,
+		Cert:        old.Cert,
+		Key:         old.Key,
+		Redirect:    old.Redirect,
+		TargetPort:  oldService.ListenPort,
+		RunPort:     oldService.RunPort,
+		Replicas:    oldService.Replicas,
 	}
 	// 删除旧版本
 	_ = client.DeleteNetwork(ctx, config)
 
 	// 新增新版本
-	config.Namespace = env.K8sNamespace
-	config.Service = service.Keyword
+	config.Namespace = env.Namespace
+	config.ServiceName = service.Keyword
 	config.TargetPort = service.ListenPort
 	config.RunPort = service.RunPort
+	config.Replicas = service.Replicas
 	if in.Host != "" {
 		config.Host = in.Host
 	}
@@ -161,7 +153,7 @@ func UpdateNetwork(ctx *gin.Context, in *types.UpdateNetworkRequest) error {
 		config.Redirect = *in.Redirect
 	}
 
-	if err = client.AddNetwork(ctx, config); err != nil {
+	if err = client.CreateNetwork(ctx, config); err != nil {
 		return err
 	}
 
@@ -185,26 +177,20 @@ func DeleteNetwork(ctx *gin.Context, in *types.DeleteNetworkRequest) error {
 		return err
 	}
 
-	config := image_release.NetworkConfig{
-		Namespace:  env.Keyword,
-		Service:    env.Keyword,
-		Host:       network.Host,
-		Cert:       network.Cert,
-		Key:        network.Key,
-		Redirect:   network.Redirect,
-		TargetPort: service.ListenPort,
-		RunPort:    service.RunPort,
+	client, err := remote.NewClient(env.Type, env.Host, env.Token)
+	if err != nil {
+		return err
 	}
-
-	var client image_release.ImageRelease
-	var err error
-	if env.Type == consts.Dc {
-
-	} else {
-		client, err = k8s.NewK8sClient(env.K8sHost, env.K8sToken, env.K8sNamespace)
-		if err != nil {
-			return err
-		}
+	config := remoteModel.NetworkConfig{
+		Namespace:   env.Keyword,
+		ServiceName: env.Keyword,
+		Host:        network.Host,
+		Cert:        network.Cert,
+		Key:         network.Key,
+		Redirect:    network.Redirect,
+		TargetPort:  service.ListenPort,
+		RunPort:     service.RunPort,
+		Replicas:    service.Replicas,
 	}
 
 	if err = client.DeleteNetwork(ctx, config); err != nil {

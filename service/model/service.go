@@ -16,12 +16,14 @@ type Service struct {
 	TeamID            *int64  `json:"team_id"`
 	EnvIds            []int64 `json:"env_ids" gorm:"-"`
 	ReleaseID         int64   `json:"release_id" binding:"required"`
+	ReleaseName       string  `json:"release_name"  gorm:"->"`
 	DockerfileID      int64   `json:"dockerfile_id"`
 	DockerfileName    string  `json:"dockerfile_name" gorm:"->"`
 	CodeRegistryID    int64   `json:"code_registry_id"`
 	CodeRegistryName  string  `json:"code_registry_name" gorm:"->"`
 	ImageRegistryID   int64   `json:"image_registry_id"`
 	ImageRegistryName string  `json:"image_registry_name"  gorm:"->"`
+	RunType           string  `json:"run_type"`
 	RunPort           int64   `json:"run_port"`
 	ListenPort        int64   `json:"listen_port"`
 	Owner             string  `json:"owner"`

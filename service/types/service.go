@@ -19,6 +19,7 @@ type AddServiceRequest struct {
 	DockerfileID    int64   `json:"dockerfile_id"  binding:"required"`
 	CodeRegistryID  int64   `json:"code_registry_id"  binding:"required"`
 	ImageRegistryID int64   `json:"image_registry_id" binding:"required"`
+	RunType         string  `json:"run_type" binding:"required"`
 	RunPort         int64   `json:"run_port" binding:"required"`
 	ListenPort      int64   `json:"listen_port" binding:"required"`
 	Owner           string  `json:"owner" binding:"required"`
@@ -51,6 +52,7 @@ type UpdateServiceRequest struct {
 	DockerfileID    *int64  `json:"dockerfile_id"`
 	CodeRegistryID  *int64  `json:"code_registry_id"`
 	ImageRegistryID *int64  `json:"image_registry_id"`
+	RunType         *string `json:"run_type" binding:"required"`
 	RunPort         *int64  `json:"run_port"`
 	ListenPort      *int64  `json:"listen_port"`
 	Owner           *string `json:"owner"`
