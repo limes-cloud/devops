@@ -18,7 +18,7 @@ func UserTeamIds(ctx *gin.Context) ([]int64, error) {
 		Data []int64
 	}{}
 
-	response, err := request.Get(ctx.Config.GetString("ums_addr"))
+	response, err := request.Get(ctx.Config.GetString("ums_addr") + "/ums/user/team_ids")
 	if err != nil {
 		return nil, err
 	}

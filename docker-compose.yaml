@@ -1,0 +1,32 @@
+version: '3.6'
+services:
+  ums:
+    container_name: ums
+    build:
+      context: ./ums/
+      dockerfile: Dockerfile
+    image: "ums:v1.0"
+    restart: always
+    network_mode: host
+    environment:
+      TZ: Asia/Shanghai
+  service:
+    container_name: service
+    build:
+      context: ./service/
+      dockerfile: Dockerfile
+    image: "service:v1.0"
+    restart: always
+    network_mode: host
+    environment:
+      TZ: Asia/Shanghai
+  configure:
+    container_name: configure
+    build:
+      context: ./configure/
+      dockerfile: Dockerfile
+    image: "configure:v1.0"
+    restart: always
+    network_mode: host
+    environment:
+      TZ: Asia/Shanghai

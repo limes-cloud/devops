@@ -10,7 +10,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/jinzhu/copier v0.3.5
 	github.com/limeschool/gin v0.0.16
-	github.com/limeschool/go-gitee v0.0.6
+	github.com/limeschool/go-gitee v0.0.7
 	github.com/xanzy/go-gitlab v0.76.0
 	golang.org/x/oauth2 v0.0.0-20220722155238-128564f6959c
 	gorm.io/gorm v1.23.8
@@ -19,8 +19,6 @@ require (
 	k8s.io/client-go v0.26.0
 	sigs.k8s.io/yaml v1.3.0
 )
-
-replace github.com/limeschool/go-gitee v0.0.6 => ../../go-gitee
 
 require (
 	github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible // indirect
