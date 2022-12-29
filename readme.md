@@ -1,5 +1,5 @@
 ### 前言
-在安装devops管理平台之前我们先来说一下整个平台的技术架构，平台目前涉及的服务主要有 `用户中心`、`配置中心`、`服务中心`组成。用户中心主要功能包括平台用户管理、菜单管理、部门管理等，另外还对整个系统的api进行鉴权。配置中心主要功能包括配置业务字段管理、配置模板管理，配置中心依靠consul\etcd\zk等中间件可以实现配置的动态变更，对多环境开发中统一配置管理非常友好。服务管理主要负责系统的服务构建、服务发布、网络配置等，并且兼容k8s和docker-compose两种打包方式，你可以在单机节点就可以依靠docker-compose实现自动构建打包。
+在安装devops管理平台之前我们先来说一下整个平台的技术架构，目前前后端完全开源。平台目前涉及的服务主要有 `用户中心`、`配置中心`、`服务中心`组成。用户中心主要功能包括平台用户管理、菜单管理、部门管理等，另外还对整个系统的api进行鉴权。配置中心主要功能包括配置业务字段管理、配置模板管理，配置中心依靠consul\etcd\zk等中间件可以实现配置的动态变更，对多环境开发中统一配置管理非常友好。服务管理主要负责系统的服务构建、服务发布、网络配置等，并且兼容k8s和docker-compose两种打包方式，你可以在单机节点就可以依靠docker-compose实现自动构建打包。
 主要架构如下：
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/26359342/1672155753912-67527df2-36e3-4c67-a76b-9a0c427a07a6.png#averageHue=%23f3f3f3&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=560&id=u279455cb&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1120&originWidth=2354&originalType=binary&ratio=1&rotation=0&showTitle=false&size=253975&status=done&style=none&taskId=u26120705-db6a-4279-82c9-13ce2f96871&title=&width=1177)
 ### 服务安装
