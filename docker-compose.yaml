@@ -31,8 +31,9 @@ services:
       dockerfile: Dockerfile
     image: "configure:v1.0"
     restart: always
+    ports:
+      - 8082:8082
     volumes:
-      - ./config/configure: configure/config
     environment:
       TZ: Asia/Shanghai
     networks:
