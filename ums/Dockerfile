@@ -14,5 +14,6 @@ FROM alpine
 EXPOSE 8080
 WORKDIR /go/build
 COPY ./config /go/build/config
+COPY ./cert /go/build/cert
 COPY --from=build /go/build/entry /go/build/entry
 CMD ["./entry","-c","./config/conf.json"]
