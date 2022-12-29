@@ -10,6 +10,9 @@ services:
     network_mode: host
     environment:
       TZ: Asia/Shanghai
+    networks:
+      - devops_net
+
   service:
     container_name: service
     build:
@@ -20,6 +23,9 @@ services:
     network_mode: host
     environment:
       TZ: Asia/Shanghai
+    networks:
+      - devops_net
+
   configure:
     container_name: configure
     build:
@@ -30,3 +36,9 @@ services:
     network_mode: host
     environment:
       TZ: Asia/Shanghai
+    networks:
+      - devops_net
+
+networks:
+  devops_net:
+    driver: bridge

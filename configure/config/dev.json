@@ -1,10 +1,11 @@
 {
-  "service": "service",
+  "service": "configure",
   "system": {
     "skip_request_log": {
-      "get:/auth": true
+      "get:/auth": true,
+      "get:/configure/config": true
     },
-    "client_timeout":"10s"
+    "timeout": "20s"
   },
   "log": {
     "level": 0,
@@ -15,7 +16,7 @@
     "enable_log": true,
     "retry_count": 3,
     "retry_wait_time":"1s",
-    "timeout": "120s",
+    "timeout": "10s",
     "request_msg": "http request",
     "response_msg": "http response"
   },
@@ -23,18 +24,14 @@
     {
       "enable": true,
       "name": "devops",
-      "dsn": "root:root@tcp(mysql:3306)/devops_service?charset=utf8mb4&parseTime=True&loc=Local"
+      "dsn": "root:root@tcp(127.0.0.1:3306)/devops_configure?charset=utf8mb4&parseTime=True&loc=Local"
     }
   ],
   "redis": [
     {
       "enable": true,
       "name": "redis",
-      "host": "redis:6379"
+      "host": "127.0.0.1:6379"
     }
-  ],
-  "ums_addr": "http://y.cn",
-  "work_dir":  "/Users/apple/docker",
-  "exec_type": "/bin/sh",
-  "release_type": ["docker-compose"]
+  ]
 }

@@ -24,14 +24,14 @@
     {
       "enable": true,
       "name": "devops",
-      "dsn": "root:root@tcp(127.0.0.1:3306)/devops_configure?charset=utf8mb4&parseTime=True&loc=Local"
+      "dsn": "root:root@tcp(mysql:3306)/devops_configure?charset=utf8mb4&parseTime=True&loc=Local"
     }
   ],
   "redis": [
     {
       "enable": true,
       "name": "redis",
-      "host": "127.0.0.1:6379"
+      "host": "redis:6379"
     }
   ]
 }
