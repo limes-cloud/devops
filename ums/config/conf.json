@@ -55,12 +55,12 @@
     {
       "enable": true,
       "name": "private",
-      "path": "config/cert/private.pem"
+      "path": "cert/private.pem"
     },
     {
       "enable": true,
       "name": "public",
-      "path": "config/cert/public.pem"
+      "path": "cert/public.pem"
     }
   ],
   "rbac": {
