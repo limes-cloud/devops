@@ -1,5 +1,0 @@
-# 1 获取密钥资源
-kubectl -n kube-system get secret
-
-# 2 描述指定的密钥资源
-

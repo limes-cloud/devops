@@ -1,9 +1,0 @@
-version: '3.6'
-services:
-  hello-1:
-    container_name: hello-3
-    image: "docker-hub.qlime.cn/hello:v1.9"
-    restart: always
-    ports:
-      - 9001:9001
-
