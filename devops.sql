@@ -110,16 +110,6 @@ CREATE TABLE `environment` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `environment`
---
-
-LOCK TABLES `environment` WRITE;
-/*!40000 ALTER TABLE `environment` DISABLE KEYS */;
-INSERT INTO `environment` VALUES (1,'DEV','开发环境','开发环境',1,'方伟业',1,1669453152,1671974358,'docker-compose','http://127.0.0.1:8084','','limeschool'),(2,'TEST','测试环境','测试环境',1,'方伟业',1,1669453168,1671775139,'k8s','https://121.5.104.128:6443','backend','eyJhbGciOiJSUzI1NiIsImtpZCI6IklJUHkxOE1YLTExX1N5QW1OT3N1ZWFDQkNwODAyV1ZOUE12T0dXSUQwWmsifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi11c2VyLXRva2VuLWp4OXBsIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImFkbWluLXVzZXIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiI2YmU1NzQwOC1iMmMyLTQyMjItODlkNC02NDVkMTRmYWFhZmUiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZS1zeXN0ZW06YWRtaW4tdXNlciJ9.yxfItmx6cRNGE9oASby-Pl7i3z_6XvleC3cU-XGYvbU2zrmmphkVSw_tbUgTqtigdVqPPDF1t4Gi0KFH9h5lBVfN_JyILJW7UAs3R0j_cHlDKR1fqa16nOdlBIooill9PCLTiQDrhi4aHL_mDAMjpv1QlIYyKV-GxqEyDJCiqJJlmaeiqs6HGHp_cw9cU2waji_RL00NahAWoPs_oKI9dqBR6Fjznz1cvvHaQL0aFnaCEt2qsX5LEjwlwW3nFuGrRt5Nfi04MHhV0PycXkrLX8IuwHi7d2O4InEjttfu2DnfGpgg0x5P65QUalni10Ptf9tZ1P3z-8t6B4J0gk2D2A'),(3,'PRE','预发布','预发布环境',1,'方伟业',1,1669453194,1671199072,'','','','');
-/*!40000 ALTER TABLE `environment` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `image_registry`
 --
 
@@ -144,15 +134,6 @@ CREATE TABLE `image_registry` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `image_registry`
---
-
-LOCK TABLES `image_registry` WRITE;
-/*!40000 ALTER TABLE `image_registry` DISABLE KEYS */;
-INSERT INTO `image_registry` VALUES (1,'测试仓库','测试仓库','docker-hub.qlime.cn','limeschool','xrxy0852','方伟业',1,1670075818,1671260601,5,'https');
-/*!40000 ALTER TABLE `image_registry` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `network`
@@ -180,16 +161,6 @@ CREATE TABLE `network` (
   CONSTRAINT `network_ibfk_2` FOREIGN KEY (`srv_id`) REFERENCES `environment` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `network`
---
-
-LOCK TABLES `network` WRITE;
-/*!40000 ALTER TABLE `network` DISABLE KEYS */;
-INSERT INTO `network` VALUES (1,2,2,'wiki.qlime.cn','-----BEGIN CERTIFICATE-----\nMIIGZjCCBM6gAwIBAgIRALjc1V3Enso+9jnwb30MWCUwDQYJKoZIhvcNAQEMBQAw\nWTELMAkGA1UEBhMCQ04xJTAjBgNVBAoTHFRydXN0QXNpYSBUZWNobm9sb2dpZXMs\nIEluYy4xIzAhBgNVBAMTGlRydXN0QXNpYSBSU0EgRFYgVExTIENBIEcyMB4XDTIy\nMTIyMDAwMDAwMFoXDTIzMTIyMDIzNTk1OVowGDEWMBQGA1UEAxMNd2lraS5xbGlt\nZS5jbjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJmy52xPIGrLP4Yv\nZNKc1nldVP9x1w5jY0USsFphrfrebsEpKRNu1ps31imi04BmFs2q7eAQ10k1jHJC\niGfyumEX4c4KfR3Dx51Qrpz9AgubWQpaYQESN0okC9jTQxln86CXHxWFKu981cA+\n/JfXgJWOwh0dAcka/9boBHD5Z6Gbx91QICdNbqiQInmBcvjiR1kfyA05nnmm/XLf\nrY33UVPcqNp0CIsR0odoh0ONrSoFddb9f+pMHxUWrhKn2RZn94QIidgwbgeJCZEv\n7hSX912HQlP/9DylSB4FipMNEg/xyXIoixAVjcF+G78ZcyjWuBm8ca3Hc1LUQYHw\nsIK1BtsCAwEAAaOCAugwggLkMB8GA1UdIwQYMBaAFF86fBEQfgxncWHci6O1AANn\n9VccMB0GA1UdDgQWBBTIytnCV9k1wquwTIKmwEp824X82DAOBgNVHQ8BAf8EBAMC\nBaAwDAYDVR0TAQH/BAIwADAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIw\nSQYDVR0gBEIwQDA0BgsrBgEEAbIxAQICMTAlMCMGCCsGAQUFBwIBFhdodHRwczov\nL3NlY3RpZ28uY29tL0NQUzAIBgZngQwBAgEwfQYIKwYBBQUHAQEEcTBvMEIGCCsG\nAQUFBzAChjZodHRwOi8vY3J0LnRydXN0LXByb3ZpZGVyLmNuL1RydXN0QXNpYVJT\nQURWVExTQ0FHMi5jcnQwKQYIKwYBBQUHMAGGHWh0dHA6Ly9vY3NwLnRydXN0LXBy\nb3ZpZGVyLmNuMBgGA1UdEQQRMA+CDXdpa2kucWxpbWUuY24wggF/BgorBgEEAdZ5\nAgQCBIIBbwSCAWsBaQB3AK33vvp8/xDIi509nB4+GGq0Zyldz7EMJMqFhjTr3IKK\nAAABhTAq1uMAAAQDAEgwRgIhAJQ0D/R0jVpaHslPAgYTsltgEPq01KzvCNIWpwfQ\noInVAiEA7o4Kiyh/pyVCc5X1SdsXuwtgfWHerIGDe23xfFhvSacAdgB6MoxU2Lct\ntiDqOOBSHumEFnAyE4VNO9IrwTpXo1LrUgAAAYUwKtb9AAAEAwBHMEUCIBjdxBwq\nxka9Dd8lrHTpHS039Hbot9778d3RVfniTw2aAiEAwzMb+fJDXF2HwrNtC0X/T8ir\ny5JH5tpN4pCrLZzCkUsAdgDoPtDaPvUGNTLnVyi8iWvJA9PL0RFr7Otp4Xd9bQa9\nbgAAAYUwKtbGAAAEAwBHMEUCIElZkiOdcBHyBWPAmnJzWHSbRY1RNQuiVD5rag3s\nQO8EAiEA0NMiFbe3eT+ekVK6MHLVkRU7zz5JyJSPA9F/uvSO9fIwDQYJKoZIhvcN\nAQEMBQADggGBADsdZDmjS6r/6cSy1Gn/jhWqE+C1efoDBNLMBrkv6zaDnIlcgCPw\nKr0HyNcIK4h6Id5LKhCFFkIcOX4tgWyktk/5hKCY/q3WJswrlLM5K+HpZP3YDLuT\nvCoESS4mouHYGeo5cb5m+Ft6GASAajlbvGv6Kplq6IrBPct4GOPn70wICL1CfMCh\n9Et4Fo9wtSmIega62DhZ8c7ZPhjfsrEE0KRIYS3qJhrQcnQZOp2Eg4+IgklUPvEB\n6d6DOiIbmApbI0uhbOys9xpK3j1yNQF56UmyAb+Xn00E0d/uxfl0uaKdJKH2yg3K\nJuB52E25CFZrbtgMEjfrLRQin9aGt0begTHHF9AKZV31oGRYwQgnqZqRKiYRxDQL\n61ltOeEtbHnXZaveOggsAEKXqJ4RwEJFr3LDh1q5ECCRR7IM2px5949tnRcmu8gU\nNhkXkf/tfU6Z836cmlTiW8LzkjaInuJrghPznYVgJlIsfvbaegiWdnjM3ispyLrD\nwnJ0OHeyoqS2dg==\n-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----\nMIIFBzCCA++gAwIBAgIRALIM7VUuMaC/NDp1KHQ76aswDQYJKoZIhvcNAQELBQAw\nezELMAkGA1UEBhMCR0IxGzAZBgNVBAgMEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4G\nA1UEBwwHU2FsZm9yZDEaMBgGA1UECgwRQ29tb2RvIENBIExpbWl0ZWQxITAfBgNV\nBAMMGEFBQSBDZXJ0aWZpY2F0ZSBTZXJ2aWNlczAeFw0yMjAxMTAwMDAwMDBaFw0y\nODEyMzEyMzU5NTlaMFkxCzAJBgNVBAYTAkNOMSUwIwYDVQQKExxUcnVzdEFzaWEg\nVGVjaG5vbG9naWVzLCBJbmMuMSMwIQYDVQQDExpUcnVzdEFzaWEgUlNBIERWIFRM\nUyBDQSBHMjCCAaIwDQYJKoZIhvcNAQEBBQADggGPADCCAYoCggGBAKjGDe0GSaBs\nYl/VhMaTM6GhfR1TAt4mrhN8zfAMwEfLZth+N2ie5ULbW8YvSGzhqkDhGgSBlafm\nqq05oeESrIJQyz24j7icGeGyIZ/jIChOOvjt4M8EVi3O0Se7E6RAgVYcX+QWVp5c\nSy+l7XrrtL/pDDL9Bngnq/DVfjCzm5ZYUb1PpyvYTP7trsV+yYOCNmmwQvB4yVjf\nIIpHC1OcsPBntMUGeH1Eja4D+qJYhGOxX9kpa+2wTCW06L8T6OhkpJWYn5JYiht5\n8exjAR7b8Zi3DeG9oZO5o6Qvhl3f8uGU8lK1j9jCUN/18mI/5vZJ76i+hsgdlfZB\nRh5lmAQjD80M9TY+oD4MYUqB5XrigPfFAUwXFGehhlwCVw7y6+5kpbq/NpvM5Ba8\nSeQYUUuMA8RXpTtGlrrTPqJryfa55hTuX/ThhX4gcCVkbyujo0CYr+Uuc14IOyNY\n1fD0/qORbllbgV41wiy/2ZUWZQUodqHWkjT1CwIMbQOY5jmrSYGBwwIDAQABo4IB\nJjCCASIwHwYDVR0jBBgwFoAUoBEKIz6W8Qfs4q8p74Klf9AwpLQwHQYDVR0OBBYE\nFF86fBEQfgxncWHci6O1AANn9VccMA4GA1UdDwEB/wQEAwIBhjASBgNVHRMBAf8E\nCDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMBBggrBgEFBQcDAjAiBgNVHSAE\nGzAZMA0GCysGAQQBsjEBAgIxMAgGBmeBDAECATBDBgNVHR8EPDA6MDigNqA0hjJo\ndHRwOi8vY3JsLmNvbW9kb2NhLmNvbS9BQUFDZXJ0aWZpY2F0ZVNlcnZpY2VzLmNy\nbDA0BggrBgEFBQcBAQQoMCYwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmNvbW9k\nb2NhLmNvbTANBgkqhkiG9w0BAQsFAAOCAQEAHMUom5cxIje2IiFU7mOCsBr2F6CY\neU5cyfQ/Aep9kAXYUDuWsaT85721JxeXFYkf4D/cgNd9+hxT8ZeDOJrn+ysqR7NO\n2K9AdqTdIY2uZPKmvgHOkvH2gQD6jc05eSPOwdY/10IPvmpgUKaGOa/tyygL8Og4\n3tYyoHipMMnS4OiYKakDJny0XVuchIP7ZMKiP07Q3FIuSS4omzR77kmc75/6Q9dP\nv4wa90UCOn1j6r7WhMmX3eT3Gsdj3WMe9bYD0AFuqa6MDyjIeXq08mVGraXiw73s\nZale8OMckn/BU3O/3aFNLHLfET2H2hT6Wb3nwxjpLIfXmSVcVd8A58XH0g==\n-----END CERTIFICATE-----','-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEAmbLnbE8gass/hi9k0pzWeV1U/3HXDmNjRRKwWmGt+t5uwSkp\nE27WmzfWKaLTgGYWzart4BDXSTWMckKIZ/K6YRfhzgp9HcPHnVCunP0CC5tZClph\nARI3SiQL2NNDGWfzoJcfFYUq73zVwD78l9eAlY7CHR0ByRr/1ugEcPlnoZvH3VAg\nJ01uqJAieYFy+OJHWR/IDTmeeab9ct+tjfdRU9yo2nQIixHSh2iHQ42tKgV11v1/\n6kwfFRauEqfZFmf3hAiJ2DBuB4kJkS/uFJf3XYdCU//0PKVIHgWKkw0SD/HJciiL\nEBWNwX4bvxlzKNa4GbxxrcdzUtRBgfCwgrUG2wIDAQABAoIBACjL23CcyiJ+o3Rn\nFRBwT99z/hE1stsfV2SossWywr7hlq1P0xbU50LY/dAcZ55furLJqY09ex90Brz3\nWwSYYY9PCwEpOI+TfWMM3ORPpeDV0bsVRUVHBAT6b2iUnu1Z8clRA4+vQrfBv2zh\nayOUsI1CENUwc15he8Ib4L3p/W9gJEsFfVxgmPqpRzR4vqASkGPHVW5T3t/CHvLa\nwvMX6/TbumrJfUOTeoezvD2NRtVkW6sOMd2m5FSzC7KPQ0GxsIwmpzCznGoReW9K\nohrXiQR5Ww0twC6dvM2CZg5J1sjaJeha01tRr2KdafFcL0KZdc6BiqHtMDY2EfZj\nOoEokBECgYEAyTBWAJRuIgyKFQvd8rMMWOTUoe8+VZBPCiOtYA8VWNnFx6f9Er5s\nzSZmudxOpLuIiN3KbC5/BGfLmBnrGrclKlCeneXo1m4YBn7HHBSxf226G/yeD5Z0\nG8algVmcMLAii4IE3lQhJ6VA4t+bL3888Qhak4/U5wnO/RTxPYE7/LECgYEAw5Jw\nane6d1H1ljMENXMfbQwoGx8eH39c9VVO3sdPxPFxxZL5/qK6hSqj/F+9lrcRE0Y2\ndKaqIX1CuJY7uivT5vbeCWsRXiLo0Y3z+weJOiZKd6JujSWqyog7FQJusaN90cHj\ntOKOKSK5hhfzdPzkfpFb2LlPyDKHmdkYP3/1r0sCgYEAi1i/OIeWAF9PBGTDxWXe\nF3PnEoHyWrEpDYzIeM/5qSCsrCzeTC04jp8aZ4D/t3lsh9+WZHeP4i1CBodtH4Pa\nagSM2DB1pI98dIM6xWhPyELntJqzn3hF0zczSvQWCmL0ikvzs0nx7NO4rWrSwYMP\nYqK2mZ31iFBy3Te0HzVzpwECgYA1k86cPESnH5rqFPvYMLuxQh1SoMm900SCKWa7\n/VpLF+IVQFige7AhfzcBkrD7sxdIcnnEp0wAdLJsoyulqxAYPBVD+0L8yQ+DKSJn\n6P6dIZRRBfzHSkRpy7xz2wC8RY/YgQeCrHZJqqusoq8do5JtYiEJVGsY607exOyx\nqLqD1QKBgQC0QlNQAGWRrBDSWqysf2X8teG9zgt7Bb9z93ELtya3Vro1IXEIMr0z\nlqBeaJx4YP4Rgg24Lcg3abasHIFxTLbmwioEhAiUF9RGqQyA4pdKTlZRrlf17+N7\n/0Y9Le7SPHVb4xTPf5V8mE5vX2uVDwMVFkrLeEBi8XPFMi1nYlxCJA==\n-----END RSA PRIVATE KEY-----',1,'方伟业',1,1671641879,1671643319),(2,2,1,'hello.qlime.cn','','',0,'方伟业',1,1671979229,1671979972);
-/*!40000 ALTER TABLE `network` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `pack_log`
@@ -224,16 +195,6 @@ CREATE TABLE `pack_log` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `pack_log`
---
-
-LOCK TABLES `pack_log` WRITE;
-/*!40000 ALTER TABLE `pack_log` DISABLE KEYS */;
-INSERT INTO `pack_log` VALUES (1,'ums','用户中心','测试','测试仓库',1,'测试仓库','branch','master','3bc80b8b','registry.com/ums:3bc80b8b',0,'获取docker版本 || 2022-12-06 00:20:14\ndocker -v || 2022-12-06 00:20:14\ndocker版本 => Docker version 20.10.10, build b485636 || 2022-12-06 00:20:14\n获取git版本 || 2022-12-06 00:20:14\ngit version || 2022-12-06 00:20:14\ngit版本 => git version 2.32.1 (Apple Git-133) || 2022-12-06 00:20:14\n判断是否存在远程镜像 || 2022-12-06 00:20:14\n判断是否存在远程镜像 => true || 2022-12-06 00:20:14\n清理工作痕迹 || 2022-12-06 00:20:14\n判断是否存在本地镜像 || 2022-12-06 00:20:14\n判断是否存在本地镜像 => true || 2022-12-06 00:20:14\n删除本地镜像:registry.com/ums:3bc80b8b || 2022-12-06 00:20:14',0,1,1,'方伟业',1,1670257214),(2,'ps-go','调度流程','测试','gitee-ps-go',1,'测试仓库','branch','master','be2b4604','registry.com/ps-go:be2b4604',36,'获取docker版本 || 2022-12-11 21:22:15\ndocker -v || 2022-12-11 21:22:15\ndocker版本 => Docker version 20.10.10, build b485636 || 2022-12-11 21:22:15\n获取git版本 || 2022-12-11 21:22:15\ngit version || 2022-12-11 21:22:15\ngit版本 => git version 2.32.1 (Apple Git-133) || 2022-12-11 21:22:15\n判断是否存在远程镜像 || 2022-12-11 21:22:15\n判断是否存在远程镜像 => false || 2022-12-11 21:22:16\n创建全局工作目录 || 2022-12-11 21:22:16\n进行代码拉取 || 2022-12-11 21:22:16\n进行打包镜像 || 2022-12-11 21:22:25\n进行docker模板渲染 || 2022-12-11 21:22:25\n进行docker模板渲染成功 || 2022-12-11 21:22:25\nFROM golang:alpine AS buildENV GOPROXY=https://goproxy.cn,directENV GO111MODULE onWORKDIR /go/cacheADD go.mod .ADD go.sum .RUN go mod downloadWORKDIR /go/buildADD . .RUN GOOS=linux CGO_ENABLED=0 go build -ldflags=\"-s -w\" -installsuffix cgo -o entry main.goFROM alpineEXPOSE 8081WORKDIR /go/buildCOPY --from=build /go/build/entry /go/build/entryCMD [\"./entry -c config/test.json\"] || 2022-12-11 21:22:25\n进行打包镜像 => docker build error :#2 [internal] load .dockerignore#2 sha256:8a50889a8a12d1b078e93fb279c74c886f121a03ffc846aff762d47f1fc4152f#2 transferring context: 2B done#2 DONE 0.0s#1 [internal] load build definition from Dockerfile#1 sha256:72c3cf7a214445e052314636295ea07cb1f94c837a1afe42c822c48300948948#1 transferring dockerfile: 438B 0.0s done#1 DONE 0.1s#3 [internal] load metadata for docker.io/library/golang:alpine#3 sha256:299327d28eff710219f2e24597cfa9b226e8b1b0dc90f9e2122573004cfe837f#3 DONE 0.0s#4 [internal] load metadata for docker.io/library/alpine:latest#4 sha256:d4fb25f5b5c00defc20ce26f2efc4e288de8834ed5aa59dff877b495ba88fda6#4 DONE 5.4s#7 [build 1/8] FROM docker.io/library/golang:alpine#7 sha256:4530882d321e760e5e25d5b2a3fa86274678c0cd51fb182037c54497bddc7847#7 DONE 0.0s#5 [stage-1 1/3] FROM docker.io/library/alpine@sha256:8914eb54f968791faf6a8638949e480fef81e697984fba772b3976835194c6d4#5 sha256:c88cc79c5ac7221d2a36cac07764a43495084b6e049887080297ca4fedd578bb#5 DONE 0.0s#9 [internal] load build context#9 sha256:f35a29d4413434eec2e9a14de66e7a2db70a0710600175b948637bba1dd00091#9 transferring context:#9 transferring context: 28.48MB 4.0s done#9 DONE 4.0s#10 [build 3/8] ADD go.mod .#10 sha256:10a1aa8bdad78636f28aaf71dbf431aea2438f00f0c756e7e69629503b8d8d0e#10 CACHED#8 [build 2/8] WORKDIR /go/cache#8 sha256:4db5da5f6452ae6e85934ee5d75da981b9dde0a0341b167519df18324cf3a73e#8 CACHED#11 [build 4/8] ADD go.sum .#11 sha256:c22ca9f16e5adb979f0037334b2cd16c28a744bd04bbea70bf83be8f2d0695ee#11 CACHED#12 [build 5/8] RUN go mod download#12 sha256:5818766b0c304e3a511ab37ac35cf94f9c6bb5644157a4eb2f8f95e77ff75aaf#12 14.27 go: github.com/limeschool/gin@v0.0.13 (replaced by ../src/github.com/limeschool/gin): reading ../src/github.com/limeschool/gin/go.mod: open /go/src/github.com/limeschool/gin/go.mod: no such file or directory#12 ERROR: executor failed running [/bin/sh -c go mod download]: exit code: 1------ > [build 5/8] RUN go mod download:------executor failed running [/bin/sh -c go mod download]: exit code: 1 || 2022-12-11 21:22:51\n清理工作痕迹 || 2022-12-11 21:22:51\n判断是否存在本地镜像 || 2022-12-11 21:22:51\n判断是否存在本地镜像 => false || 2022-12-11 21:22:51',0,1,0,'方伟业',1,1670764935),(3,'ps-go','调度流程','测试','gitee-ps-go',1,'测试仓库','tag','v0.0.2','1a1aa988','registry.com/ps-go:1a1aa988',119,'获取docker版本 || 2022-12-11 21:26:04\ndocker -v || 2022-12-11 21:26:04\ndocker版本 => Docker version 20.10.10, build b485636 || 2022-12-11 21:26:04\n获取git版本 || 2022-12-11 21:26:04\ngit version || 2022-12-11 21:26:04\ngit版本 => git version 2.32.1 (Apple Git-133) || 2022-12-11 21:26:04\n判断是否存在远程镜像 || 2022-12-11 21:26:04\n判断是否存在远程镜像 => false || 2022-12-11 21:26:04\n创建全局工作目录 || 2022-12-11 21:26:04\n进行代码拉取 || 2022-12-11 21:26:04\n进行打包镜像 || 2022-12-11 21:26:20\n进行docker模板渲染 || 2022-12-11 21:26:20\n进行docker模板渲染成功 || 2022-12-11 21:26:20\nFROM golang:alpine AS buildENV GOPROXY=https://goproxy.cn,directENV GO111MODULE onWORKDIR /go/cacheADD go.mod .ADD go.sum .RUN go mod downloadWORKDIR /go/buildADD . .RUN GOOS=linux CGO_ENABLED=0 go build -ldflags=\"-s -w\" -installsuffix cgo -o entry main.goFROM alpineEXPOSE 8081WORKDIR /go/buildCOPY --from=build /go/build/entry /go/build/entryCMD [\"./entry -c config/test.json\"] || 2022-12-11 21:26:20\n进行镜像上传 || 2022-12-11 21:27:58\n判断是否存在本地镜像 || 2022-12-11 21:27:58\n判断是否存在本地镜像 => true || 2022-12-11 21:27:58\n进行docker镜像仓库登陆 || 2022-12-11 21:27:58\npack success || 2022-12-11 21:28:02\n清理工作痕迹 || 2022-12-11 21:28:02\n判断是否存在本地镜像 || 2022-12-11 21:28:02\n判断是否存在本地镜像 => true || 2022-12-11 21:28:03\n删除本地镜像:registry.com/ps-go:1a1aa988 || 2022-12-11 21:28:03',0,1,1,'方伟业',1,1670765164),(4,'ps-go','调度流程','测试','gitee-ps-go',1,'测试仓库','tag','v0.0.2','1a1aa988','docker-hub.qlime.cn/ps-go:1a1aa988',132,'获取docker版本 || 2022-12-17 16:24:49\ndocker -v || 2022-12-17 16:24:49\ndocker版本 => Docker version 20.10.10, build b485636 || 2022-12-17 16:24:50\n获取git版本 || 2022-12-17 16:24:50\ngit version || 2022-12-17 16:24:50\ngit版本 => git version 2.32.1 (Apple Git-133) || 2022-12-17 16:24:50\n判断是否存在远程镜像 || 2022-12-17 16:24:50\n判断是否存在远程镜像 => false || 2022-12-17 16:24:50\n创建全局工作目录 || 2022-12-17 16:24:50\n进行代码拉取 || 2022-12-17 16:24:50\n进行打包镜像 || 2022-12-17 16:25:04\n进行docker模板渲染 || 2022-12-17 16:25:04\n进行docker模板渲染成功 || 2022-12-17 16:25:04\nFROM golang:alpine AS buildENV GOPROXY=https://goproxy.cn,directENV GO111MODULE onWORKDIR /go/cacheADD go.mod .ADD go.sum .RUN go mod downloadWORKDIR /go/buildADD . .RUN GOOS=linux CGO_ENABLED=0 go build -ldflags=\"-s -w\" -installsuffix cgo -o entry main.goFROM alpineEXPOSE 8081WORKDIR /go/buildCOPY --from=build /go/build/entry /go/build/entryCMD [\"./entry -c config/test.json\"] || 2022-12-17 16:25:04\n进行镜像上传 || 2022-12-17 16:26:57\n判断是否存在本地镜像 || 2022-12-17 16:26:57\n判断是否存在本地镜像 => true || 2022-12-17 16:26:57\n进行docker镜像仓库登陆 || 2022-12-17 16:26:57\npack success || 2022-12-17 16:27:00\n清理工作痕迹 || 2022-12-17 16:27:00\n判断是否存在本地镜像 || 2022-12-17 16:27:00\n判断是否存在本地镜像 => true || 2022-12-17 16:27:01\n删除本地镜像:docker-hub.qlime.cn/ps-go:1a1aa988 || 2022-12-17 16:27:01',0,1,1,'方伟业',1,1671265489),(5,'hello','测试服务','测试','测试仓库',1,'测试仓库','branch','master','3bc80b8b','docker-hub.qlime.cn/hello:3bc80b8b',112,'获取docker版本 || 2022-12-18 19:44:45\ndocker -v || 2022-12-18 19:44:45\ndocker版本 => Docker version 20.10.10, build b485636 || 2022-12-18 19:44:45\n获取git版本 || 2022-12-18 19:44:45\ngit version || 2022-12-18 19:44:45\ngit版本 => git version 2.32.1 (Apple Git-133) || 2022-12-18 19:44:45\n判断是否存在远程镜像 || 2022-12-18 19:44:45\n判断是否存在远程镜像 => false || 2022-12-18 19:44:46\n创建全局工作目录 || 2022-12-18 19:44:46\n进行代码拉取 || 2022-12-18 19:44:46\n进行打包镜像 || 2022-12-18 19:44:48\n进行docker模板渲染 || 2022-12-18 19:44:48\n进行docker模板渲染成功 || 2022-12-18 19:44:48\nFROM golang:alpine AS buildENV GOPROXY=https://goproxy.cn,directENV GO111MODULE onWORKDIR /go/cacheADD go.mod .ADD go.sum .RUN go mod downloadWORKDIR /go/buildADD . .RUN GOOS=linux CGO_ENABLED=0 go build -ldflags=\"-s -w\" -installsuffix cgo -o entry main.goFROM alpineEXPOSE 9001WORKDIR /go/buildCOPY --from=build /go/build/entry /go/build/entryCMD [\"./entry -c config/test.json\"] || 2022-12-18 19:44:48\n进行镜像上传 || 2022-12-18 19:46:32\n判断是否存在本地镜像 || 2022-12-18 19:46:32\n判断是否存在本地镜像 => true || 2022-12-18 19:46:32\n进行docker镜像仓库登陆 || 2022-12-18 19:46:32\npack success || 2022-12-18 19:46:37\n清理工作痕迹 || 2022-12-18 19:46:37\n判断是否存在本地镜像 || 2022-12-18 19:46:37\n判断是否存在本地镜像 => true || 2022-12-18 19:46:37\n删除本地镜像:docker-hub.qlime.cn/hello:3bc80b8b || 2022-12-18 19:46:37',0,1,1,'方伟业',1,1671363885),(6,'hello','测试服务','测试','测试仓库',1,'测试仓库','branch','master','ff52a7b7','docker-hub.qlime.cn/hello:ff52a7b7',145,'获取docker版本 || 2022-12-18 20:05:20\ndocker -v || 2022-12-18 20:05:20\ndocker版本 => Docker version 20.10.10, build b485636 || 2022-12-18 20:05:20\n获取git版本 || 2022-12-18 20:05:20\ngit version || 2022-12-18 20:05:20\ngit版本 => git version 2.32.1 (Apple Git-133) || 2022-12-18 20:05:20\n判断是否存在远程镜像 || 2022-12-18 20:05:20\n判断是否存在远程镜像 => false || 2022-12-18 20:05:20\n创建全局工作目录 || 2022-12-18 20:05:20\n进行代码拉取 || 2022-12-18 20:05:20\n进行打包镜像 || 2022-12-18 20:05:22\n进行docker模板渲染 || 2022-12-18 20:05:22\n进行docker模板渲染成功 || 2022-12-18 20:05:22\nFROM golang:alpine AS buildENV GOPROXY=https://goproxy.cn,directENV GO111MODULE onWORKDIR /go/cacheADD go.mod .ADD go.sum .RUN go mod downloadWORKDIR /go/buildADD . .RUN GOOS=linux CGO_ENABLED=0 go build -ldflags=\"-s -w\" -installsuffix cgo -o entry main.goFROM alpineEXPOSE 9001WORKDIR /go/buildCOPY --from=build /go/build/entry /go/build/entryADD ./config /go/build/configCMD [\"./entry -c config/dev.json\"] || 2022-12-18 20:05:22\n进行镜像上传 || 2022-12-18 20:07:24\n判断是否存在本地镜像 || 2022-12-18 20:07:24\n判断是否存在本地镜像 => true || 2022-12-18 20:07:25\n进行docker镜像仓库登陆 || 2022-12-18 20:07:25\npack success || 2022-12-18 20:07:44\n清理工作痕迹 || 2022-12-18 20:07:44\n判断是否存在本地镜像 || 2022-12-18 20:07:44\n判断是否存在本地镜像 => true || 2022-12-18 20:07:45\n删除本地镜像:docker-hub.qlime.cn/hello:ff52a7b7 || 2022-12-18 20:07:45',0,1,1,'方伟业',1,1671365120),(7,'hello','测试服务','测试','测试仓库',1,'测试仓库','branch','master','11aec28d','docker-hub.qlime.cn/hello:11aec28d',45,'获取docker版本 || 2022-12-18 21:32:33\ndocker -v || 2022-12-18 21:32:33\ndocker版本 => Docker version 20.10.10, build b485636 || 2022-12-18 21:32:33\n获取git版本 || 2022-12-18 21:32:33\ngit version || 2022-12-18 21:32:33\ngit版本 => git version 2.32.1 (Apple Git-133) || 2022-12-18 21:32:33\n判断是否存在远程镜像 || 2022-12-18 21:32:33\n判断是否存在远程镜像 => false || 2022-12-18 21:32:33\n创建全局工作目录 || 2022-12-18 21:32:33\n进行代码拉取 || 2022-12-18 21:32:33\n进行打包镜像 || 2022-12-18 21:32:35\n进行docker模板渲染 || 2022-12-18 21:32:35\n进行docker模板渲染成功 || 2022-12-18 21:32:35\nFROM golang:alpine AS buildENV GOPROXY=https://goproxy.cn,directENV GO111MODULE onWORKDIR /go/cacheADD go.mod .ADD go.sum .RUN go mod downloadWORKDIR /go/buildADD . .RUN GOOS=linux CGO_ENABLED=0 go build -ldflags=\"-s -w\" -installsuffix cgo -o entry main.goFROM alpineEXPOSE 9001WORKDIR /go/buildCOPY --from=build /go/build/entry /go/build/entryADD ./config /go/build/configCMD [\"./entry\"] || 2022-12-18 21:32:35\n进行镜像上传 || 2022-12-18 21:33:09\n判断是否存在本地镜像 || 2022-12-18 21:33:09\n判断是否存在本地镜像 => true || 2022-12-18 21:33:09\n进行docker镜像仓库登陆 || 2022-12-18 21:33:09\npack success || 2022-12-18 21:33:17\n清理工作痕迹 || 2022-12-18 21:33:17\n判断是否存在本地镜像 || 2022-12-18 21:33:17\n判断是否存在本地镜像 => true || 2022-12-18 21:33:18\n删除本地镜像:docker-hub.qlime.cn/hello:11aec28d || 2022-12-18 21:33:18',0,1,1,'方伟业',1,1671370353),(8,'wiki','测试服务','测试','测试仓库',1,'测试仓库','branch','master','11aec28d','docker-hub.qlime.cn/wiki:11aec28d',46,'获取docker版本 || 2022-12-22 00:02:29\ndocker -v || 2022-12-22 00:02:29\ndocker版本 => Docker version 20.10.10, build b485636 || 2022-12-22 00:02:29\n获取git版本 || 2022-12-22 00:02:29\ngit version || 2022-12-22 00:02:29\ngit版本 => git version 2.32.1 (Apple Git-133) || 2022-12-22 00:02:29\n判断是否存在远程镜像 || 2022-12-22 00:02:29\n判断是否存在远程镜像 => false || 2022-12-22 00:02:29\n创建全局工作目录 || 2022-12-22 00:02:29\n进行代码拉取 || 2022-12-22 00:02:29\n进行打包镜像 || 2022-12-22 00:02:31\n进行docker模板渲染 || 2022-12-22 00:02:31\n进行docker模板渲染成功 || 2022-12-22 00:02:31\nFROM golang:alpine AS buildENV GOPROXY=https://goproxy.cn,directENV GO111MODULE onWORKDIR /go/cacheADD go.mod .ADD go.sum .RUN go mod downloadWORKDIR /go/buildADD . .RUN GOOS=linux CGO_ENABLED=0 go build -ldflags=\"-s -w\" -installsuffix cgo -o entry main.goFROM alpineEXPOSE 9001WORKDIR /go/buildCOPY --from=build /go/build/entry /go/build/entryADD ./config /go/build/configCMD [\"./entry\"] || 2022-12-22 00:02:31\n进行镜像上传 || 2022-12-22 00:03:08\n判断是否存在本地镜像 || 2022-12-22 00:03:08\n判断是否存在本地镜像 => true || 2022-12-22 00:03:08\n进行docker镜像仓库登陆 || 2022-12-22 00:03:08\npack success || 2022-12-22 00:03:15\n清理工作痕迹 || 2022-12-22 00:03:15\n判断是否存在本地镜像 || 2022-12-22 00:03:15\n判断是否存在本地镜像 => true || 2022-12-22 00:03:15\n删除本地镜像:docker-hub.qlime.cn/wiki:11aec28d || 2022-12-22 00:03:15',0,1,1,'方伟业',1,1671638549);
-/*!40000 ALTER TABLE `pack_log` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `release_log`
 --
 
@@ -261,16 +222,6 @@ CREATE TABLE `release_log` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `release_log`
---
-
-LOCK TABLES `release_log` WRITE;
-/*!40000 ALTER TABLE `release_log` DISABLE KEYS */;
-INSERT INTO `release_log` VALUES (1,'ps-go','调度流程','','registry.com/ps-go:1a1aa988',0,'the server does not allow this method on the requested resource','DEV','开发环境',1,'fail','方伟业',1,1670767999),(2,'ps-go','调度流程','','registry.com/ps-go:1a1aa988',0,'the server does not allow this method on the requested resource','DEV','开发环境',1,'fail','方伟业',1,1670768044),(3,'ps-go','调度流程','测试仓库','registry.com/ps-go:1a1aa988',0,'the server does not allow this method on the requested resource','DEV','开发环境',1,'fail','方伟业',1,1670768143),(4,'ps-go','调度流程','测试仓库','registry.com/ps-go:1a1aa988',0,'the server does not allow this method on the requested resource','DEV','开发环境',1,'fail','方伟业',1,1670768163),(5,'ps-go','调度流程','测试仓库','registry.com/ps-go:1a1aa988',0,'the server does not allow this method on the requested resource','DEV','开发环境',1,'fail','方伟业',1,1670768187),(6,'ps-go','调度流程','测试仓库','registry.com/ps-go:1a1aa988',0,'Deployment in version \"v1\" cannot be handled as a Deployment: json: cannot unmarshal object into Go struct field Probe.spec.template.spec.containers.readinessProbe.initialDelaySeconds of type int32','DEV','开发环境',1,'fail','方伟业',1,1670771607),(7,'ps-go','调度流程','测试仓库','registry.com/ps-go:1a1aa988',0,'Get \"https://127.0.0.1:54517/api\": dial tcp 127.0.0.1:54517: connect: connection refused','DEV','开发环境',1,'fail','方伟业',1,1671199793),(8,'ps-go','调度流程','测试仓库','registry.com/ps-go:1a1aa988',0,'Get \"https://121.5.104.128:6443/api\": dial tcp 121.5.104.128:6443: i/o timeout','TEST','测试环境',1,'fail','方伟业',1,1671248834),(9,'ps-go','调度流程','测试仓库','registry.com/ps-go:1a1aa988',0,'Deployment in version \"v1\" cannot be handled as a Deployment: v1.Deployment.Spec: v1.DeploymentSpec.Template: v1.PodTemplateSpec.Spec: v1.PodSpec.Containers: []v1.Container: v1.Container.ReadinessProbe: v1.Probe.InitialDelaySeconds: readUint32: unexpected character: �, error found in #10 byte of ...|Seconds\":{\"ProbeInit|..., bigger context ...|:{\"port\":\"/check_healthy\"},\"initialDelaySeconds\":{\"ProbeInitDelay\":null},\"periodSeconds\":5,\"successT|...','TEST','测试环境',1,'fail','方伟业',1,1671256389),(10,'ps-go','调度流程','测试仓库','registry.com/ps-go:1a1aa988',0,'Deployment in version \"v1\" cannot be handled as a Deployment: v1.Deployment.Spec: v1.DeploymentSpec.Template: v1.PodTemplateSpec.Spec: v1.PodSpec.Containers: []v1.Container: v1.Container.ReadinessProbe: v1.Probe.InitialDelaySeconds: readUint32: unexpected character: �, error found in #10 byte of ...|Seconds\":{\"ProbeInit|..., bigger context ...|:{\"port\":\"/check_healthy\"},\"initialDelaySeconds\":{\"ProbeInitDelay\":null},\"periodSeconds\":5,\"successT|...','TEST','测试环境',1,'fail','方伟业',1,1671256600),(11,'ps-go','调度流程','测试仓库','registry.com/ps-go:1a1aa988',0,'','TEST','测试环境',1,'','方伟业',1,1671258687),(12,'ps-go','调度流程','测试仓库','registry.com/ps-go:1a1aa988',0,'decode yaml is err error converting YAML to JSON: yaml: line 19: did not find expected key','TEST','测试环境',1,'fail','方伟业',1,1671259014),(13,'ps-go','调度流程','测试仓库','registry.com/ps-go:1a1aa988',0,'','TEST','测试环境',1,'','方伟业',1,1671259042),(14,'ps-go','调度流程','测试仓库','registry.com/ps-go:1a1aa988',0,'','TEST','测试环境',1,'','方伟业',1,1671260645),(15,'ps-go','调度流程','测试仓库','registry.com/ps-go:1a1aa988',0,'','TEST','测试环境',0,'','方伟业',1,1671260749),(16,'ps-go','调度流程','测试仓库','registry.com/ps-go:1a1aa988',0,'','TEST','测试环境',0,'','方伟业',1,1671260852),(17,'ps-go','调度流程','测试仓库','registry.com/ps-go:1a1aa988',0,'','TEST','测试环境',0,'','方伟业',1,1671264038),(18,'ps-go','调度流程','测试仓库','registry.com/ps-go:1a1aa988',0,'','TEST','测试环境',1,'','方伟业',1,1671265322),(19,'ps-go','调度流程','测试仓库','registry.com/ps-go:1a1aa988',0,'资源正在创建中','TEST','测试环境',1,'fail','方伟业',1,1671265455),(20,'ps-go','调度流程','测试仓库','docker-hub.qlime.cn/ps-go:1a1aa988',0,'','TEST','测试环境',1,'','方伟业',1,1671266067),(21,'ps-go','调度流程','测试仓库','docker-hub.qlime.cn/ps-go:1a1aa988',0,'','TEST','测试环境',1,'','方伟业',1,1671269698),(22,'ps-go','调度流程','测试仓库','docker-hub.qlime.cn/ps-go:1a1aa988',0,'pods \"ps-go\" not found','TEST','测试环境',1,'fail','方伟业',1,1671269822),(23,'ps-go','调度流程','测试仓库','docker-hub.qlime.cn/ps-go:1a1aa988',0,'pods \"ps-go\" not found','TEST','测试环境',1,'fail','方伟业',1,1671270090),(24,'ps-go','调度流程','测试仓库','docker-hub.qlime.cn/ps-go:1a1aa988',0,'','TEST','测试环境',0,'','方伟业',1,1671270585),(25,'ps-go','调度流程','测试仓库','docker-hub.qlime.cn/ps-go:1a1aa988',0,'','TEST','测试环境',0,'','方伟业',1,1671271577),(26,'ps-go','调度流程','测试仓库','docker-hub.qlime.cn/ps-go:1a1aa988',0,'','TEST','测试环境',0,'','方伟业',1,1671271931),(27,'ps-go','调度流程','测试仓库','docker-hub.qlime.cn/ps-go:1a1aa988',620,'【CrashLoopBackOff】back-off 5m0s restarting failed container=ps-go pod=ps-go-5d78b586df-fpv6x_backend(ae9f4bd0-8068-4261-984a-cf8bb385c99c)','TEST','测试环境',1,'fail','方伟业',1,1671362105),(28,'hello','测试服务','测试仓库','docker-hub.qlime.cn/hello:3bc80b8b',601,'【CrashLoopBackOff】back-off 5m0s restarting failed container=hello pod=hello-7978c6b9-cg5kz_backend(cf564d9a-59de-4ae0-9fac-fcb45b9833be)','TEST','测试环境',1,'fail','方伟业',1,1671364053),(29,'hello','测试服务','测试仓库','docker-hub.qlime.cn/hello:ff52a7b7',602,'【CrashLoopBackOff】back-off 5m0s restarting failed container=hello pod=hello-5b4f87f759-mghdw_backend(c6d3e831-5a67-46d1-8fc0-975ca509ce06)','TEST','测试环境',1,'fail','方伟业',1,1671365445),(30,'hello','测试服务','测试仓库','docker-hub.qlime.cn/hello:11aec28d',0,'','TEST','测试环境',0,'','方伟业',1,1671370451),(31,'hello','测试服务','测试仓库','docker-hub.qlime.cn/hello:11aec28d',6,'资源正在创建中','TEST','测试环境',1,'success','方伟业',1,1671370792),(32,'hello','测试服务','测试仓库','docker-hub.qlime.cn/hello:11aec28d',6,'资源正在创建中','TEST','测试环境',1,'success','方伟业',1,1671370945),(33,'hello','测试服务','测试仓库','docker-hub.qlime.cn/hello:11aec28d',7,'','TEST','测试环境',1,'success','方伟业',1,1671371049),(34,'hello','测试服务','测试仓库','docker-hub.qlime.cn/hello:11aec28d',26,'','TEST','测试环境',1,'success','方伟业',1,1671371111),(35,'hello','测试服务','测试仓库','docker-hub.qlime.cn/hello:11aec28d',6,'','TEST','测试环境',1,'success','方伟业',1,1671514705),(36,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',26,'','TEST','测试环境',1,'success','方伟业',1,1671639215),(37,'ps-go','调度流程','测试仓库','docker-hub.qlime.cn/ps-go:1a1aa988',0,'发布成功','TEST','测试环境',1,'success','方伟业',1,1671771156),(38,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'','TEST','测试环境',0,'','方伟业',1,1671771520),(39,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'发布成功','TEST','测试环境',1,'success','方伟业',1,1671775488),(40,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'发布成功','TEST','测试环境',1,'success','方伟业',1,1671776083),(41,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'deployments.apps \"wiki\" already exists','TEST','测试环境',1,'fail','方伟业',1,1671776115),(42,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'发布成功','TEST','测试环境',1,'success','方伟业',1,1671776310),(43,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'','TEST','测试环境',0,'','方伟业',1,1671776324),(44,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'','TEST','测试环境',0,'','方伟业',1,1671776550),(45,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'','TEST','测试环境',0,'','方伟业',1,1671776623),(46,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'发布成功','TEST','测试环境',1,'success','方伟业',1,1671777800),(47,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',21,'发布成功','TEST','测试环境',1,'success','方伟业',1,1671777828),(48,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'发布成功','TEST','测试环境',1,'success','方伟业',1,1671778004),(49,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',14,'发布成功','TEST','测试环境',1,'success','方伟业',1,1671778045),(50,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',23,'发布成功','TEST','测试环境',1,'success','方伟业',1,1671778074),(51,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'发布成功','TEST','测试环境',1,'success','方伟业',1,1671778272),(52,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'','TEST','测试环境',0,'','方伟业',1,1671778476),(53,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'','TEST','测试环境',0,'','方伟业',1,1671778782),(54,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',23,'','TEST','测试环境',1,'fail','方伟业',1,1671779798),(55,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',21,'','TEST','测试环境',1,'fail','方伟业',1,1671779905),(56,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'发布成功','TEST','测试环境',1,'success','方伟业',1,1671781454),(57,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',1,'未识别的服务状态:True:MinimumReplicasUnavailable','TEST','测试环境',1,'fail','方伟业',1,1671781494),(58,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',24,'发布成功','TEST','测试环境',1,'success','方伟业',1,1671781727),(59,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',601,'未识别的服务状态:True:ProgressDeadlineExceeded','TEST','测试环境',1,'fail','方伟业',1,1671781816),(60,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'ReplicaSet \"wiki-6f8589585c\" has timed out progressing.','TEST','测试环境',1,'fail','方伟业',1,1671782700),(61,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'','TEST','测试环境',0,'','方伟业',1,1671782781),(62,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'','TEST','测试环境',0,'','方伟业',1,1671782931),(63,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'','TEST','测试环境',0,'','方伟业',1,1671782981),(64,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',58,'发布成功','TEST','测试环境',1,'success','方伟业',1,1671783251),(65,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',38,'发布成功','TEST','测试环境',1,'success','方伟业',1,1671783396),(66,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'','TEST','测试环境',0,'','方伟业',1,1671783485),(67,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',3,'rpc error: code = Unknown desc = Error response from daemon: manifest for docker-hub.qlime.cn/he:latest not found: manifest unknown: manifest unknown','TEST','测试环境',1,'fail','方伟业',1,1671784442),(68,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',21,'发布成功','TEST','测试环境',1,'success','方伟业',1,1671784563),(69,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',3,'【ErrImagePull】rpc error: code = Unknown desc = Error response from daemon: manifest for docker-hub.qlime.cn/he:latest not found: manifest unknown: manifest unknown','TEST','测试环境',1,'fail','方伟业',1,1671784669),(70,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'发布成功','DEV','开发环境',1,'success','方伟业',1,1671975749),(71,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'','DEV','开发环境',0,'','方伟业',1,1671975809),(72,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',30,'发布成功','DEV','开发环境',1,'success','方伟业',1,1671975870),(73,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'此接口不存在','DEV','开发环境',1,'fail','方伟业',1,1671976510),(74,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',0,'创建服务工作目录失败','DEV','开发环境',1,'fail','方伟业',1,1671976829),(75,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',29,'创建服务工作目录失败','DEV','开发环境',1,'fail','方伟业',1,1671976886),(76,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',9,'The Compose file \'./docker-compose.yaml\' is invalid because:\nservices.wiki-0.ports contains unsupported option: \'80\'\nservices.wiki-1.ports contains unsupported option: \'81\'\nservices.wiki-2.ports contains unsupported option: \'82\'\n','DEV','开发环境',1,'fail','方伟业',1,1671976974),(77,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',26,'The Compose file \'./docker-compose.yaml\' is invalid because:\nservices.wiki-0.ports contains unsupported option: \'80\'\nservices.wiki-1.ports contains unsupported option: \'81\'\nservices.wiki-2.ports contains unsupported option: \'82\'\n','DEV','开发环境',1,'fail','方伟业',1,1671977018),(78,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',2,'The Compose file is invalid because:\nService wiki-0 has neither an image nor a build context specified. At least one must be provided.\n','DEV','开发环境',1,'fail','方伟业',1,1671977276),(79,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',1,'The Compose file is invalid because:\nService wiki-0 has neither an image nor a build context specified. At least one must be provided.\n','DEV','开发环境',1,'fail','方伟业',1,1671977345),(80,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',4,'The Compose file is invalid because:\nService wiki-0 has neither an image nor a build context specified. At least one must be provided.\n','DEV','开发环境',1,'fail','方伟业',1,1671978211),(81,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',16,'The Compose file is invalid because:\nService wiki-0 has neither an image nor a build context specified. At least one must be provided.\n','DEV','开发环境',1,'fail','方伟业',1,1671978271),(82,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',27,'Post \"http://127.0.0.1:8084/api/v1/service\": dial tcp 127.0.0.1:8084: connect: connection refused','DEV','开发环境',1,'fail','方伟业',1,1671978333),(83,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',30,'Starting wiki-0 ... \r\nwiki-1 is up-to-date\nwiki-2 is up-to-date\nStarting wiki-0 ... error\r\n\nERROR: for wiki-0  Cannot start service wiki-0: Ports are not available: listen tcp 0.0.0.0:7000: bind: address already in use\n\nERROR: for wiki-0  Cannot start service wiki-0: Ports are not available: listen tcp 0.0.0.0:7000: bind: address already in use\nEncountered errors while bringing up the project.\n','DEV','开发环境',1,'fail','方伟业',1,1671978375),(84,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',25,'wiki-1 is up-to-date\nStarting wiki-0 ... \r\nwiki-2 is up-to-date\nStarting wiki-0 ... error\r\n\nERROR: for wiki-0  Cannot start service wiki-0: Ports are not available: listen tcp 0.0.0.0:7000: bind: address already in use\n\nERROR: for wiki-0  Cannot start service wiki-0: Ports are not available: listen tcp 0.0.0.0:7000: bind: address already in use\nEncountered errors while bringing up the project.\n','DEV','开发环境',1,'fail','方伟业',1,1671978521),(85,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',2,'Starting wiki-0 ... \r\nwiki-1 is up-to-date\nwiki-2 is up-to-date\nStarting wiki-0 ... error\r\n\nERROR: for wiki-0  Cannot start service wiki-0: Ports are not available: listen tcp 0.0.0.0:7000: bind: address already in use\n\nERROR: for wiki-0  Cannot start service wiki-0: Ports are not available: listen tcp 0.0.0.0:7000: bind: address already in use\nEncountered errors while bringing up the project.\n','DEV','开发环境',1,'fail','方伟业',1,1671978611),(86,'wiki','测试服务','测试仓库','docker-hub.qlime.cn/wiki:11aec28d',5,'发布成功','DEV','开发环境',1,'success','方伟业',1,1671979008);
-/*!40000 ALTER TABLE `release_log` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `release_template`
 --
 
@@ -292,15 +243,6 @@ CREATE TABLE `release_template` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `release_template`
---
-
-LOCK TABLES `release_template` WRITE;
-/*!40000 ALTER TABLE `release_template` DISABLE KEYS */;
-INSERT INTO `release_template` VALUES (1,'测试发布-k8s','k8s','测试发布测试发布测试发布','apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: {ServiceName}\n  namespace: {Namespace}\n  labels:\n    app: {ServiceName}\nspec:\n  replicas: {Replicas}\n  template:\n    metadata:\n      name: {ServiceName}\n      labels:\n        app: {ServiceName}\n    spec:\n      imagePullSecrets:\n        - name: docker-hub\n      containers:\n        - name: {ServiceName}\n          image:  \"docker-hub.qlime.cn/he\"\n          imagePullPolicy: IfNotPresent\n          livenessProbe:\n            httpGet:\n              port: {ListenPort}\n              path: {ProbeValue}\n            periodSeconds: 10\n            timeoutSeconds: 3\n            successThreshold: 1\n            failureThreshold: 2\n          readinessProbe:\n            httpGet:\n              port: {ListenPort}\n              path: {ProbeValue}\n            periodSeconds: 5\n            timeoutSeconds: 3\n            successThreshold: 1\n            failureThreshold: 2\n          startupProbe:\n            initialDelaySeconds: {ProbeInitDelay}\n            httpGet:\n              port: {ListenPort}\n              path: {ProbeValue}\n      restartPolicy: Always\n  selector:\n    matchLabels:\n      app: {ServiceName}\n','方伟业',1,1670692698,1671975421),(2,'测试发布-docker-compose','docker-compose','测试发布','version: \'3.6\'\nservices:\n  {ServiceName}:\n    container_name: {ServiceName}\n    image: {Image}\n    restart: always\n    ports:\n      - {RunPort}:{ListenPort}\n\n','方伟业',1,1671975553,1671975553);
-/*!40000 ALTER TABLE `release_template` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `service`
@@ -346,15 +288,6 @@ CREATE TABLE `service` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `service`
---
-
-LOCK TABLES `service` WRITE;
-/*!40000 ALTER TABLE `service` DISABLE KEYS */;
-INSERT INTO `service` VALUES (1,'ps-go','调度流程',0,NULL,2,1,4,1,8081,8081,'ptl-f','ps-go','备注备注备注','方伟业',1,1670693640,1672070231,1,15,'httpGet','/check_healthy','deployment'),(2,'wiki','测试服务',0,NULL,2,1,1,1,7001,9001,'limeschool','hello','测试服务','方伟业',1,1671363845,1671979004,3,10,'httpGet','/auth','');
-/*!40000 ALTER TABLE `service` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `service_env`
@@ -381,11 +314,6 @@ CREATE TABLE `service_env` (
 -- Dumping data for table `service_env`
 --
 
-LOCK TABLES `service_env` WRITE;
-/*!40000 ALTER TABLE `service_env` DISABLE KEYS */;
-INSERT INTO `service_env` VALUES (25,2,2,'方伟业',1),(26,1,2,'方伟业',1),(27,3,2,'方伟业',1),(28,1,1,'方伟业',1),(29,3,1,'方伟业',1),(30,2,1,'方伟业',1);
-/*!40000 ALTER TABLE `service_env` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -445,11 +373,6 @@ CREATE TABLE `environment` (
 -- Dumping data for table `environment`
 --
 
-LOCK TABLES `environment` WRITE;
-/*!40000 ALTER TABLE `environment` DISABLE KEYS */;
-INSERT INTO `environment` VALUES (1,'DEV','consul','{\n\"host\":\"http://127.0.0.1:8500\"\n}','/service','6caacc86f03cd454b3312270a55db65f','方伟业',1,1669481244,1670040908),(2,'PRE','etcd','{\n\"host\":\"http://127.0.0.1:8500\"\n}','/service','c45e8c1be338ae68eee1811888745634','方伟业',1,1669481408,1670040118);
-/*!40000 ALTER TABLE `environment` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `field`
@@ -472,15 +395,7 @@ CREATE TABLE `field` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `field`
---
 
-LOCK TABLES `field` WRITE;
-/*!40000 ALTER TABLE `field` DISABLE KEYS */;
-INSERT INTO `field` VALUES (1,'ums','ums.hello','11122','方伟业',1,1669483712,1669483717);
-/*!40000 ALTER TABLE `field` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `field_value`
@@ -505,15 +420,6 @@ CREATE TABLE `field_value` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `field_value`
---
-
-LOCK TABLES `field_value` WRITE;
-/*!40000 ALTER TABLE `field_value` DISABLE KEYS */;
-INSERT INTO `field_value` VALUES (4,1,'DEV','「」','方伟业',1,1669483968,1669483968),(5,1,'TEST','「」','方伟业',1,1669483968,1669483968),(6,1,'PRE','「」','方伟业',1,1669483968,1669483968);
-/*!40000 ALTER TABLE `field_value` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `resource`
@@ -537,15 +443,6 @@ CREATE TABLE `resource` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `resource`
---
-
-LOCK TABLES `resource` WRITE;
-/*!40000 ALTER TABLE `resource` DISABLE KEYS */;
-INSERT INTO `resource` VALUES (1,'ssss','数据库连接信息','[\"ip\"]','key','方伟业',1,1669472628,1669545923);
-/*!40000 ALTER TABLE `resource` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `resource_value`
@@ -570,16 +467,6 @@ CREATE TABLE `resource_value` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `resource_value`
---
-
-LOCK TABLES `resource_value` WRITE;
-/*!40000 ALTER TABLE `resource_value` DISABLE KEYS */;
-INSERT INTO `resource_value` VALUES (1,1,'DEV','{\"ip\":\"test\"}','方伟业',1,1669546254,1669546254),(2,1,'TEST','{\"ip\":\"test\"}','方伟业',1,1669546254,1669546254),(3,1,'PRE','{\"ip\":\"test\"}','方伟业',1,1669546254,1669546254);
-/*!40000 ALTER TABLE `resource_value` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `service_resource`
 --
 
@@ -599,15 +486,6 @@ CREATE TABLE `service_resource` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `service_resource`
---
-
-LOCK TABLES `service_resource` WRITE;
-/*!40000 ALTER TABLE `service_resource` DISABLE KEYS */;
-INSERT INTO `service_resource` VALUES (2,'ums',1,'方伟业',1),(3,'devops',1,'方伟业',1);
-/*!40000 ALTER TABLE `service_resource` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `template`
@@ -633,15 +511,6 @@ CREATE TABLE `template` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `template`
---
-
-LOCK TABLES `template` WRITE;
-/*!40000 ALTER TABLE `template` DISABLE KEYS */;
-INSERT INTO `template` VALUES (1,'ums','{\"code\":1}','8BC873E579CAFCE9',0,'测试','方伟业',1,1669531490,1669531490),(2,'ums','{\"code\":1,\"hello\":\"{{ums.hello}}\"}','42C8F3C87B009E60',0,'s','方伟业',1,1669531634,1669531634),(3,'ums','{\"service\":\"ums\",\"code\":1,\"hello\":\"{{ums.hello}}\"}','F8736207454FAF2F',1,'测试','方伟业',1,1669550614,1669550614);
-/*!40000 ALTER TABLE `template` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `template_log`
@@ -667,11 +536,6 @@ CREATE TABLE `template_log` (
 -- Dumping data for table `template_log`
 --
 
-LOCK TABLES `template_log` WRITE;
-/*!40000 ALTER TABLE `template_log` DISABLE KEYS */;
-INSERT INTO `template_log` VALUES (1,'ums','DEV','{\"code\":1,\"hello\":\"「」\"}','[{\"key\":\"code\",\"old\":null,\"type\":\"add\",\"val\":1},{\"key\":\"hello\",\"old\":null,\"type\":\"add\",\"val\":\"「」\"}]','方伟业',1,1669544821),(2,'ums','DEV','{\"code\":1,\"hello\":\"「」\"}','[{\"key\":\"code\",\"old\":null,\"type\":\"add\",\"val\":1},{\"key\":\"hello\",\"old\":null,\"type\":\"add\",\"val\":\"「」\"}]','方伟业',1,1669544827),(3,'ums','DEV','{\"code\":1,\"hello\":\"「」\"}','[{\"key\":\"code\",\"old\":null,\"type\":\"add\",\"val\":1},{\"key\":\"hello\",\"old\":null,\"type\":\"add\",\"val\":\"「」\"}]','方伟业',1,1669545050),(4,'ums','DEV','{\"service\":\"ums\",\"code\":1,\"hello\":\"「」\"}','[{\"key\":\"service\",\"old\":null,\"type\":\"add\",\"val\":\"ums\"}]','方伟业',1,1669550988);
-/*!40000 ALTER TABLE `template_log` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -688,17 +552,6 @@ UNLOCK TABLES;
 -- Host: localhost    Database: devops_ums
 -- ------------------------------------------------------
 -- Server version	5.7.28
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `casbin_rule`
@@ -760,15 +613,6 @@ CREATE TABLE `login_log` (
 ) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `login_log`
---
-
-LOCK TABLES `login_log` WRITE;
-/*!40000 ALTER TABLE `login_log` DISABLE KEYS */;
-INSERT INTO `login_log` VALUES (1,'18286219254','127.0.0.1','本地登陆','PostmanRuntime',' ',1,0,'',1669035965),(2,'18286219254','127.0.0.1','本地登陆','PostmanRuntime',' ',1,0,'',1669035989),(3,'18286219254','127.0.0.1','本地登陆','PostmanRuntime',' ',1,0,'',1669035990),(4,'18286219254','127.0.0.1','本地登陆','PostmanRuntime',' ',1,0,'',1669035991),(5,'18286219254','127.0.0.1','本地登陆','PostmanRuntime',' ',1,0,'',1669035991),(6,'18286219254','127.0.0.1','本地登陆','PostmanRuntime',' ',1,0,'',1669035992),(7,'18286219254','127.0.0.1','本地登陆','PostmanRuntime',' ',1,0,'',1669035993),(8,'18286219254','127.0.0.1','本地登陆','PostmanRuntime',' ',1,0,'',1669035993),(9,'18286219254','127.0.0.1','本地登陆','PostmanRuntime',' ',1,0,'',1669035994),(10,'18286219254','127.0.0.1','本地登陆','PostmanRuntime',' ',1,0,'',1669035994),(11,'18286219254','127.0.0.1','本地登陆','PostmanRuntime',' ',1,0,'',1669035995),(12,'18286219254','127.0.0.1','本地登陆','PostmanRuntime',' ',1,0,'',1669035996),(13,'18286219254','127.0.0.1','本地登陆','PostmanRuntime',' ',1,0,'',1669035996),(14,'18286219254','127.0.0.1','本地登陆','PostmanRuntime',' ',1,0,'',1669035997),(15,'18286219254','127.0.0.1','本地登陆','PostmanRuntime',' ',1,0,'',1669035997),(16,'18286219254','127.0.0.1','本地登陆','PostmanRuntime',' ',1,0,'',1669035998),(17,'18286219254','127.0.0.1','本地登陆','PostmanRuntime',' ',1,0,'',1669035998),(18,'18286219254','127.0.0.1','本地登陆','PostmanRuntime',' ',1,0,'',1669035999),(19,'18286219254','127.0.0.1','本地登陆','PostmanRuntime',' ',1,0,'',1669035999),(20,'18286219254','127.0.0.1','本地登陆','PostmanRuntime',' ',1,0,'',1669036000),(21,'18286219254','127.0.0.1','本地登陆','PostmanRuntime',' ',1,0,'',1669037249),(22,'18286219254','127.0.0.1','本地登陆','PostmanRuntime',' ',1,0,'',1669037251),(23,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',0,100008,'账号密码错误',1669045236),(24,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669045240),(25,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669045613),(26,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669048514),(27,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669051042),(28,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669051254),(29,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669051566),(30,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669051569),(31,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669051607),(32,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669051695),(33,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669051766),(34,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669051903),(35,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669051928),(36,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669052025),(37,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669052060),(38,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669052102),(39,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669052189),(40,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669052285),(41,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669052351),(42,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669052415),(43,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669052533),(44,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669052695),(45,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669213550),(46,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669213704),(47,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669214032),(48,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669214859),(49,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669214863),(50,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669389653),(51,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669527503),(52,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',0,0,'dial tcp 127.0.0.1:6379: connect: connection refused',1669543788),(53,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',0,0,'dial tcp 127.0.0.1:6379: connect: connection refused',1669543799),(54,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',0,0,'dial tcp 127.0.0.1:6379: connect: connection refused',1669543807),(55,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',0,0,'dial tcp 127.0.0.1:6379: connect: connection refused',1669543809),(56,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',0,0,'dial tcp 127.0.0.1:6379: connect: connection refused',1669543810),(57,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1669543828),(58,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1670033265),(59,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1670068328),(60,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1670250698),(61,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1670255645),(62,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1670255648),(63,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',0,0,'dial tcp 127.0.0.1:6379: connect: connection refused',1670680617),(64,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1670680640),(65,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1671198505),(66,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1671636092),(67,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1671974202),(68,'18286219254','127.0.0.1','本地登陆','Chrome','macOS 10.15.7',1,0,'',1672151166);
-/*!40000 ALTER TABLE `login_log` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `menu`
@@ -950,7 +794,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,1,1,'测试','方伟业','18286219254','/user/login.png','1280291001@qq.com',1,'$2a$10$2bVK6bmc/BUkYOmLPYaytucEw0Tf9/l3H8lVHY2gg97WCXsYFrZYO',NULL,1,'方伟业',1,1659631587,1669213587),(19,2,4,'测试','测试','18286219255','/static/logo.png','128029101@qq.com',1,'$2a$10$SvSAHOBGx8ETaJKFSaZ8YeLZZ5EdznZsRFHVdVbY6qN/afJY2tI9W',0,1,'方伟业',1,1669218197,1669219828);
+INSERT INTO `user` VALUES (1,1,1,'测试','方伟业','18200000000','/user/login.png','1280291001@qq.com',1,'$2a$10$2bVK6bmc/BUkYOmLPYaytucEw0Tf9/l3H8lVHY2gg97WCXsYFrZYO',NULL,1,'方伟业',1,1659631587,1669213587);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
