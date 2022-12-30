@@ -1,7 +1,10 @@
 package address
 
 import (
+	"bytes"
 	"encoding/json"
+	"golang.org/x/text/encoding/simplifiedchinese"
+	"golang.org/x/text/transform"
 	"io/ioutil"
 	"net/http"
 	"regexp"
@@ -21,32 +24,10 @@ func GetAddress(ip string) string {
 }
 
 func GetAddressByIP(ip string) (address string) {
-	if address = IP360(ip); address != "" {
-		return
-	}
 	if address = IPWhois(ip); address != "" {
 		return
 	}
-	if address = IPApi(ip); address != "" {
-		return
-	}
 	return "地址查询失败"
-}
-
-func IP360(ip string) string {
-	type response struct {
-		Errno int    `json:"errno"`
-		Data  string `json:"data"`
-	}
-	var resp response
-	url := "ip.360.cn/IPQuery/ipquery?ip=" + ip
-	if Get(url, &resp) != nil {
-		return ""
-	}
-	if resp.Errno == 0 {
-		return resp.Data
-	}
-	return ""
 }
 
 func IPWhois(ip string) string {
@@ -54,23 +35,12 @@ func IPWhois(ip string) string {
 		Addr string `json:"addr"`
 	}
 	var resp response
-	url := "whois.pconline.com.cn/ipJson.jsp?json=true&ip=" + ip
-	Get(url, &resp)
+	url := "https://whois.pconline.com.cn/ipJson.jsp?json=true&ip=" + ip
+	Get(url, &resp, true)
 	return resp.Addr
 }
 
-func IPApi(ip string) string {
-	url := "ip-api.com/json/" + ip + "?lang=zh-CN"
-	type response struct {
-		RegionName string `json:"region_name"`
-		City       string `json:"city"`
-	}
-	var resp response
-	Get(url, &resp)
-	return resp.RegionName + resp.City
-}
-
-func Get(url string, dst interface{}) error {
+func Get(url string, dst interface{}, toUtf8 bool) error {
 	cli := http.Client{
 		Timeout: 5 * time.Second,
 	}
@@ -80,7 +50,9 @@ func Get(url string, dst interface{}) error {
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
-
+	if toUtf8 {
+		body, _ = GbkToUtf8(body)
+	}
 	if err != nil {
 		return err
 	}
@@ -94,4 +66,13 @@ func CheckIP(ip string) bool {
 		return true
 	}
 	return false
+}
+
+func GbkToUtf8(s []byte) ([]byte, error) {
+	reader := transform.NewReader(bytes.NewReader(s), simplifiedchinese.GBK.NewDecoder())
+	d, e := ioutil.ReadAll(reader)
+	if e != nil {
+		return nil, e
+	}
+	return d, nil
 }
