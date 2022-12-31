@@ -15,5 +15,5 @@
   "nginx_hosts_path": "/etc/nginx/conf.d",
   "nginx_nginx_path": "/etc/nginx/nginx.conf",
   "exec_type": "/bin/sh",
-  "work_dir": "/usr/local/dc-service"
+    "work_dir": "/usr/local/dc-service"
 }
