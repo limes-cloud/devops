@@ -18,9 +18,9 @@ func AddNetwork(ctx *gin.Context, in *types.AddNetworkRequest) (err error) {
 	certPath := ""
 	keyPath := ""
 	hostPath := ctx.Config.GetString("nginx_hosts_path")
-	fileName := "config/http.conf"
+	fileName := "template/http.conf"
 	if in.Cert != "" && in.Key != "" {
-		fileName = "config/https.conf"
+		fileName = "template/https.conf"
 
 		tlsDir := fmt.Sprintf("%v/ssl/%v", hostPath, in.ServiceName)
 		if err = os.MkdirAll(tlsDir, os.ModePerm); err != nil {
