@@ -10,7 +10,6 @@ type Environment struct {
 	Keyword     string  `json:"keyword,omitempty"`
 	Name        string  `json:"name,omitempty"`
 	Description *string `json:"description,omitempty"`
-	ReleaseType string  `json:"release_type"`
 	Type        string  `json:"type"`
 	Host        string  `json:"host"`
 	Token       string  `json:"token"`
