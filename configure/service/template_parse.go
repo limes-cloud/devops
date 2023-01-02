@@ -103,7 +103,7 @@ func ParseTemplate(ctx *gin.Context, in *types.ParseTemplateRequest) (string, er
 	sysFs, _ := rf.AllByCallback(ctx, func(db *gorm.DB) *gorm.DB {
 		return db.Select("field,sv.value field_value").
 			Joins("left join resource_value sv on resource.id = sv.resource_id and sv.env_keyword = ?", in.EnvKeyword).
-			Where("resource.id in (select resource from service_resource where service_keyword = ?)", in.SrvKeyword)
+			Where("resource.id in (select resource_id from service_resource where service_keyword = ?)", in.SrvKeyword)
 	})
 
 	//组合两边的key
