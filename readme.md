@@ -1,6 +1,13 @@
+<a name="Zhr84"></a>
+### 平台前后端完全开源，安装文档详细！！！ qq交流群：739746995
+开源不易，你的支持时持续更新的动力。<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672654868733-90da3fb1-55eb-4e27-b53f-b40b168aba05.png#averageHue=%23f1ead6&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=277&id=u1c711b52&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1037&originWidth=1037&originalType=binary&ratio=1&rotation=0&showTitle=false&size=71027&status=done&style=none&taskId=ud6d43d0e-fff1-4eef-943c-e7325339d06&title=&width=276.5)
 <a name="Y9S4d"></a>
 ### 前言
-在安装devops管理平台之前我们先来说一下整个平台的技术架构，平台目前涉及的服务主要有 `用户中心`、`配置中心`、`服务中心`组成。用户中心主要功能包括平台用户管理、菜单管理、部门管理等，另外还对整个系统的api进行鉴权。配置中心主要功能包括配置业务字段管理、配置模板管理，配置中心依靠consul\etcd\zk等中间件可以实现配置的动态变更，对多环境开发中统一配置管理非常友好。服务管理主要负责系统的服务构建、服务发布、网络配置等，并且兼容k8s和docker-compose两种打包方式，你可以在单机节点就可以依靠docker-compose实现自动构建打包。<br />主要架构如下：<br />![image.png](https://cdn.nlark.com/yuque/0/2022/png/26359342/1672155753912-67527df2-36e3-4c67-a76b-9a0c427a07a6.png#averageHue=%23f3f3f3&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=560&id=u279455cb&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1120&originWidth=2354&originalType=binary&ratio=1&rotation=0&showTitle=false&size=253975&status=done&style=none&taskId=u26120705-db6a-4279-82c9-13ce2f96871&title=&width=1177)
+在安装devops管理平台之前我们先来说一下整个平台的技术架构，平台目前涉及的服务主要有 `用户中心`、`配置中心`、`服务中心`组成。用户中心主要功能包括平台用户管理、菜单管理、部门管理等，另外还对整个系统的api进行鉴权。配置中心主要功能包括配置业务字段管理、配置模板管理，配置中心依靠consul\etcd\zk等中间件可以实现配置的动态变更，对多环境开发中统一配置管理非常友好。服务管理主要负责系统的服务构建、服务发布、网络配置等，并且兼容k8s和docker-compose两种打包方式，你可以在单机节点就可以依靠docker-compose实现自动构建打包。
+
+
+
+主要架构如下：<br />![image.png](https://cdn.nlark.com/yuque/0/2022/png/26359342/1672155753912-67527df2-36e3-4c67-a76b-9a0c427a07a6.png#averageHue=%23f3f3f3&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=560&id=u279455cb&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1120&originWidth=2354&originalType=binary&ratio=1&rotation=0&showTitle=false&size=253975&status=done&style=none&taskId=u26120705-db6a-4279-82c9-13ce2f96871&title=&width=1177)
 <a name="hazHe"></a>
 ### 服务安装要求
 由上图，我们可以看到我们需要安装后台管理系统、Nginx、用户中心、配置中心、服务中心、mysql、redis、consul（etcd、zk）、k8s（docker-compose）服务。看到这里是不是你被吓住了，别害怕，跟着教程来，我们很快就可以实现安装的，但是在安装之前，我们应该**拥有一台配置不低于2h4g的服务器**(你至少要安装mysql和redis和docker)，但是在最好的情况下，我们是最少需要多台服务器的，一台作为构建服务，mysql、redis也应该用专用服务器，配置中心底层依赖consul（etcd、zk）也应该有专用服务器，最后运行服务的应该是一个服务集群。<br />假如你是个人开发者，并不满足这些条件，那么我想需要重新设计一下方案了，我们可以用一台作为构建服务（nginx、devops系统、consul（etcd、zk）、mysql、redis）一台作为运行服务（docker-compose）。假如你真的只有一台的情况下，也可以把构建服务和运行服务全都在一台上进行构建，只是我在后续的文档中会假设你拥有两台服务器作为例子进行讲解，但这不影响你只有一台服务器进行搭建，你可以将构建服务器就当成运行服务器即可。
@@ -108,7 +115,7 @@ services:
       - TZ="Asia/Shanghai"
   mysql:
     container_name: mysql
-    image: mysql:5.7
+    image: mysql:5.7 
     volumes:
       - ./mysql/data/db:/var/lib/mysql
     restart: always
@@ -129,10 +136,10 @@ docker ps
 #### 五、下载服务端代码
 ```yaml
 # 创建服务端目录
-mkdir /usr/local/devops/service && cd /usr/local/devops/service
+mkdir /usr/local/devops/service && cd /usr/local/devops/service 
 
-  # 拉去服务端代码
-git clone https://github.com/limeschool/devops.git
+# 拉去服务端代码
+git clone https://github.com/limeschool/devops.git 
 
 ```
 <a name="rovqz"></a>
@@ -141,39 +148,39 @@ git clone https://github.com/limeschool/devops.git
 # 复制sql文件到数据库的挂载目录
 cp devops/devops.sql ../drive/mysql/data/db/devops.sql
 
-  # 进入mysql容器
+# 进入mysql容器
 docker exec -it mysql /bin/sh
 
-  #连接mysql
+#连接mysql
 mysql -u root -p
-  # Enter password: 
-  # 接下来输入密码，密码是在创建资源清单时所设置的
-  # mysql> 
+# Enter password: 
+# 接下来输入密码，密码是在创建资源清单时所设置的
+# mysql> 
 
-  # 导入文件
+# 导入文件
 source /var/lib/mysql/devops.sql
 
-  # 验证文件导入
+# 验证文件导入
 show databases;
 
-  # 输出一下devops_configure、devops_service、devops_ums 即为成功
-  # +--------------------+
-  # | Database           |
-  # +--------------------+
-  # | information_schema |
-  # | devops_configure   |
-  # | devops_service     |
-  # | devops_ums         |
-  # | mysql              |
-  # | performance_schema |
-  # | sys                |
-  # +--------------------+
-  # 7 rows in set (0.00 sec)
+# 输出一下devops_configure、devops_service、devops_ums 即为成功
+# +--------------------+
+# | Database           |
+# +--------------------+
+# | information_schema |
+# | devops_configure   |
+# | devops_service     |
+# | devops_ums         |
+# | mysql              |
+# | performance_schema |
+# | sys                |
+# +--------------------+
+# 7 rows in set (0.00 sec)
 
-  # 退出mysql
+# 退出mysql
 exit
 
-  # 退出docker
+# 退出docker
 exit
 ```
 
@@ -435,8 +442,8 @@ services:
 
 networks:
   devops_net:
-    external:
-      name: drive_devops_net
+     external:
+        name: drive_devops_net
 ```
 使用` docker ps` 验证是否安装成功，安装成功会得到如下的输出，这样以来我们服务端的代码就相当于安装成功了。<br />![image.png](https://cdn.nlark.com/yuque/0/2022/png/26359342/1672324471246-34cb05d1-26b4-47e5-beae-2d2dd88795db.png#averageHue=%23141728&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=167&id=u6ff332af&margin=%5Bobject%20Object%5D&name=image.png&originHeight=334&originWidth=2068&originalType=binary&ratio=1&rotation=0&showTitle=false&size=131603&status=done&style=none&taskId=u3555dd87-87f0-49db-adab-10825d2b724&title=&width=1034)
 
@@ -749,26 +756,26 @@ server
 # 创建私有仓库工作目录
 mkdir -p /usr/local/devops/registry && cd /usr/local/devops/registry
 
-  # 进行htpasswd工具安装
+# 进行htpasswd工具安装
 yum -y install httpd-tools
 
-  # 创建密钥迷离
+# 创建密钥迷离
 mkdir auth
 
-  # 创建私有镜像仓库的账号密码,这里的username 和 password 需要替换成你自己的账号和密码
-  # htpasswd -Bbn username password > auth/htpasswd
+# 创建私有镜像仓库的账号密码,这里的username 和 password 需要替换成你自己的账号和密码
+# htpasswd -Bbn username password > auth/htpasswd
 htpasswd -Bbn xxxx xxxx > auth/htpasswd
 
-  # 进入阿里云对象存储创建存储桶，使用阿里云对象存储可以介于构建主机的硬盘成本，具体操作百度即可。
+# 进入阿里云对象存储创建存储桶，使用阿里云对象存储可以介于构建主机的硬盘成本，具体操作百度即可。
 
 vim docker-compose.yaml
-  # 使用docker-compose 安装镜像，以下有几个地方需要改成自己的。
-  # - REGISTRY_STORAGE_OSS_ACCESSKEYID=xxx key
-  # - REGISTRY_STORAGE_OSS_ACCESSKEYSECRET=xxx 密钥
-  # - REGISTRY_STORAGE_OSS_REGION=xxx 所在域
-  # - REGISTRY_STORAGE_OSS_BUCKET=xxx 存储桶 
+# 使用docker-compose 安装镜像，以下有几个地方需要改成自己的。
+# - REGISTRY_STORAGE_OSS_ACCESSKEYID=xxx key
+# - REGISTRY_STORAGE_OSS_ACCESSKEYSECRET=xxx 密钥
+# - REGISTRY_STORAGE_OSS_REGION=xxx 所在域
+# - REGISTRY_STORAGE_OSS_BUCKET=xxx 存储桶 
 
-  # 启动创建
+# 启动创建
 docker-compose up -d
 ```
 使用docker-compose 在构建服务上搭建私有仓库
@@ -790,7 +797,7 @@ services:
       - REGISTRY_STORAGE_OSS_ACCESSKEYSECRET=xxx
       - REGISTRY_STORAGE_OSS_REGION=xxx
       - REGISTRY_STORAGE_OSS_BUCKET=xxx
-      - REGISTRY_STORAGE_OSS_INTERNAL=false
+      - REGISTRY_STORAGE_OSS_INTERNAL=false 
       - REGISTRY_STORAGE_OSS_SECURE=false
       - REGISTRY_STORAGE_DELETE_ENABLED=true
     volumes:
@@ -807,17 +814,17 @@ curl 127.0.0.1:8001/v2/_catalog
 cd /etc/nginx/conf.d/
 
 
-  # 创建ssl证书 [不需要则跳过]
+# 创建ssl证书 [不需要则跳过]
 mkdir -p ssl/registry
-  # 创建ssl.key
+# 创建ssl.key
 vim ssl/registry/ssl.key
-  # 这里打开刚才下载好的证书文件，将后缀为.key的文件的内容粘贴进去保存即可。
-  # 创建ssl.crt
+# 这里打开刚才下载好的证书文件，将后缀为.key的文件的内容粘贴进去保存即可。
+# 创建ssl.crt
 vim ssl/registry/ssl.crt
-  # 这里打开刚才下载好的证书文件，将后缀为.crt的文件的内容粘贴进去保存即可。
-  # 创建证书结束
+# 这里打开刚才下载好的证书文件，将后缀为.crt的文件的内容粘贴进去保存即可。
+# 创建证书结束
 
-  # 创建配置文件
+# 创建配置文件
 vim registry.conf
 
 # 输入配置文件内容如下
@@ -962,23 +969,23 @@ services:
 这里我们准备一台机器作为测试环境的运行服务器，当然如果你的机器十分紧缺，只有一台的情况下，你也可以时候构建服务器进行运行服务。<br />1）进行docker以及docker-compose的环境搭建，这里的搭建细节我不再描述，因为前面在搭建构建服务器器的时候我已经说过了。<br />2）安装构建插件，构建插件主要是用于接收处理构建服务器的部署请求的，实现在运行服务器上运行。
 ```yaml
 # 创建运行目录
-  mkdir -p /usr/local/devops/dc-service && cd /usr/local/devops/dc-service
+mkdir -p /usr/local/devops/dc-service && cd /usr/local/devops/dc-service
 
-  # 下载构建插件源码
-  git clone https://github.com/limeschool/devops.git
+# 下载构建插件源码
+git clone https://github.com/limeschool/devops.git
 
-  # 进入构建服务源码目录
-  cd devops/dc-service/
+# 进入构建服务源码目录
+cd devops/dc-service/
 
-  # 修改配置文件
-  vim config/conf.json
+# 修改配置文件
+vim config/conf.json
 
 # 主要修改配置如下
-"request-token": "limeschool", #连接时使用的token，需要修改成自己的。
-"nginx_hosts_path": "/etc/nginx/conf.d", # nginx的hosts配置目录，默认安装不用修改
-"nginx_nginx_path": "/etc/nginx/nginx.conf", # nginx的服务配置目录，默认安装不用修改
-"exec_type": "/bin/sh",  # 默认安装不用修改
-"work_dir": "/usr/local/dc-service" # 插件的工作目录，默认安装不用修改
+  "request-token": "limeschool", #连接时使用的token，需要修改成自己的。
+  "nginx_hosts_path": "/etc/nginx/conf.d", # nginx的hosts配置目录，默认安装不用修改
+  "nginx_nginx_path": "/etc/nginx/nginx.conf", # nginx的服务配置目录，默认安装不用修改
+  "exec_type": "/bin/sh",  # 默认安装不用修改
+  "work_dir": "/usr/local/dc-service" # 插件的工作目录，默认安装不用修改
 
 ```
 ```yaml
@@ -1091,8 +1098,8 @@ services:
       - devops_net
 networks:
   devops_net:
-     external:
-        name: drive_devops_net
+    external:
+      name: drive_devops_net
 ```
 
 安装完成之后，我们进入到后台对配置中心进行环境配置。<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672647598238-fb9486f4-6d2c-468d-a2c9-956c67230b39.png#averageHue=%23a6a4a4&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=587&id=u43f9b0a1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1174&originWidth=2712&originalType=binary&ratio=1&rotation=0&showTitle=false&size=352412&status=done&style=none&taskId=u0077baf4-7f55-43d2-99a8-fb2935ef99d&title=&width=1356)<br />连接token是由系统自动生成的。路径前缀可以进行自定义，连接配置主要定义中间件的连接地址，在内网我们可以直接使用服务名进行访问，假如我们在本地开发也需要进行配置中心的访问，则需要填写主机的ip地址（由于云服务器的安全组策略，很多端口需要我们自己去进行加白）。
@@ -1141,20 +1148,20 @@ options: charset=utf8mb4&parseTime=True&loc=Local
 ```yaml
 package main
 
-import (
-	"github.com/limeschool/gin"
-)
+  import (
+  "github.com/limeschool/gin"
+  )
 
 
-func main() {
+  func main() {
 
-	e := gin.Default()
-	e.GET("/test", func(ctx *gin.Context) {
-		isOpen := ctx.Config.GetBool("is_open")
-		ctx.String(200, "网站是否打开：%v", isOpen)
-	})
+  e := gin.Default()
+  e.GET("/test", func(ctx *gin.Context) {
+  isOpen := ctx.Config.GetBool("is_open")
+  ctx.String(200, "网站是否打开：%v", isOpen)
+  })
 
-	e.Run(":8000")
+  e.Run(":8000")
 }
 ```
 3）设置环境变量
