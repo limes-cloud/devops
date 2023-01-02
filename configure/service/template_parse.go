@@ -20,7 +20,7 @@ func CheckTemplate(ctx *gin.Context, keyword string, template string) error {
 	// 获取资源字段
 	rf := model.Resource{}
 	sysFs, _ := rf.AllByCallback(ctx, func(db *gorm.DB) *gorm.DB {
-		return db.Where("id in (select id from service_resource where service_keyword=?)", keyword)
+		return db.Where("id in (select resource_id from service_resource where service_keyword=?)", keyword)
 	})
 
 	//组合两边的key
