@@ -108,7 +108,7 @@ services:
       - TZ="Asia/Shanghai"
   mysql:
     container_name: mysql
-    image: mysql:5.7 
+    image: mysql:5.7
     volumes:
       - ./mysql/data/db:/var/lib/mysql
     restart: always
@@ -129,10 +129,10 @@ docker ps
 #### 五、下载服务端代码
 ```yaml
 # 创建服务端目录
-mkdir /usr/local/devops/service && cd /usr/local/devops/service 
+mkdir /usr/local/devops/service && cd /usr/local/devops/service
 
-# 拉去服务端代码
-git clone https://github.com/limeschool/devops.git 
+  # 拉去服务端代码
+git clone https://github.com/limeschool/devops.git
 
 ```
 <a name="rovqz"></a>
@@ -141,39 +141,39 @@ git clone https://github.com/limeschool/devops.git
 # 复制sql文件到数据库的挂载目录
 cp devops/devops.sql ../drive/mysql/data/db/devops.sql
 
-# 进入mysql容器
+  # 进入mysql容器
 docker exec -it mysql /bin/sh
 
-#连接mysql
+  #连接mysql
 mysql -u root -p
-# Enter password: 
-# 接下来输入密码，密码是在创建资源清单时所设置的
-# mysql> 
+  # Enter password: 
+  # 接下来输入密码，密码是在创建资源清单时所设置的
+  # mysql> 
 
-# 导入文件
+  # 导入文件
 source /var/lib/mysql/devops.sql
 
-# 验证文件导入
+  # 验证文件导入
 show databases;
 
-# 输出一下devops_configure、devops_service、devops_ums 即为成功
-# +--------------------+
-# | Database           |
-# +--------------------+
-# | information_schema |
-# | devops_configure   |
-# | devops_service     |
-# | devops_ums         |
-# | mysql              |
-# | performance_schema |
-# | sys                |
-# +--------------------+
-# 7 rows in set (0.00 sec)
+  # 输出一下devops_configure、devops_service、devops_ums 即为成功
+  # +--------------------+
+  # | Database           |
+  # +--------------------+
+  # | information_schema |
+  # | devops_configure   |
+  # | devops_service     |
+  # | devops_ums         |
+  # | mysql              |
+  # | performance_schema |
+  # | sys                |
+  # +--------------------+
+  # 7 rows in set (0.00 sec)
 
-# 退出mysql
+  # 退出mysql
 exit
 
-# 退出docker
+  # 退出docker
 exit
 ```
 
@@ -435,8 +435,8 @@ services:
 
 networks:
   devops_net:
-     external:
-        name: drive_devops_net
+    external:
+      name: drive_devops_net
 ```
 使用` docker ps` 验证是否安装成功，安装成功会得到如下的输出，这样以来我们服务端的代码就相当于安装成功了。<br />![image.png](https://cdn.nlark.com/yuque/0/2022/png/26359342/1672324471246-34cb05d1-26b4-47e5-beae-2d2dd88795db.png#averageHue=%23141728&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=167&id=u6ff332af&margin=%5Bobject%20Object%5D&name=image.png&originHeight=334&originWidth=2068&originalType=binary&ratio=1&rotation=0&showTitle=false&size=131603&status=done&style=none&taskId=u3555dd87-87f0-49db-adab-10825d2b724&title=&width=1034)
 
@@ -749,26 +749,26 @@ server
 # 创建私有仓库工作目录
 mkdir -p /usr/local/devops/registry && cd /usr/local/devops/registry
 
-# 进行htpasswd工具安装
+  # 进行htpasswd工具安装
 yum -y install httpd-tools
 
-# 创建密钥迷离
+  # 创建密钥迷离
 mkdir auth
 
-# 创建私有镜像仓库的账号密码,这里的username 和 password 需要替换成你自己的账号和密码
-# htpasswd -Bbn username password > auth/htpasswd
+  # 创建私有镜像仓库的账号密码,这里的username 和 password 需要替换成你自己的账号和密码
+  # htpasswd -Bbn username password > auth/htpasswd
 htpasswd -Bbn xxxx xxxx > auth/htpasswd
 
-# 进入阿里云对象存储创建存储桶，使用阿里云对象存储可以介于构建主机的硬盘成本，具体操作百度即可。
+  # 进入阿里云对象存储创建存储桶，使用阿里云对象存储可以介于构建主机的硬盘成本，具体操作百度即可。
 
 vim docker-compose.yaml
-# 使用docker-compose 安装镜像，以下有几个地方需要改成自己的。
-# - REGISTRY_STORAGE_OSS_ACCESSKEYID=xxx key
-# - REGISTRY_STORAGE_OSS_ACCESSKEYSECRET=xxx 密钥
-# - REGISTRY_STORAGE_OSS_REGION=xxx 所在域
-# - REGISTRY_STORAGE_OSS_BUCKET=xxx 存储桶 
+  # 使用docker-compose 安装镜像，以下有几个地方需要改成自己的。
+  # - REGISTRY_STORAGE_OSS_ACCESSKEYID=xxx key
+  # - REGISTRY_STORAGE_OSS_ACCESSKEYSECRET=xxx 密钥
+  # - REGISTRY_STORAGE_OSS_REGION=xxx 所在域
+  # - REGISTRY_STORAGE_OSS_BUCKET=xxx 存储桶 
 
-# 启动创建
+  # 启动创建
 docker-compose up -d
 ```
 使用docker-compose 在构建服务上搭建私有仓库
@@ -790,7 +790,7 @@ services:
       - REGISTRY_STORAGE_OSS_ACCESSKEYSECRET=xxx
       - REGISTRY_STORAGE_OSS_REGION=xxx
       - REGISTRY_STORAGE_OSS_BUCKET=xxx
-      - REGISTRY_STORAGE_OSS_INTERNAL=false 
+      - REGISTRY_STORAGE_OSS_INTERNAL=false
       - REGISTRY_STORAGE_OSS_SECURE=false
       - REGISTRY_STORAGE_DELETE_ENABLED=true
     volumes:
@@ -807,17 +807,17 @@ curl 127.0.0.1:8001/v2/_catalog
 cd /etc/nginx/conf.d/
 
 
-# 创建ssl证书 [不需要则跳过]
+  # 创建ssl证书 [不需要则跳过]
 mkdir -p ssl/registry
-# 创建ssl.key
+  # 创建ssl.key
 vim ssl/registry/ssl.key
-# 这里打开刚才下载好的证书文件，将后缀为.key的文件的内容粘贴进去保存即可。
-# 创建ssl.crt
+  # 这里打开刚才下载好的证书文件，将后缀为.key的文件的内容粘贴进去保存即可。
+  # 创建ssl.crt
 vim ssl/registry/ssl.crt
-# 这里打开刚才下载好的证书文件，将后缀为.crt的文件的内容粘贴进去保存即可。
-# 创建证书结束
+  # 这里打开刚才下载好的证书文件，将后缀为.crt的文件的内容粘贴进去保存即可。
+  # 创建证书结束
 
-# 创建配置文件
+  # 创建配置文件
 vim registry.conf
 
 # 输入配置文件内容如下
@@ -962,23 +962,23 @@ services:
 这里我们准备一台机器作为测试环境的运行服务器，当然如果你的机器十分紧缺，只有一台的情况下，你也可以时候构建服务器进行运行服务。<br />1）进行docker以及docker-compose的环境搭建，这里的搭建细节我不再描述，因为前面在搭建构建服务器器的时候我已经说过了。<br />2）安装构建插件，构建插件主要是用于接收处理构建服务器的部署请求的，实现在运行服务器上运行。
 ```yaml
 # 创建运行目录
-mkdir -p /usr/local/devops/dc-service && cd /usr/local/devops/dc-service
+  mkdir -p /usr/local/devops/dc-service && cd /usr/local/devops/dc-service
 
-# 下载构建插件源码
-git clone https://github.com/limeschool/devops.git
+  # 下载构建插件源码
+  git clone https://github.com/limeschool/devops.git
 
-# 进入构建服务源码目录
-cd devops/dc-service/
+  # 进入构建服务源码目录
+  cd devops/dc-service/
 
-# 修改配置文件
-vim config/conf.json
+  # 修改配置文件
+  vim config/conf.json
 
 # 主要修改配置如下
-  "request-token": "limeschool", #连接时使用的token，需要修改成自己的。
-  "nginx_hosts_path": "/etc/nginx/conf.d", # nginx的hosts配置目录，默认安装不用修改
-  "nginx_nginx_path": "/etc/nginx/nginx.conf", # nginx的服务配置目录，默认安装不用修改
-  "exec_type": "/bin/sh",  # 默认安装不用修改
-  "work_dir": "/usr/local/dc-service" # 插件的工作目录，默认安装不用修改
+"request-token": "limeschool", #连接时使用的token，需要修改成自己的。
+"nginx_hosts_path": "/etc/nginx/conf.d", # nginx的hosts配置目录，默认安装不用修改
+"nginx_nginx_path": "/etc/nginx/nginx.conf", # nginx的服务配置目录，默认安装不用修改
+"exec_type": "/bin/sh",  # 默认安装不用修改
+"work_dir": "/usr/local/dc-service" # 插件的工作目录，默认安装不用修改
 
 ```
 ```yaml
@@ -1035,24 +1035,27 @@ subjects:
 2）查看token
 ```yaml
 # 获取密钥
-kubectl get secret -n kube-system 
+kubectl get secret -n kube-system
 
-# 我们可以看见有一个admin-user-token-xxxx的资源
-# admin-user-token-jx9pl
-kubectl describe secret admin-user-token-jx9pl  -n kube-system 
+  # 我们可以看见有一个admin-user-token-xxxx的资源
+  # admin-user-token-jx9pl
+kubectl describe secret admin-user-token-jx9pl  -n kube-system
 
 # 复制里面的token信息作为在后台的token中添加即可。
 ```
 
 <a name="K9rpk"></a>
 ##### 服务管理
+找到服务管理点击新增按钮，进行服务新增<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672645242463-d8b891c2-db6d-4ee8-929e-e1862a8d8cda.png#averageHue=%23e2e2e2&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=637&id=u62c1e81a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1274&originWidth=1930&originalType=binary&ratio=1&rotation=0&showTitle=false&size=220556&status=done&style=none&taskId=u6022e0b6-7269-402b-8e9a-f3a535f62c9&title=&width=965)<br />这里需要注意的是有一个代码仓库核验，是用来校验你的项目地址是否正确
 <a name="kwYxm"></a>
 ##### 服务构建
+服务构建可以进行服务打包并上传到私有仓库。我们可以选择分支或者标签进行打包，具体如下所示：<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672645417276-80fc5005-15d9-4ce7-8c64-6946ae5fd2b8.png#averageHue=%23a2a2a2&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=572&id=u7930413b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1144&originWidth=1916&originalType=binary&ratio=1&rotation=0&showTitle=false&size=185044&status=done&style=none&taskId=u64d03bea-42f0-471e-89f2-d258de40d8f&title=&width=958)
 <a name="uAAbs"></a>
 ##### 服务发布
+服务发布是对已经打包的镜像进行发布，发布那个镜像，发布到哪个环境，可以自由选择。<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672645500996-e9e33dc5-c09b-433d-9e20-4ddeee6ee117.png#averageHue=%23a2a2a2&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=558&id=u14c9fe87&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1116&originWidth=1860&originalType=binary&ratio=1&rotation=0&showTitle=false&size=159768&status=done&style=none&taskId=ubb85e4de-77f3-4be8-a807-03878892613&title=&width=930)
 <a name="dpBXJ"></a>
 ##### 网络管理
-
+网络管理是对服务的对外网络的一个设置，针对与某个服务进行设置，针对与多副本的服务可以实现一键负载且支持http和https不同的设置。在docker-compose的情况下会使用nginx生成反向代理集群配置，在使用k8s的情况下，会声场ingress+service实现负载均衡。<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672645581790-23b7aa3b-4bd4-440a-9ee0-d155fc41db2d.png#averageHue=%23b9b9b9&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=615&id=ua4df9a91&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1230&originWidth=2568&originalType=binary&ratio=1&rotation=0&showTitle=false&size=225265&status=done&style=none&taskId=u598fa510-b215-4e9c-8d25-9f8a66e61bc&title=&width=1284)
 
 
 
@@ -1063,7 +1066,12 @@ kubectl describe secret admin-user-token-jx9pl  -n kube-system
 
 <a name="aWKRs"></a>
 ### 配置中心安装
-我们登陆到后台之后
+<a name="npha7"></a>
+##### 配置中心简介
+配置中心是一个在分布式开发下，多环境配置模板同意管理的解决方案。可以实现配置的实时变更，动态修改，区分不同环境。<br />在开发中经常会遇到有一些配置时常想修改，写到数据库又感觉大可不必，使用常规的模板配置比如consul\etcd时又觉得缺少多环境多版本的控制，在本地和线上的调试修改相对于稍微比较麻烦了一些。其实在我们开发的时候，本地和线上或者线上也有多个环境的情况下，我们希望实现的是同一个配置模板，对于每一个环境来说其中的某一些配置值是不一样的。那么其实我们可以直接将多个环境配置不同的key然后直接修改其中需要修改的值这样也是可以实现的，但是随着时间日积月累，开始逐渐有新的字段需要添加，这意味着你需要同时更新全部环境的字段，否则就会出现不同环境字段不一致，难以管理。这想来肯定是一件非常恶心的事儿。配置中心实现了多个环境仅需要一个配置模板，通过业务配置和资源配置变量进行模板的动态渲染以及更新，实现模板的同意管理。
+<a name="QmsAq"></a>
+##### 环境配置
+在使用配置中心之前，需要先安装配置中间件，这里我们使用consul来作为配置中间件。使用docker-compose来对consul进行安装。
 ```yaml
 version: '3'
 services:
@@ -1079,5 +1087,83 @@ services:
       - ./consul/conf:/consul/conf
       - ./consul/data:/consul/data
     privileged: true
+    networks:
+      - devops_net
+networks:
+  devops_net:
+     external:
+        name: drive_devops_net
 ```
+
+安装完成之后，我们进入到后台对配置中心进行环境配置。<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672647598238-fb9486f4-6d2c-468d-a2c9-956c67230b39.png#averageHue=%23a6a4a4&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=587&id=u43f9b0a1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1174&originWidth=2712&originalType=binary&ratio=1&rotation=0&showTitle=false&size=352412&status=done&style=none&taskId=u0077baf4-7f55-43d2-99a8-fb2935ef99d&title=&width=1356)<br />连接token是由系统自动生成的。路径前缀可以进行自定义，连接配置主要定义中间件的连接地址，在内网我们可以直接使用服务名进行访问，假如我们在本地开发也需要进行配置中心的访问，则需要填写主机的ip地址（由于云服务器的安全组策略，很多端口需要我们自己去进行加白）。
+
+<a name="JVx9P"></a>
+##### 资源配置
+所谓资源配置主要是配置用来限制服务应该访问那些资源，这里的资源主要包括redis、mysql、mongo、kafka等资源，这里以mysql连接配置为例子，假设我们的mysql主要由以下连接配置信息构成
+```yaml
+username: root
+password: root
+port: 3306
+options: charset=utf8mb4&parseTime=True&loc=Local
+```
+那么在配置mysql的时候我们的资源配置则为如下：<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672648580803-499f855e-4404-44ff-b4af-6b44c9f952e2.png#averageHue=%23a0a09f&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=613&id=u984da37c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1226&originWidth=2612&originalType=binary&ratio=1&rotation=0&showTitle=false&size=211352&status=done&style=none&taskId=udff47bc6-e1a3-4662-9765-1768bff588c&title=&width=1306)<br />配置资源结构完成了之后，我们需要对资源的具体值进行配置<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672648633796-8f09b632-606e-47ec-841d-1fadff21153c.png#averageHue=%23fefdfd&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=332&id=u260036a1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=664&originWidth=2180&originalType=binary&ratio=1&rotation=0&showTitle=false&size=106943&status=done&style=none&taskId=uf70cc918-e7db-4839-9290-8cdbfce899a&title=&width=1090)<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672648710461-39dc4b30-b5cb-4e33-9e63-eea61a398797.png#averageHue=%23c2c2c2&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=517&id=u629c061f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1034&originWidth=2602&originalType=binary&ratio=1&rotation=0&showTitle=false&size=180197&status=done&style=none&taskId=u9528b440-34c4-4301-b9ff-eb122850442&title=&width=1301)<br />这里会对当前的所有的环境进行识别，你可以针对不同的环境配置不同的值，避免服务上线需要对配置进行切换修改带来的不必要的麻烦。<br />我们的配置配置完成了之后，还并没有结束，因为在我们的常规的逻辑中，mysql不可能只用于一个服务，他可能用于很多服务，那我们如何避免不同服务之间的资源引用呢。比如一个A应用使用了一个B应用的数据库，进行了数据修改操作，这是不是挺让人头大的，我们可以在资源配置这里点击服务来设置某个资源所属的服务有哪些。<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672648976321-c16bdc96-2be0-497b-982b-de5d8c4f0d51.png#averageHue=%23fefdfd&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=332&id=ueb1123dc&margin=%5Bobject%20Object%5D&name=image.png&originHeight=664&originWidth=2182&originalType=binary&ratio=1&rotation=0&showTitle=false&size=114264&status=done&style=none&taskId=u37c58d7d-3152-4e2c-8f1e-47ed5462a3d&title=&width=1091)
+<a name="AMTfv"></a>
+##### 业务配置
+业务配置是用来配置一些业务上的变量，比如我们在代码中某个地方需要进行开关或者选项等情况时，就可以使用到业务配置，业务配置时基于服务纬度进行使用的。假如说我们现在需要一个字段is_open来进行网站打开或者关闭的控制。那么我们可以进行如下配置<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672649266300-3fd7ef6b-4b96-4f59-82b0-d1b4382df0ac.png#averageHue=%23f18681&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=464&id=uc7f024bd&margin=%5Bobject%20Object%5D&name=image.png&originHeight=928&originWidth=2486&originalType=binary&ratio=1&rotation=0&showTitle=false&size=162388&status=done&style=none&taskId=ua846085a-7a84-4c35-8882-3e773911bd5&title=&width=1243)<br />配置之后在点击 值配置 对不同环境的值进行配置。<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672649332737-495d7acf-6a4a-44f0-bcf4-a69064a33332.png#averageHue=%23fdfefd&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=290&id=u08ec2354&margin=%5Bobject%20Object%5D&name=image.png&originHeight=580&originWidth=2574&originalType=binary&ratio=1&rotation=0&showTitle=false&size=130967&status=done&style=none&taskId=uffa99afb-9134-4d3b-93bb-6b1258b687e&title=&width=1287)<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672649346194-ed8be5f5-75a7-4644-93d3-b26ba6c96ece.png#averageHue=%23cacaca&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=373&id=u18deb015&margin=%5Bobject%20Object%5D&name=image.png&originHeight=746&originWidth=2580&originalType=binary&ratio=1&rotation=0&showTitle=false&size=114915&status=done&style=none&taskId=uee0a71f5-2329-49fa-93a7-b69c586cc03&title=&width=1290)<br />接下来直接保存即可。
+<a name="gXCrL"></a>
+##### 模板配置
+1）创建模板配置<br />前面的资源配置以及业务配置都是为了模板配置服务的，进入模板配置之后，我们先进行服务选择<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672649505802-1db30eca-69dd-4c99-8fdc-e0586258090d.png#averageHue=%23fdfcfa&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=724&id=u64ef6695&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1448&originWidth=2878&originalType=binary&ratio=1&rotation=0&showTitle=false&size=250540&status=done&style=none&taskId=uc1a7bdf6-3175-434f-a340-27ecefc84b9&title=&width=1439)<br />最左边只要是服务信息以及配置信息，最右边是服务可以使用的业务配置以及资源配置，中间则是我们的配置模板。<br />假如说我们现在要实现如下一个配置，我们可以直接在服务启动的时候使用这样一个配置文件即可，但是如果某天数据库需要进行变更，网站需要进行状态切换，这样还得重新进行修改配置文件进行重新启动，很明显这是不明智的选择。
+```yaml
+{
+  "mysql": [
+    {
+      "enable": true,
+      "name": "devops",
+      "dsn": "root:root@tcp(mysql:3306)/devops_service?charset=utf8mb4&parseTime=True&loc=Local"
+    }
+  ],
+  "is_open": true
+}
+
+```
+那么在配置中心我们应该如何来优雅的处理这一个问题呢，回到配置中心管理平台，可以直接使用之前配置的变量对模板进行配置，主要如下：<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672649870320-5fa68e23-d385-42db-b339-62aea029e4d7.png#averageHue=%23fdfcf9&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=509&id=u9f3ac5fa&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1018&originWidth=2872&originalType=binary&ratio=1&rotation=0&showTitle=false&size=273773&status=done&style=none&taskId=ubc6133a4-6228-4141-83fc-e382713f920&title=&width=1436)<br />点击模板更新，进行模板上传<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672649938588-c40a5227-f62a-4115-a289-e550863387ac.png#averageHue=%23fcfbf8&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=448&id=ub6fc58b3&margin=%5Bobject%20Object%5D&name=image.png&originHeight=896&originWidth=2878&originalType=binary&ratio=1&rotation=0&showTitle=false&size=253292&status=done&style=none&taskId=u3c70b81b-881a-4f99-be9e-5735ffe1375&title=&width=1439)<br />在模板上传之前会有如下的弹窗提示，你的模板当前的变量的变化状态，变更前的值以及变更后的值。以防止对数据进行误删等。<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672649997803-1b6352ef-fc31-443a-b2a1-008f0f4e8ca7.png#averageHue=%23acabab&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=589&id=u37132a53&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1178&originWidth=2878&originalType=binary&ratio=1&rotation=0&showTitle=false&size=243580&status=done&style=none&taskId=u10b9d1bd-c2dd-45bb-98d0-ae3792923e8&title=&width=1439)<br />保存成功之后我们可以进行模板渲染，查看当前模板配置内容。<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672652669341-258dcd27-1ff2-4539-9b3f-2c406067dd57.png#averageHue=%237c6636&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=378&id=uba89687d&margin=%5Bobject%20Object%5D&name=image.png&originHeight=756&originWidth=2574&originalType=binary&ratio=1&rotation=0&showTitle=false&size=176717&status=done&style=none&taskId=u3aa50e4f-b16d-4757-ac73-652ebd7b1a9&title=&width=1287)<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672652683450-7ed2dce5-ecaa-4e98-8f12-46193989af51.png#averageHue=%23fefdfc&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=366&id=u2fb7477a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=732&originWidth=2870&originalType=binary&ratio=1&rotation=0&showTitle=false&size=101483&status=done&style=none&taskId=u087988e1-62cb-485e-bf44-aa7bf2749d1&title=&width=1435)
+
+2）同步模板配置<br />前面的配置都是保存在数据库中的，我们需要把配置同步到中间件中，以实现配置修改实时监听等。点击配置同步进行配置同步。<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672652820196-c817cbcf-77bb-4c07-a103-26301c630390.png#averageHue=%23f9d890&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=442&id=ucb62920f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=884&originWidth=2878&originalType=binary&ratio=1&rotation=0&showTitle=false&size=282887&status=done&style=none&taskId=u1aff6087-d1f7-4bbd-a4fe-0d96062557d&title=&width=1439)
+
+3）在本地进行配置中心连接开发。<br />我们通过一个简单的demo来进行配置中心的实验<br />1）所用的配置如下所示：
+```yaml
+{
+  "service": "test",
+  "is_open": "{{Test.is_open}}"
+}
+```
+2）示例代码如下
+```yaml
+package main
+
+import (
+	"github.com/limeschool/gin"
+)
+
+
+func main() {
+
+	e := gin.Default()
+	e.GET("/test", func(ctx *gin.Context) {
+		isOpen := ctx.Config.GetBool("is_open")
+		ctx.String(200, "网站是否打开：%v", isOpen)
+	})
+
+	e.Run(":8000")
+}
+```
+3）设置环境变量
+```yaml
+CONFIG_TYPE=configure  #配置类型
+CONFIG_ADDR=https://devops.qlime.cn # 配置地址
+CONFIG_TOKEN=330b7ce1d37a39f76935cb4d4d7aa614 #配置获取token
+SERVICE_NAME=Test #需要获取的服务
+
+```
+4）编译运行之后在浏览器访问 127.0.0.1:8080/test<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672654028503-a5bbcec9-cfed-4d30-b3d7-da760a8ce20d.png#averageHue=%23fcfcfc&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=154&id=u4b76c987&margin=%5Bobject%20Object%5D&name=image.png&originHeight=308&originWidth=1612&originalType=binary&ratio=1&rotation=0&showTitle=false&size=47392&status=done&style=none&taskId=u3e6da86b-0936-45a1-8d95-87385f27469&title=&width=806)<br />5）程序保持运行，修改配置中心-〉业务配置，把之前的is_open改为false之后重新同步配置之后在此进行访问。<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672654122062-964deede-03ac-450e-95a6-8e6cb031948d.png#averageHue=%23fdfdfd&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=168&id=uc465aad3&margin=%5Bobject%20Object%5D&name=image.png&originHeight=336&originWidth=2270&originalType=binary&ratio=1&rotation=0&showTitle=false&size=69561&status=done&style=none&taskId=u9920c4a3-a059-49f2-a719-999c9d0cb01&title=&width=1135)
 
