@@ -1,5 +1,9 @@
 <a name="Zhr84"></a>
 ### 平台前后端完全开源，安装文档详细！！！ qq交流群：739746995
+由于github中导致部分图片缺失，你可以点击[在线安装文档](https://www.yuque.com/helloworld-ioafi/toh7k6/abs4l543vpnlo10y?singleDoc)进行查看。
+
+
+
 开源不易，你的支持时持续更新的动力。<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/26359342/1672654868733-90da3fb1-55eb-4e27-b53f-b40b168aba05.png#averageHue=%23f1ead6&clientId=u640b5be3-27b9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=277&id=u1c711b52&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1037&originWidth=1037&originalType=binary&ratio=1&rotation=0&showTitle=false&size=71027&status=done&style=none&taskId=ud6d43d0e-fff1-4eef-943c-e7325339d06&title=&width=276.5)
 <a name="Y9S4d"></a>
 ### 前言
