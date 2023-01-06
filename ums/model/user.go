@@ -21,7 +21,7 @@ type User struct {
 	Name       string `json:"name"`
 	Sex        *bool  `json:"sex,omitempty"`
 	Phone      string `json:"phone"`
-	Password   string `json:"password,omitempty"  gorm:"->:false;<-:create"`
+	Password   string `json:"password,omitempty"  gorm:"->:false;<-:create,update"`
 	Nickname   string `json:"nickname"`
 	Avatar     string `json:"avatar"`
 	Email      string `json:"email,omitempty"`

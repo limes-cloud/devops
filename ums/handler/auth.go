@@ -28,14 +28,14 @@ func RefreshToken(ctx *gin.Context) {
 
 func Auth(ctx *gin.Context) {
 	if err := service.Auth(ctx); err != nil {
-		code := 401
+		errCode := 4000
 		msg := err.Error()
 		if customErr, ok := err.(*gin.CustomError); ok {
-			code = customErr.Code
+			errCode = customErr.Code
 		}
 		ctx.Writer.Header().Set(meta.ErrorHeader, msg)
-		ctx.Writer.Header().Set(meta.ErrorCodeHeader, fmt.Sprint(code))
-		ctx.AbortWithStatus(code)
+		ctx.Writer.Header().Set(meta.ErrorCodeHeader, fmt.Sprint(errCode))
+		ctx.AbortWithStatus(401)
 	} else {
 		ctx.RespSuccess()
 	}

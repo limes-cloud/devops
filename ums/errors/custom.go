@@ -16,12 +16,13 @@ var (
 	SuperAdminEditError   = &gin.CustomError{Code: 100011, Msg: "超级管理员不允许修改"}
 	SuperAdminDelError    = &gin.CustomError{Code: 100012, Msg: "超级管理员不允许删除"}
 	//auth相关
-	DulDeviceLoginError  = &gin.CustomError{Code: 401, Msg: "你已在其他设备登陆"}
-	NotResourcePower     = &gin.CustomError{Code: 403, Msg: "暂无接口资源权限"}
-	TokenValidateError   = &gin.CustomError{Code: 401, Msg: "token验证失败"}
-	TokenEmptyError      = &gin.CustomError{Code: 401, Msg: "token信息不存在"}
-	TokenExpiredError    = &gin.CustomError{Code: 403, Msg: "登陆信息已过期，请重新登陆"}
-	RefTokenExpiredError = &gin.CustomError{Code: 401, Msg: "登陆信息已过期，请重新登陆"}
+	NotResourcePower     = &gin.CustomError{Code: 4003, Msg: "暂无接口资源权限"}
+	TokenExpiredError    = &gin.CustomError{Code: 4001, Msg: "登陆信息已过期，请重新登陆"}
+	RefTokenExpiredError = &gin.CustomError{Code: 4000, Msg: "太长时间未登陆，请重新登陆"}
+	DulDeviceLoginError  = &gin.CustomError{Code: 4000, Msg: "你已在其他设备登陆"}
+	TokenValidateError   = &gin.CustomError{Code: 4000, Msg: "token验证失败"}
+	TokenEmptyError      = &gin.CustomError{Code: 4000, Msg: "token信息不存在"}
+
 	//menu相关
 	DulMenuNameError  = &gin.CustomError{Code: 1000030, Msg: "菜单name值不能重复"}
 	MenuParentIdError = &gin.CustomError{Code: 1000031, Msg: "父菜单不能为自己"}

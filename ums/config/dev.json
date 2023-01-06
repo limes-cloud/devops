@@ -25,14 +25,14 @@
     {
       "enable": true,
       "name": "devops",
-      "dsn": "root:root@tcp(mysql:3306)/devops_ums?charset=utf8mb4&parseTime=True&loc=Local"
+      "dsn": "root:root@tcp(127.0.0.1:3306)/devops_ums?charset=utf8mb4&parseTime=True&loc=Local"
     }
   ],
   "redis": [
     {
       "enable": true,
       "name": "redis",
-      "host": "redis:6379"
+      "host": "127.0.0.1:6379"
     }
   ],
   "jwt": {
@@ -43,8 +43,7 @@
   "whitelist": {
     "post:/ums/user/login": true,
     "post:/ums/token/refresh": true,
-    "get:/configure/config": true,
-    "get:/ums/api/v1/user": true
+    "get:/configure/config": true
   },
   "login_limit": {
     "enable":true,

@@ -139,9 +139,21 @@ func (u *Menu) UpdateByID(ctx *gin.Context) error {
 	user := CurUser(ctx)
 	u.Operator = user.Name
 	u.OperatorID = user.ID
+
+	if u.Permission == consts.BaseApi {
+		delayDelCache(ctx, consts.RedisBaseApi)
+	}
+
 	return transferErr(database(ctx).Table(u.Table()).Updates(u).Error)
 }
 
 func (u *Menu) Delete(ctx *gin.Context, cond ...interface{}) error {
-	return transferErr(database(ctx).Table(u.Table()).Delete(u, cond...).Error)
+	if err := database(ctx).Table(u.Table()).First(u, cond...).Error; err != nil {
+		return transferErr(err)
+	}
+
+	if u.Permission == consts.BaseApi {
+		delayDelCache(ctx, consts.RedisBaseApi)
+	}
+	return transferErr(database(ctx).Table(u.Table()).Delete(u).Error)
 }
